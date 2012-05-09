@@ -1,0 +1,29 @@
+<h1>Find users</h1>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Status</th>
+  </tr>
+  <% @users.each do |user|%>
+    <tr>
+      <td><%= h user.first_name%> <%= h user.last_name %></td>
+      <td>
+        <% if current_user.friends.include?(user) %>
+          Already a friend
+          <% (current_user.friend_requests + current_user.friend_requests_received).each do |friend| %>
+            <% if (friend.sender == current_user && friend.receiver == user) || 
+                  (friend.receiver == current_user && friend.sender == user) %>
+              <%= link_to "Unfriend", friend, :method => :delete %>
+            <% end %>
+          <% end %>
+        <% elsif user == current_user %>
+          Hey, it's you!
+        <% else %>
+          <%= link_to "Make a friend", 
+              friends_path(:sender_id => current_user.id, :receiver_id => user.id),
+              :method => :post %>
+        <% end %>
+      </td>
+    </tr>
+  <% end %>

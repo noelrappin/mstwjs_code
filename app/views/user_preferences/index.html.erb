@@ -1,0 +1,29 @@
+<h1>Listing user_preferences</h1>
+
+<table>
+  <tr>
+    <th>User</th>
+    <th>Kind</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th></th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @user_preferences.each do |user_preference| %>
+  <tr>
+    <td><%= user_preference.user %></td>
+    <td><%= user_preference.kind %></td>
+    <td><%= user_preference.name %></td>
+    <td><%= user_preference.description %></td>
+    <td><%= link_to 'Show', user_preference %></td>
+    <td><%= link_to 'Edit', edit_user_preference_path(user_preference) %></td>
+    <td><%= link_to 'Destroy', user_preference, confirm: 'Are you sure?', method: :delete %></td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New User preference', new_user_preference_path %>

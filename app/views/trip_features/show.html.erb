@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>Trip:</b>
+  <%= @trip_feature.trip %>
+</p>
+
+<p>
+  <b>Kind:</b>
+  <%= @trip_feature.kind %>
+</p>
+
+<p>
+  <b>Slug:</b>
+  <%= @trip_feature.slug %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @trip_feature.description %>
+</p>
+
+
+<%= link_to 'Edit', edit_trip_feature_path(@trip_feature) %> |
+<%= link_to 'Back', trip_features_path %>

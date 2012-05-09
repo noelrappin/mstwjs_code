@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  user: 
+  trip: 
+  pay_type: MyString
+  purchase_date: 2011-06-04
+  real_travel_date: 2011-06-04
+  amount: 1.5
+
+two:
+  user: 
+  trip: 
+  pay_type: MyString
+  purchase_date: 2011-06-04
+  real_travel_date: 2011-06-04
+  amount: 1.5

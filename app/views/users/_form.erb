@@ -1,0 +1,27 @@
+<%= form_for @user do |f| %>
+
+  <%= f.label :email %><br />
+  <%= f.text_field :email %><br />
+  <br />
+  <%= f.label :first_name %><br />
+  <%= f.text_field :first_name %><br />
+  <br />
+  <%= f.label :last_name %><br />
+  <%= f.text_field :last_name %><br />
+  <br />
+  <%= f.label :password, f.object.new_record? ? nil : "Change password" %><br />
+  <%= f.password_field :password %><br />
+  <br />
+  <%= f.label :password_confirmation %><br />
+  <%= f.password_field :password_confirmation %><br />
+  
+  <%= f.label :activity, "Activities" %><br />
+  <div class="multi-select-autocomplete" id="autodiv"
+      data-field="[user][activity_ids]"
+      data-initial-value=""
+      data-universe="activityData" >
+  </div>
+  
+  <%= f.submit %>
+<% end %>
+

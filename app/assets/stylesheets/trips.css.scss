@@ -1,0 +1,115 @@
+.trip_entry {
+    padding-bottom: 10px;
+    display: inline;
+    float: left;
+    height: 300px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    width: 250px;
+    z-index: 11;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    background-color: lightblue;
+}
+
+.trip_index_header {
+    font-weight: bold;
+    text-align: center;
+    font-size: 4em;
+}
+
+.trip_header {
+    font-weight: bold;
+    color: blue;
+    font-size: 1.3em;
+    padding: 6px 10px 0px;
+    text-align: center;
+    width: 230px;
+    
+    a {
+        color: white;
+        text-decoration: none;
+    }
+}
+
+.trip_tag {
+    font-weight: bold;
+    text-align: center;
+    font-size: 1.1em;
+}
+
+.trip_dates {
+    text-align: center;
+}
+
+.trip_links {
+    text-align: center;
+}
+
+.trip_price {
+    text-align: center;
+    font-weight: bold;
+}
+
+.rating {
+  position: relative;
+  margin-bottom: 10px;
+
+  .stars {
+    height: 22px;
+    margin-bottom: 0;
+    position: relative;
+
+    strong {
+      @extend .stat;
+      margin-left: 116px;
+      line-height: 22px;
+    }
+  }
+
+  .star, .empty, .full {
+    background: transparent url("/assets/stars.png") top left no-repeat;
+  }
+
+  .empty, .full {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 110px;
+    height: 22px;
+    display: block;
+    overflow: hidden;
+  }
+
+  .star {
+    background-position: -100px -200px;
+    display: block;
+    position: absolute;
+    height: 22px;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    text-indent: -999px;
+
+    &:hover {
+      background-position: 0% 50%;
+    }
+
+    $star_width: 22px;
+    &.rating_1 { width: $star_width * 1; z-index: 1005; }
+    &.rating_2 { width: $star_width * 2; z-index: 1004; }
+    &.rating_3 { width: $star_width * 3; z-index: 1003; }
+    &.rating_4 { width: $star_width * 4; z-index: 1002; }
+    &.rating_5 { width: $star_width * 5; z-index: 1001; }
+  }
+
+  .empty {
+    z-index: 101;
+    background-position: bottom left;
+  }
+
+  .full {
+    z-index: 102;
+    width: 0;
+  }
+}

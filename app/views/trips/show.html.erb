@@ -1,0 +1,61 @@
+<%= render :partial => "rating_template" %>
+
+<p id="notice"><%= notice %></p>
+
+<h3>Ratings</h3>
+
+<div class="rating" id="trips_<%= @trip.id %>"></div>
+
+<p>
+  <b>Name:</b>
+  <%= @trip.name %>
+</p>
+
+<p>
+  <b>Text:</b>
+  <%= @trip.description %>
+</p>
+
+<p>
+  <b>Start date:</b>
+  <%= @trip.start_date %>
+</p>
+
+<p>
+  <b>End date:</b>
+  <%= @trip.end_date %>
+</p>
+
+<p>
+  <b>Image name:</b>
+  <%= @trip.image_name %>
+</p>
+
+<p>
+  <b>Slug:</b>
+  <%= @trip.slug %>
+</p>
+
+<p>
+  <b>Tag line:</b>
+  <%= @trip.tag_line %>
+</p>
+
+<p>
+  <b>Price:</b>
+  <%= @trip.price %>
+</p>
+
+<p>
+  <b>Location:</b>
+  <%= @trip.location %>
+</p>
+
+<p>
+  <b>Activity:</b>
+  <%= @trip.activity %>
+</p>
+
+
+<%= link_to 'Edit', edit_trip_path(@trip) %> |
+<%= link_to 'Back', trips_path %>

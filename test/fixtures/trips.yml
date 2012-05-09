@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  name: MyString
+  text: 
+  start_date: 2011-06-04
+  end_date: 2011-06-04
+  image_name: MyString
+  slug: MyString
+  tag_line: MyString
+  price: 1.5
+  location: MyString
+  activity: MyString
+
+two:
+  name: MyString
+  text: 
+  start_date: 2011-06-04
+  end_date: 2011-06-04
+  image_name: MyString
+  slug: MyString
+  tag_line: MyString
+  price: 1.5
+  location: MyString
+  activity: MyString

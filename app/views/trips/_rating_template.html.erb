@@ -1,0 +1,31 @@
+<!-- START: rating_form -->
+<script id="rating_template" type="text/html">
+  <p class="stars">
+    <span class="empty">
+      <span class="full" style="width: {{ratingPercentage}}%"/>
+    </span>
+  </p>
+  <form action="/trips/{{id}}/update_rating">
+    <input type="hidden" name="id" value="{{id}}" />
+    <input type="hidden" name="rating" value="" class="form_rating" />
+  </form>
+  <div class="star_container">
+    {{#values}}
+      <a href="#rate_{{rating}}" class="star rating_{{rating}}">{{rating}}</a>
+    {{/values}}
+<!-- END: rating_form -->
+<!-- START: rating_table -->
+  <table>
+    {{#values}}
+      <tr>
+        <td style="width: 10px">{{rating}}</td>
+        <td style="width: 10px">{{count}}</td> 
+        <td>
+          <div style="background-color: blue; width: {{width}}px; height: 10px">
+          </div>
+        </td>
+      </tr>
+    {{/values}}
+  </table>
+</script>
+<!-- END: rating_table -->

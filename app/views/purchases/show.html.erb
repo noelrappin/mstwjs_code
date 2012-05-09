@@ -1,0 +1,35 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @purchase.user %>
+</p>
+
+<p>
+  <b>Trip:</b>
+  <%= @purchase.trip %>
+</p>
+
+<p>
+  <b>Pay type:</b>
+  <%= @purchase.pay_type %>
+</p>
+
+<p>
+  <b>Purchase date:</b>
+  <%= @purchase.purchase_date %>
+</p>
+
+<p>
+  <b>Real travel date:</b>
+  <%= @purchase.real_travel_date %>
+</p>
+
+<p>
+  <b>Amount:</b>
+  <%= @purchase.amount %>
+</p>
+
+
+<%= link_to 'Edit', edit_purchase_path(@purchase) %> |
+<%= link_to 'Back', purchases_path %>

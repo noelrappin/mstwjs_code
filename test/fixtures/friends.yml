@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/Fixtures.html
+
+one:
+  request_sender_id: 1
+  request_receiver_id: 1
+
+two:
+  request_sender_id: 1
+  request_receiver_id: 1

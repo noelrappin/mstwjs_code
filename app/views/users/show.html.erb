@@ -1,0 +1,36 @@
+<h1>User Profile for: <%= h @user.first_name%> <%= h @user.last_name%> </h1>
+
+<p>
+  <b>Email:</b>
+  <%=h @user.email %>
+</p>
+
+<h2>Trips you have ordered</h2>
+
+<ul>
+  <% @user.purchases.each do |purchase| %>
+    <li>
+      <%= h purchase.trip.name %>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Friends</h3>
+
+<ul>
+  <% @user.friends.each do |friend| %>
+    <li>
+      <%= h friend.first_name %> <%= h friend.last_name %>
+    </li>
+  <% end %>
+</ul>
+
+<h3>Preferences</h3>
+
+<ul>
+  <% for preference in @user.user_preferences %>
+    <li>
+      <%= h preference.kind.titlecase %>: <%= preference.name %>
+    </li>
+  <% end %>
+</ul>
