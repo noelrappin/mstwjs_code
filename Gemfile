@@ -39,7 +39,7 @@ group :test, :development do
   #gem 'guard-jasmine-headless-webkit'
   gem 'jasmine-headless-webkit'
   gem 'jasmine'
-  gem 'jasminerice'
+  gem 'jasminerice', :git => "git://github.com/noelrappin/jasminerice.git"
   gem 'rspec-rails'
 end
 
