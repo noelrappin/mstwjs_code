@@ -1,8 +1,8 @@
 describe("clicking a show description link", function() {
   beforeEach(function() {
     loadFixtures("one_index_trip.html");
-    init();
-    $(".detail_toggle").click(); 
+    toggler.init();
+    $(".detail_toggle").click();
   });
 
   it("shows the trip description", function() {        
@@ -14,7 +14,7 @@ describe("clicking a show description link", function() {
   });
 
   describe('clicking the link again', function() {
-    beforeEach(function(){
+    beforeEach(function() {
       $(".detail_toggle").click(); 
     });
 
