@@ -1,9 +1,11 @@
 describe("clicking a show description link", function() {
+  //##before_each
   beforeEach(function() {
     loadFixtures("one_index_trip.html");
     toggler.init();
     $(".detail_toggle").click();
   });
+  //##before_each
 
   it("shows the trip description", function() {        
     expect($('.detail')).not.toHaveClass("hidden");
