@@ -2,6 +2,7 @@ describe("clicking a show description link", function() {
   //##before_each
   beforeEach(function() {
     loadFixtures("one_index_trip.html");
+    toggler = new Toggle();
     toggler.init();
     $(".detail_toggle").click();
   });
