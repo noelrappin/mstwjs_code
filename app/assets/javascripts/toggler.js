@@ -11,7 +11,7 @@ var togglePrototype = {
       toggler.toggleOnClick(event) 
     });  
   },
-
+//##elide
   toggleOnClick: function(event) {
     this.link = $(event.target); 
     this.link.text(this.isDetailHidden() ? this.hideText : this.showText);
@@ -27,7 +27,7 @@ var togglePrototype = {
     return this.detailElement().hasClass(this.hiddenClass);
   },
 };
-
+//##elide
 $(function() {  
   var toggler = Object.create(togglePrototype);
   toggler.init();
