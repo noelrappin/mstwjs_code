@@ -8,7 +8,6 @@ describe("Autocomplete widget", function() {
         initialValue: "1,3",
         dataUniverse: autocompleteData});
   });
-
   //##marker
   describe("sets up expected hidden element", function() {
     beforeEach(function() {    
