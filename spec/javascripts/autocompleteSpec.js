@@ -2,7 +2,7 @@ describe("Autocomplete widget", function() {
   beforeEach(function() {
     affix("form div#autodiv");
     autocompleteData = {1: "Alpha", 2: "Beta", 3: "Gamma", 4: "Delta"};
-    initializeAutocompleteSelectors({
+    initializeAutocompleteSelector({
         parentSelector: "#autodiv",
         field: "[user][activity_ids]", 
         initialValue: "1,3",
