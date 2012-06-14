@@ -13,7 +13,7 @@ activityData = {1: "Hiking", 2: "Changing History",
   3: "Baseball", 4: "Programming"}
 
 $(function() {
-  initializeAutocompleteSelectors({
+  initializeAutocompleteSelector({
       parentSelector: "#autodiv",
       field: "[user][activity_ids]",
       dataUniverse: activityData,
