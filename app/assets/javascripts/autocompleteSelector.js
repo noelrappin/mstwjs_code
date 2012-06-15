@@ -1,5 +1,5 @@
 var AutocompleteSelector = function() {
-  
+  //##constructor
   var Constructor = function(options) { 
     this.domParent = options.parentSelector;
     this.options = options;
@@ -9,8 +9,8 @@ var AutocompleteSelector = function() {
         .append(this.textInput())
         .append(this.addButton())
         .append(this.valueList());
-  }
-  
+  };
+  //##constructor
   Constructor.prototype = {
     determineId: function(suffix) {
       var id = this.field.replace("][", "_") .replace("[", "") .replace("]", "");
@@ -43,7 +43,7 @@ var AutocompleteSelector = function() {
           .html("Add")
           .addClass('selector_add_button');
     },
-
+    //##valueList
     valueList: function() {
       var ul = $("<ul>").attr("id", this.determineId("list"));
       var that = this;   
@@ -58,6 +58,7 @@ var AutocompleteSelector = function() {
       });
       return ul;
     }
+    //##valueList
   } 
   
   return Constructor;
