@@ -46,7 +46,6 @@ describe("Autocomplete widget", function() {
     });
   });
 
-  //##marker
   describe("sets up a list of known values", function() { 
     beforeEach(function() {
       ul = $("#autodiv #user_activity_ids_list");
@@ -63,5 +62,35 @@ describe("Autocomplete widget", function() {
       expect(ul.find("#user_activity_ids_element_2")).not.toExist();
     });
   });
-  //##marker
+
+  //##addElement
+  describe("adds an element when clicked", function() {
+    
+    beforeEach(function() {
+      inputElement = $("#autodiv #user_activity_ids_autocomplete");
+      addbutton = $("#autodiv a#user_activity_ids_add_button");
+      inputElement.val('Beta');
+      addbutton.click(); // <label id="code.click_add_button" />
+      ul = $("#autodiv #user_activity_ids_list");
+    });
+    
+    it("increases the size of the list", function() {
+      expect($("ul li").size()).toEqual(3);
+    });
+    
+    it("gives the new element the expected text", function() {
+      expect(ul.find("#user_activity_ids_element_2")).toHaveText("Beta Delete");
+    });
+    
+    it("gives the new element a delete button", function() {
+      expect(ul.find("#user_activity_ids_element_2 .delete-button")).toExist();
+    });
+    
+    it("updates the value of the hidden field", function() {
+      var hiddenField = $("#autodiv #user_activity_ids");
+      expect(hiddenField).toHaveAttr("value", "1,3,2");
+    });
+    
+  });
+  //##addElement
 });
