@@ -9,7 +9,8 @@ var AutocompleteSelector = function() {
         .append(this.textInput())
         .append(this.addButton())
         .append(this.valueList());
-    $("#" + this.determineId("add_button")).click(this.addEventHandler);
+    $("#" + this.determineId("add_button")).click(
+        $.proxy(this.addEventHandler, this));
   };
   //##constructor
   Constructor.prototype = {
