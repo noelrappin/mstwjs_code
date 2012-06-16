@@ -78,18 +78,18 @@ describe("Autocomplete widget", function() {
       expect($("#autodiv ul li").size()).toEqual(3);
     });
     
-    // it("gives the new element the expected text", function() {
-    //   expect(ul.find("#user_activity_ids_element_2")).toHaveText("Beta Delete");
-    // });
+    it("gives the new element the expected text", function() {
+      expect(ul.find("#user_activity_ids_element_2")).toHaveText("Beta Delete");
+    });
     
-    // it("gives the new element a delete button", function() {
-    //   expect(ul.find("#user_activity_ids_element_2 .delete-button")).toExist();
-    // });
+    it("gives the new element a delete button", function() {
+      expect(ul.find("#user_activity_ids_element_2 .delete-button")).toExist();
+    });
     
-    // it("updates the value of the hidden field", function() {
-    //   var hiddenField = $("#autodiv #user_activity_ids");
-    //   expect(hiddenField).toHaveAttr("value", "1,3,2");
-    // });
+    it("updates the value of the hidden field", function() {
+      var hiddenField = $("#autodiv #user_activity_ids");
+      expect(hiddenField).toHaveAttr("value", "1,3,2");
+    });
     
   });
   //##addElement
