@@ -11,6 +11,8 @@ var AutocompleteSelector = function() {
         .append(this.valueList());
     $("#" + this.determineId("add_button")).click(
         $.proxy(this.addEventHandler, this));
+    $(".delete-button").click(
+        $.proxy(this.deleteEventHandler, this));
   };
   //##constructor
   Constructor.prototype = {
@@ -93,6 +95,21 @@ var AutocompleteSelector = function() {
       event.preventDefault();
     },
     //##addEventHandler
+
+    //##deleteEventHandler
+    deleteEventHandler: function(event) {
+      var idToDelete = $(event.target).attr('id').split("_").pop(); 
+      var hiddenField = $('#' + this.determineId());
+      var existingIds = hiddenField.val().split(","); 
+      var indexToRemove = existingIds.indexOf(idToDelete);
+      if(indexToRemove != -1) {
+        existingIds.splice(indexToRemove, 1); 
+        hiddenField.val(existingIds.join(",")); 
+      }
+      $(event.target).closest("li").remove(); 
+      event.preventDefault();
+    },
+    //##deleteEventHandler
   }
   
   return Constructor;

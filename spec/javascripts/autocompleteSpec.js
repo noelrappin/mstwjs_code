@@ -93,4 +93,23 @@ describe("Autocomplete widget", function() {
     
   });
   //##addElement
+
+  //##deleteElement
+  describe("deletes an element when clicked", function() {
+    beforeEach(function() {
+      ul = $("#autodiv #user_activity_ids_list");
+      deleteButton = ul.find("#user_activity_ids_element_1 .delete-button");
+      deleteButton.click();
+    });
+    
+    it("expects the list size to decrease", function() {
+      expect($("ul li").size()).toEqual(1);
+    });
+    
+    it("updates the hidden field value", function() {
+      var hiddenField = $("#autodiv #user_activity_ids");
+      expect(hiddenField).toHaveAttr("value", "3");
+    });
+  });
+  //##deleteElement
 });
