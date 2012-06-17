@@ -126,7 +126,7 @@ describe("Autocomplete widget", function() {
     });
     
     it("still has the list size the same", function() {
-      expect($("ul li").size()).toEqual(2);
+      expect($("#autodiv ul li").size()).toEqual(2);
     });
     
     it("has removed the deleted element", function() {
