@@ -103,7 +103,7 @@ describe("Autocomplete widget", function() {
     });
     
     it("expects the list size to decrease", function() {
-      expect($("ul li").size()).toEqual(1);
+      expect($("#autodiv ul li").size()).toEqual(1);
     });
     
     it("updates the hidden field value", function() {
