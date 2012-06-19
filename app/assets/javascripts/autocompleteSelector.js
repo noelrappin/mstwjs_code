@@ -35,11 +35,24 @@ var AutocompleteSelector = function() {
           .val(this.initialValue());
     },
     
+    //##autoCompleteInput
+    universeValues: function() {
+      var result = [];
+      for(var property in this.universe) {
+        result.push(this.universe[property])
+      }
+      return result;
+    },
+    
+    
     textInput: function() {
-      return $("<input type='text'/>") 
+      input = $("<input type='text'/>") 
           .attr("id", this.determineId("autocomplete"))
           .attr("name", this.field + "[autocomplete]");
+      input.autocomplete({source: Object.keys(this.universe)}); 
+      return input;
     },
+    //##autoCompleteInput
     
     addButton: function() {
       return $("<a href='#'>")
