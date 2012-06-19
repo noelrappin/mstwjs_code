@@ -49,7 +49,7 @@ var AutocompleteSelector = function() {
       input = $("<input type='text'/>") 
           .attr("id", this.determineId("autocomplete"))
           .attr("name", this.field + "[autocomplete]");
-      input.autocomplete({source: Object.keys(this.universe)}); 
+      input.autocomplete({source: Object.keys(this.universeValues()}); 
       return input;
     },
     //##autoCompleteInput
