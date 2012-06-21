@@ -16,12 +16,27 @@ var Toggler = (function() {
       });  
     },
 
+    //##ajax
+    getDescription: function(url, target) {  
+      $.ajax({
+        url: url,
+        success: function(data) {
+          target.html(data);
+        }
+      })
+    },
+
     toggleOnClick: function(event) {
       this.link = $(event.target); 
       this.link.text(this.isDetailHidden() ? this.hideText : this.showText);
       this.detailElement().toggleClass(this.hiddenClass);
+      if(!this.isDetailHidden()) {
+         this.getDescription(this.link.attr("href") + "/description", 
+            this.detailElement());
+      }
       event.preventDefault();
     },
+    //##ajax
 
     detailElement: function() { 
       return this.link.parent().find(this.detailSelector)

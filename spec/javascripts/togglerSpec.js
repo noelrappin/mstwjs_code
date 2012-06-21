@@ -2,7 +2,7 @@
 describe("clicking a show description link", function() {
   beforeEach(function() {
     loadFixtures("one_index_trip.html");
-    var toggler = new Toggler();
+    toggler = new Toggler();
     toggler.init();
     spyOn(toggler, 'getDescription').andCallThrough();  
     spyOn($, 'ajax').andCallFake(function(ajaxParams) { 
