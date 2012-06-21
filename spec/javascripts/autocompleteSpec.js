@@ -139,4 +139,5 @@ describe("Autocomplete widget", function() {
     });
   });
   //##addThenDelete
+
 });

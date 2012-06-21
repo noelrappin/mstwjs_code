@@ -1,8 +1,13 @@
+//##ajax
 describe("clicking a show description link", function() {
   beforeEach(function() {
     loadFixtures("one_index_trip.html");
     var toggler = new Toggler();
     toggler.init();
+    spyOn(toggler, 'getDescription').andCallThrough();  
+    spyOn($, 'ajax').andCallFake(function(ajaxParams) { 
+      ajaxParams.success("Description")
+    });
     $(".detail_toggle").click();
   });
 
@@ -13,6 +18,14 @@ describe("clicking a show description link", function() {
   it('changes the link action to "Hide"',function() {
     expect($('.detail_toggle')).toHaveText("Hide Details"); 
   });
+
+  it("calls the ajax with the correct url", function() {
+    expect(toggler.getDescription.mostRecentCall.args[0]) 
+        .toEqual("/trips/1/description");
+    expect(toggler.getDescription.mostRecentCall.args[1]) 
+        .toHaveClass("detail");
+  });
+  //##ajax
 
   describe('clicking the link again', function() {
     beforeEach(function() {
@@ -27,4 +40,5 @@ describe("clicking a show description link", function() {
       expect($('.detail_toggle')).toHaveText("Show Details");
     });
   });
+
 });
