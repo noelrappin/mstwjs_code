@@ -40,7 +40,8 @@ describe("Rating things", function() {
 
     beforeEach(function() {
       rating = new Rating($("<div id='trip_3'>"));
-      $.jasmine.inject({id: 'rating_template', text: "{{totalStars}}"})
+      affix("#rating_template")
+      $("#rating_template").text("{{totalStars}}")
       spyOn($, 'ajax').andCallFake(function(ajaxParams) {
         ajaxParams.success(incomingJSON)
       });

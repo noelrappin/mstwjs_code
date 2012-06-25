@@ -41,8 +41,81 @@ var Rating = (function() {
     calculateAverage: function() {
       this.averageRating = this.totalStars * 1.0 / this.totalRatings;
       this.ratingPercentage = this.averageRating / 5.0 * 100;
+    },
+
+    //##template
+    url: function() {
+      return "/"+ $(this.element).attr("id").replace("_", "/") + "/rating.json";
+    },
+
+    renderTemplate: function(template) {
+      return Mustache.to_html(this.template(), this);
+    },
+
+    reloadData: function(data) {
+      this.parseJson(data);
+      $(this.element).html(this.renderTemplate(this.template())); //<label id="code.reload_template" />
+    },
+
+    template: function() {
+      return $.trim($("#rating_template").html());
+    },
+
+    acquireJson: function() {
+      var self = this;
+      $.ajax({ //<label id="code.acquire_json_ajax" />
+        url: this.url(),
+        dataType: 'text',
+        success: function(data) {
+          self.reloadData(data);
+        }
+      })
+    },
+    //##template
+
+    //##updateJson
+    updateJson: function(clickedElement) {
+      var $form = this.element.find("form");
+      $form.find(".form_rating").val($(clickedElement).text());
+      self = this;
+      $.ajax({
+        url: $form.attr('action'),
+        dataType: 'text',
+        type: 'post',
+        data: $form.serialize(),
+        success: function(data, status) {
+          self.reloadData(data);
+        }
+      });
     }
+    //##updateJson
+
   }
   return Constructor
 })();
+
+//##clickHandler
+clickHandlers = function() {
+  $(document).on('click', '.star_container .star', function(event) {
+    event.preventDefault();
+    var $rating_element = $(this).parents(".rating"); // <label id="code.parent_finder" />
+    var rating = new Rating($rating_element);
+    rating.updateJson(this);
+  })
+}
+//##clickHandler
+
+//##loadRatings
+loadRatings = function() {
+  $(".rating").each(function() {
+    var rating = new Rating(this);
+    rating.acquireJson();
+  })
+};
+
+$(function() {
+  loadRatings();
+  clickHandlers();
+})
+//##loadRatings
 

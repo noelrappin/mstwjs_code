@@ -9,7 +9,7 @@
 //= require jquery-ui
 //= require hogan.js
 //= require_tree .
-//= require_tree ./templates
+
 
 
 activityData = {1: "Hiking", 2: "Changing History",
