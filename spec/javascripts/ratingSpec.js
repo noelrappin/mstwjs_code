@@ -34,4 +34,32 @@ describe("Rating things", function() {
     });
 
   });
+
+  //##template
+  describe("acquires jasmine from ajax", function() {
+
+    beforeEach(function() {
+      rating = new Rating($("<div id='trip_3'>"));
+      $.jasmine.inject({id: 'rating_template', text: "{{totalStars}}"})
+      spyOn($, 'ajax').andCallFake(function(ajaxParams) {
+        ajaxParams.success(incomingJSON)
+      });
+
+    });
+
+    it("knows its url", function() {
+      expect(rating.url()).toEqual("/trip/3/rating.json");
+    });
+
+    it("can get its template", function() {
+      expect(rating.template()).toEqual("{{totalStars}}");
+    });
+
+    it("can acquire data", function() {
+      rating.acquireJson();
+      expect($(rating.element).html()).toEqual("110");
+    });
+
+  });
+  //##template
 });
