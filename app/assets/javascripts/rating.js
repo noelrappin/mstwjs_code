@@ -10,7 +10,7 @@ var Rating = (function() {
 
   Constructor.prototype = {
     parseJson: function(jsonData) {
-      var jsonObject = $.parseJSON(jsonData); // <label id="code.parse_json_obj" />
+      var jsonObject = $.parseJSON(jsonData);
       this.parseValues(jsonObject);
       this.calculatePercentages();
       this.calculateAverage();
