@@ -10,7 +10,7 @@ var Rating = (function() {
 
   Constructor.prototype = {
     parseJson: function(jsonData) {
-      var jsonObject = $.parseJSON(jsonData); // <label id="code.parse_json_obj" />
+      var jsonObject = $.parseJSON(jsonData);
       this.parseValues(jsonObject);
       this.calculatePercentages();
       this.calculateAverage();
@@ -54,7 +54,7 @@ var Rating = (function() {
 
     reloadData: function(data) {
       this.parseJson(data);
-      $(this.element).html(this.renderTemplate(this.template())); //<label id="code.reload_template" />
+      $(this.element).html(this.renderTemplate(this.template()));
     },
 
     template: function() {
@@ -63,7 +63,7 @@ var Rating = (function() {
 
     acquireJson: function() {
       var self = this;
-      $.ajax({ //<label id="code.acquire_json_ajax" />
+      $.ajax({
         url: this.url(),
         dataType: 'text',
         success: function(data) {
@@ -98,7 +98,7 @@ var Rating = (function() {
 clickHandlers = function() {
   $(document).on('click', '.star_container .star', function(event) {
     event.preventDefault();
-    var $rating_element = $(this).parents(".rating"); // <label id="code.parent_finder" />
+    var $rating_element = $(this).parents(".rating");
     var rating = new Rating($rating_element);
     rating.updateJson(this);
   })
