@@ -70,9 +70,6 @@ GEM
       multi_json
       rainbow
       sprockets (~> 2)
-    jasminerice (0.0.9)
-      coffee-rails
-      haml
     journey (1.0.4)
     jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
