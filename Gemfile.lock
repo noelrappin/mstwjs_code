@@ -1,3 +1,11 @@
+GIT
+  remote: git://github.com/noelrappin/jasminerice.git
+  revision: 4edf68962a58552efe223439431e93a2d1253cb5
+  specs:
+    jasminerice (0.0.8)
+      coffee-rails
+      haml
+
 GEM
   remote: http://rubygems.org/
   specs:
@@ -70,9 +78,6 @@ GEM
       multi_json
       rainbow
       sprockets (~> 2)
-    jasminerice (0.0.9)
-      coffee-rails
-      haml
     journey (1.0.4)
     jquery-rails (2.0.2)
       railties (>= 3.2.0, < 5.0)
@@ -171,7 +176,7 @@ DEPENDENCIES
   devise
   jasmine
   jasmine-headless-webkit
-  jasminerice
+  jasminerice!
   jquery-rails
   mysql2
   powder
