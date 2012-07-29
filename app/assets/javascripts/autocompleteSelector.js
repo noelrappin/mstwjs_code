@@ -4,7 +4,7 @@ var AutocompleteSelector = function() {
     this.options = options;
     this.domParent = $(options.parentSelector);
     this.field = options.field;
-    this.universe = options.dataUniverse; 
+    this.universe = options.dataUniverse;
     $(this.domParent).append(this.hiddenField())
         .append(this.textInput())
         .append(this.addButton())
@@ -23,18 +23,18 @@ var AutocompleteSelector = function() {
       }
       return id
     },
-    
+
     initialValue: function() {
       return this.options.initialValue;
     },
-    
+
     hiddenField: function() {
-      return $("<input type='hidden'/>") 
+      return $("<input type='hidden'/>")
           .attr("id", this.determineId())
           .attr("name", this.field)
           .val(this.initialValue());
     },
-    
+
     //##autoCompleteInput
     universeValues: function() {
       var result = [];
@@ -43,24 +43,24 @@ var AutocompleteSelector = function() {
       }
       return result;
     },
-    
-    
+
+
     textInput: function() {
-      input = $("<input type='text'/>") 
+      input = $("<input type='text'/>")
           .attr("id", this.determineId("autocomplete"))
           .attr("name", this.field + "[autocomplete]");
-      input.autocomplete({source: Object.keys(this.universeValues())}); 
+      input.autocomplete({source: this.universeValues()});
       return input;
     },
     //##autoCompleteInput
-    
+
     addButton: function() {
       return $("<a href='#'>")
           .attr("id", this.determineId("add_button"))
           .html("Add")
           .addClass('selector_add_button');
     },
-    
+
     listElement: function(value) {
       var li = $("<li>").attr("id", this.determineId("element_" + value))
           .text(this.universe[value]);
@@ -71,11 +71,11 @@ var AutocompleteSelector = function() {
       a.before(" ")
       return li
     },
-    
+
     valueList: function() {
       var ul = $("<ul>").attr("id", this.determineId("list"));
-      var that = this;   
-      $.each(this.initialValue().split(","), function(index, value) { 
+      var that = this;
+      $.each(this.initialValue().split(","), function(index, value) {
         if(value.length > 0) {
           ul.append(that.listElement(value));
         }
@@ -92,16 +92,16 @@ var AutocompleteSelector = function() {
       }
       return null;
     },
-    
+
     addEventHandler: function(event) {
-      var newItemName = $('#' + this.determineId("autocomplete")).val(); 
-      var newItemId = this.idLookup(newItemName); 
+      var newItemName = $('#' + this.determineId("autocomplete")).val();
+      var newItemId = this.idLookup(newItemName);
       if(!newItemId) {
         return;
       }
-      var hiddenField = $('#' + this.determineId()); 
+      var hiddenField = $('#' + this.determineId());
       hiddenField.val(hiddenField.val() + "," + newItemId);
-      var list = $("#" + this.determineId("list")); 
+      var list = $("#" + this.determineId("list"));
       list.append(this.listElement(newItemId));
       $('#' + this.determineId("autocomplete")).val("");
       $('#' + this.determineId("autocomplete")).focus();
@@ -111,20 +111,20 @@ var AutocompleteSelector = function() {
 
     //##deleteEventHandler
     deleteEventHandler: function(event) {
-      var idToDelete = $(event.target).attr('id').split("_").pop(); 
+      var idToDelete = $(event.target).attr('id').split("_").pop();
       var hiddenField = $('#' + this.determineId());
-      var existingIds = hiddenField.val().split(","); 
+      var existingIds = hiddenField.val().split(",");
       var indexToRemove = existingIds.indexOf(idToDelete);
       if(indexToRemove != -1) {
-        existingIds.splice(indexToRemove, 1); 
-        hiddenField.val(existingIds.join(",")); 
+        existingIds.splice(indexToRemove, 1);
+        hiddenField.val(existingIds.join(","));
       }
-      $(event.target).closest("li").remove(); 
+      $(event.target).closest("li").remove();
       event.preventDefault();
     },
     //##deleteEventHandler
   }
-  
+
   return Constructor;
 }();
 
