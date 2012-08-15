@@ -31,17 +31,17 @@ describe("Autocomplete widget", function() {
   //##marker
   describe("sets up expected input element", function() {
     beforeEach(function() {
-      inputElement = $("#autodiv #user_activity_ids_autocomplete");
+      this.inputElement = $("#autodiv #user_activity_ids_autocomplete");
     });
-    
+
     it("gives the input element the proper type", function() {
-      expect(inputElement).toHaveAttr("type", "text");
+      expect(this.inputElement).toHaveAttr("type", "text");
     });
-    
+
     it("gives the input element the proper value", function() {
-      expect(inputElement).toHaveAttr("value", "");
+      expect(this.inputElement).toHaveAttr("value", "");
     });
-    
+
     it("gives the input element an add button", function() {
       var addbutton = $("#autodiv a#user_activity_ids_add_button");
       expect(addbutton).toHaveClass("selector_add_button");

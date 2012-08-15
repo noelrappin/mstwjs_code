@@ -12,9 +12,9 @@ var initializeHiddenField = function(options) {
 var initializeTextInput = function(options) {
   var $parent = $(options.parentSelector);
   var field = options.field;
-  var id = field.replace("][", "_") .replace("[", "") .replace("]", "");
-  var input = $("<input type='text'/>") 
-      .attr({"id": id + "_autocomplete", 
+  var id = field.replace("][", "_").replace("[", "").replace("]", "");
+  var input = $("<input type='text'/>")
+      .attr({"id": id + "_autocomplete",
           "name": field + "[autocomplete]"});
   $parent.append(input);
   var add_button = $("<a href='#'>")
