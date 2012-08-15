@@ -1,6 +1,6 @@
 var AutocompleteSelector = function() {
   //##constructor
-  var Constructor = function(options) { 
+  var Constructor = function(options) {
     this.domParent = options.parentSelector;
     this.options = options;
     this.field = options.field;
@@ -11,32 +11,33 @@ var AutocompleteSelector = function() {
         .append(this.valueList());
   };
   //##constructor
+
   Constructor.prototype = {
     determineId: function(suffix) {
-      var id = this.field.replace("][", "_") .replace("[", "") .replace("]", "");
+      var id = this.field.replace("][", "_").replace("[", "").replace("]", "");
       if(suffix) {
         id = id + "_" + suffix;
       }
-      return id
+      return id;
     },
-    
+
     initialValue: function() {
       return this.options.initialValue;
     },
-    
+
     hiddenField: function() {
-      return $("<input type='hidden'/>") 
+      return $("<input type='hidden'/>")
           .attr("id", this.determineId())
           .attr("name", this.field)
           .val(this.initialValue());
     },
-    
+
     textInput: function() {
-      return $("<input type='text'/>") 
+      return $("<input type='text'/>")
           .attr("id", this.determineId("autocomplete"))
           .attr("name", this.field + "[autocomplete]");
     },
-    
+
     addButton: function() {
       return $("<a href='#'>")
           .attr("id", this.determineId("add_button"))
@@ -46,8 +47,8 @@ var AutocompleteSelector = function() {
     //##valueList
     valueList: function() {
       var ul = $("<ul>").attr("id", this.determineId("list"));
-      var that = this;   
-      $.each(this.initialValue().split(","), function(index, value) { 
+      var that = this;
+      $.each(this.initialValue().split(","), function(index, value) {
         var li = $("<li>").attr("id", that.determineId("element_" + value))
             .text(that.universe[value]);
         var a = $("<a href='#'>").addClass("delete-button")
@@ -59,11 +60,10 @@ var AutocompleteSelector = function() {
       return ul;
     }
     //##valueList
-  } 
-  
+  };
+
   return Constructor;
 }();
-
 
 var initializeAutocompleteSelector = function(options) {
   new AutocompleteSelector(options);
