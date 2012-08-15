@@ -1,5 +1,5 @@
 var Toggler = function() {
-  var self = { 
+  var self = {
     linkSelector: ".detail_toggle",
     detailSelector: ".detail",
     hiddenClass: "hidden",
@@ -7,31 +7,31 @@ var Toggler = function() {
     showText: "Show Details",
   };
 
-  self.init = function() { 
-    $(self.linkSelector).on("click", function(event) { 
-      toggleOnClick(event) 
-    });  
+  self.init = function() {
+    $(self.linkSelector).on("click", function(event) {
+      toggleOnClick(event)
+    });
   };
 
   var toggleOnClick = function(event) {
-    self.link = $(event.target); 
-    self.link.text(isDetailHidden() ? self.hideText : self.showText);
+    self.$link = $(event.target);
+    self.$link.text(isDetailHidden() ? self.hideText : self.showText);
     detailElement().toggleClass(self.hiddenClass);
     event.preventDefault();
   };
 
-  var detailElement = function() { 
+  var detailElement = function() {
     return self.link.parent().find(self.detailSelector)
   };
 
-  var isDetailHidden = function() { 
+  var isDetailHidden = function() {
     return detailElement().hasClass(self.hiddenClass);
   };
 
   return self;
 };
 
-$(function() {  
+$(function() {
   var toggler = Toggler();
   toggler.init();
 });
