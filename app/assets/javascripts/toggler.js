@@ -35,7 +35,5 @@ Toggle.prototype = {
 $(function() {
   var toggle = new Toggle();
   toggle.init();
-$(function() {
-  toggler.init();
 });
 
