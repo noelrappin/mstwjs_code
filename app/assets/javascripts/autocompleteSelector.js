@@ -40,7 +40,7 @@ var AutocompleteSelector = function() {
     universeValues: function() {
       var result = [];
       for(var property in this.universe) {
-        result.push(this.universe[property])
+        result.push(this.universe[property]);
       }
       return result;
     },
