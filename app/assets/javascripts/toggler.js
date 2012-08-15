@@ -4,7 +4,7 @@ var Toggler = function() {
     detailSelector: ".detail",
     hiddenClass: "hidden",
     hideText: "Hide Details",
-    showText: "Show Details",
+    showText: "Show Details"
   };
 
   self.init = function() {
