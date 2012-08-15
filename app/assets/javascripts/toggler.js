@@ -5,30 +5,31 @@ var togglePrototype = {
   hideText: "Hide Details",
   showText: "Show Details",
 
-  init: function() { 
-    var toggler = this; 
-    $(this.linkSelector).on("click", function(event) { 
-      toggler.toggleOnClick(event) 
-    });  
+  init: function() {
+    var toggler = this;
+    $(this.linkSelector).on("click", function(event) {
+      toggler.toggleOnClick(event)
+    });
   },
 //##elide
   toggleOnClick: function(event) {
-    this.link = $(event.target); 
-    this.link.text(this.isDetailHidden() ? this.hideText : this.showText);
-    this.detailElement().toggleClass(this.hiddenClass);
+    this.$link = $(event.target);
+    this.$link.text(this.isDetailHidden() ? this.hideText : this.showText);
+    this.detailElement().toggleClass(toggler.hiddenClass);
     event.preventDefault();
   },
 
-  detailElement: function() { 
+  detailElement: function() {
     return this.link.parent().find(this.detailSelector)
   },
 
-  isDetailHidden: function() { 
+  isDetailHidden: function() {
     return this.detailElement().hasClass(this.hiddenClass);
   },
 };
+
 //##elide
-$(function() {  
+$(function() {
   var toggler = Object.create(togglePrototype);
   toggler.init();
 });
