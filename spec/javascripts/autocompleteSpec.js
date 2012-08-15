@@ -48,20 +48,20 @@ describe("Autocomplete widget", function() {
   });
 
   //##marker
-  describe("sets up a list of known values", function() { 
+  describe("sets up a list of known values", function() {
     beforeEach(function() {
-      ul = $("#autodiv #user_activity_ids_list");
+      this.ul = $("#autodiv #user_activity_ids_list");
     });
-    
+
     it("sets up expected elements", function() {
-      expect(ul.find("#user_activity_ids_element_1")).toHaveText("Alpha Delete");
-      expect(ul.find("#user_activity_ids_element_1 .delete-button")).toExist();
-      expect(ul.find("#user_activity_ids_element_3")).toHaveText("Gamma Delete");
-      expect(ul.find("#user_activity_ids_element_1 .delete-button")).toExist();
+      expect(this.ul.find("#user_activity_ids_element_1")).toHaveText("Alpha Delete");
+      expect(this.ul.find("#user_activity_ids_element_1 .delete-button")).toExist();
+      expect(this.ul.find("#user_activity_ids_element_3")).toHaveText("Gamma Delete");
+      expect(this.ul.find("#user_activity_ids_element_1 .delete-button")).toExist();
     });
-    
+
     it("does not set up missing elements", function() {
-      expect(ul.find("#user_activity_ids_element_2")).not.toExist();
+      expect(this.ul.find("#user_activity_ids_element_2")).not.toExist();
     });
   });
   //##marker

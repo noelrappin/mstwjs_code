@@ -46,18 +46,18 @@ var AutocompleteSelector = function() {
     },
     //##valueList
     valueList: function() {
-      var ul = $("<ul>").attr("id", this.determineId("list"));
+      var $ul = $("<ul>").attr("id", this.determineId("list"));
       var that = this;
       $.each(this.initialValue().split(","), function(index, value) {
-        var li = $("<li>").attr("id", that.determineId("element_" + value))
+        var $li = $("<li>").attr("id", that.determineId("element_" + value))
             .text(that.universe[value]);
-        var a = $("<a href='#'>").addClass("delete-button")
+        var $a = $("<a href='#'>").addClass("delete-button")
             .attr("id", that.determineId("delete_" + value))
             .text(" Delete");
-        li.append(a);
-        ul.append(li);
+        $li.append($a);
+        $ul.append($li);
       });
-      return ul;
+      return $ul;
     }
     //##valueList
   };
