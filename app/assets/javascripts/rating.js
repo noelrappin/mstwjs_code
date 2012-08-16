@@ -1,6 +1,6 @@
 var Rating = (function() {
 
-  Constructor = function(element) {
+  var Constructor = function(element) {
     this.element = element;
     this.totalRatings = 0;
     this.totalStars = 0;
@@ -14,7 +14,7 @@ var Rating = (function() {
       this.parseValues(jsonObject);
       this.calculatePercentages();
       this.calculateAverage();
-      return self;
+      return this;
     },
 
     parseValues: function(jsonObject) {
@@ -43,6 +43,6 @@ var Rating = (function() {
       this.ratingPercentage = this.averageRating / 5.0 * 100;
     }
   }
-  return Constructor
+  return Constructor;
 })();
 
