@@ -69,7 +69,7 @@ var Rating = (function() {
         success: function(data) {
           self.reloadData(data);
         }
-      })
+      });
     },
     //##template
 
@@ -95,18 +95,18 @@ var Rating = (function() {
 })();
 
 //##clickHandler
-clickHandlers = function() {
+var loadClickHandlers = function() {
   $(document).on('click', '.star_container .star', function(event) {
     event.preventDefault();
-    var $rating_element = $(this).parents(".rating");
-    var rating = new Rating($rating_element);
+    var $ratingElement = $(this).parents(".rating");
+    var rating = new Rating($ratingElement);
     rating.updateJson(this);
   })
 }
 //##clickHandler
 
 //##loadRatings
-loadRatings = function() {
+var loadRatings = function() {
   $(".rating").each(function() {
     var rating = new Rating(this);
     rating.acquireJson();
@@ -115,7 +115,7 @@ loadRatings = function() {
 
 $(function() {
   loadRatings();
-  clickHandlers();
-})
+  loadClickHandlers();
+});
 //##loadRatings
 

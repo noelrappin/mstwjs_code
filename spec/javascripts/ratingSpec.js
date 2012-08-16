@@ -39,10 +39,10 @@ describe("Rating things", function() {
 
     beforeEach(function() {
       rating = new Rating($("<div id='trip_3'>"));
-      affix("#rating_template")
-      $("#rating_template").text("{{totalStars}}")
+      affix("#rating_template");
+      $("#rating_template").text("{{totalStars}}");
       spyOn($, 'ajax').andCallFake(function(ajaxParams) {
-        ajaxParams.success(incomingJSON)
+        ajaxParams.success(incomingJSON);
       });
 
     });
