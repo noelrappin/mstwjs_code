@@ -38,7 +38,7 @@ describe("Rating things", function() {
   describe("acquires jasmine from ajax", function() {
 
     beforeEach(function() {
-      rating = new Rating($("<div id='trip_3'>"));
+      this.rating = new Rating($("<div id='trip_3'>"));
       affix("#rating_template");
       $("#rating_template").text("{{totalStars}}");
       spyOn($, 'ajax').andCallFake(function(ajaxParams) {
@@ -48,16 +48,16 @@ describe("Rating things", function() {
     });
 
     it("knows its url", function() {
-      expect(rating.url()).toEqual("/trip/3/rating.json");
+      expect(this.rating.url()).toEqual("/trip/3/rating.json");
     });
 
     it("can get its template", function() {
-      expect(rating.template()).toEqual("{{totalStars}}");
+      expect(this.rating.template()).toEqual("{{totalStars}}");
     });
 
     it("can acquire data", function() {
-      rating.acquireJson();
-      expect($(rating.element).html()).toEqual("110");
+      this.rating.acquireJson();
+      expect($(this.rating.element).html()).toEqual("110");
     });
 
   });
