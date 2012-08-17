@@ -10,8 +10,6 @@
 //= require hogan.js
 //= require_tree .
 
-
-
 activityData = {1: "Hiking", 2: "Changing History",
   3: "Baseball", 4: "Programming"}
 
