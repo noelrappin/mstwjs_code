@@ -15,7 +15,7 @@ var togglePrototype = {
   toggleOnClick: function(event) {
     this.$link = $(event.target);
     this.$link.text(this.isDetailHidden() ? this.hideText : this.showText);
-    this.detailElement().toggleClass(toggler.hiddenClass);
+    this.detailElement().toggleClass(this.hiddenClass);
     event.preventDefault();
   },
 
