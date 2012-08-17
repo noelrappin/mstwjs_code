@@ -20,7 +20,7 @@ var toggler = {
   },
 
   detailElement: function() {
-    return this.link.parent().find(this.detailSelector)
+    return this.$link.parent().find(this.detailSelector)
   },
 
   isDetailHidden: function() {
