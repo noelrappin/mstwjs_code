@@ -21,7 +21,7 @@ var Toggler = function() {
   };
 
   var detailElement = function() {
-    return self.link.parent().find(self.detailSelector);
+    return self.$link.parent().find(self.detailSelector);
   };
 
   var isDetailHidden = function() {
