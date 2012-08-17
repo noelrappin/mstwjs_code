@@ -1,14 +1,14 @@
 describe("Rating things", function() {
 
   beforeEach(function() {
-    this.incomingJSON = '{"values": [0, 2, 4, 6, 8, 10], "id": 3}';
+    incomingJSON = '{"values": [0, 2, 4, 6, 8, 10], "id": 3}';
   });
 
   describe("calculates values from JSON", function() {
 
     beforeEach(function() {
       this.rating = new Rating();
-      this.rating.parseJson(this.incomingJSON);
+      this.rating.parseJson(incomingJSON);
     });
 
     it("has the histogram values", function() {
