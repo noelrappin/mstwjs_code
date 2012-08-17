@@ -17,7 +17,7 @@ var Toggler = (function() {
     },
 
     //##ajax
-    getDescription: function(url, target) {  
+    getDescription: function(url, target) {
       $.ajax({
         url: url,
         success: function(data) {
@@ -31,7 +31,7 @@ var Toggler = (function() {
       this.$link.text(this.isDetailHidden() ? this.hideText : this.showText);
       this.detailElement().toggleClass(this.hiddenClass);
       if(!this.isDetailHidden()) {
-         this.getDescription(this.link.attr("href") + "/description", 
+         this.getDescription(this.$link.attr("href") + "/description",
             this.detailElement());
       }
       event.preventDefault();
