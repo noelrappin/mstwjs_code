@@ -16,12 +16,12 @@ TimeTravel::Application.routes.draw do
   end
   resources :users
 
-  root :to => "trips#index"
+  root :to => 'home#index'
 
   #START: code.index_route
   match 'index' => 'home#index'
   #END: code.index_route
-  
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
