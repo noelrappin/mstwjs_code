@@ -3,7 +3,6 @@ class TripsController < ApplicationController
   # GET /trips.json
   def index
     @trips = Trip.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @trips }
@@ -20,20 +19,20 @@ class TripsController < ApplicationController
       format.json { render json: @trip }
     end
   end
-  
+
   VALUES = [0, 3, 4, 2, 5, 6]
-  
+
   def rating
     @trip = Trip.find(params[:id])
     respond_to do |format|
       format.html # show.html.erb
-      format.json { render json: 
+      format.json { render json:
         {values: VALUES, id: @trip.id}}
     end
   end
-  
+
   def update_rating
-    @trip = Trip.find(params[:id]) 
+    @trip = Trip.find(params[:id])
     VALUES[params[:rating].to_i] += 1
     response = {values: VALUES, id: @trip.id}
     render json: response
