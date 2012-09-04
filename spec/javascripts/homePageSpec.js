@@ -6,8 +6,8 @@ describe("rendering the home page with Backbone", function() {
 
     it("renders trips on the page", function() {
       TimeTravel.init(tripData);
-      router = new TimeTravel.Routers.TripRouter();
-      router.index();
+      expect(TimeTravel.trips.size).toEqual(2);
+      TimeTravel.app.index();
       expect($("trip_container").size).toEqual(2);
     });
 

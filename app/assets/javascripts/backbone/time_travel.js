@@ -14,5 +14,6 @@ var TimeTravel = {
     this.trips = new TimeTravel.Collections.Trips(tripData);
     this.app = new TimeTravel.Routers.TripRouter();
     Backbone.history.start({pushState: true});
+    return this;
   }
 }
