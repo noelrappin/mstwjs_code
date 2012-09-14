@@ -11,6 +11,6 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
   //##initialize
 
   index: function() {
-  },
+  }
 });
 

@@ -15,5 +15,11 @@ var TimeTravel = {
     this.app = new TimeTravel.Routers.TripRouter();
     Backbone.history.start({pushState: true});
     return this;
+  },
+
+  //##template
+  template: function(filename) {
+    return HoganTemplates["backbone/templates/" + filename];
   }
+  //##template
 }
