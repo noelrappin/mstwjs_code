@@ -1,6 +1,6 @@
 TimeTravel.Routers.TripRouter = Backbone.Router.extend({
   routes: {
-    "": "index",
+    "": "index"
   },
 
   //##initialize
@@ -10,7 +10,12 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
   },
   //##initialize
 
+  //##index
   index: function() {
+    $container = $("container");
+    $container.append(this.topNavView.render().el);
+    $container.append(this.sidebarView.render().el);
   }
+  //##index
 });
 
