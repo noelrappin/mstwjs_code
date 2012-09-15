@@ -17,5 +17,6 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
     $container.append(this.sidebarView.render().el);
   }
   //##index
+
 });
 
