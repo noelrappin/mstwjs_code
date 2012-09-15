@@ -1,4 +1,4 @@
-class TripsController < ApplicationController
+class HomeController < ApplicationController
   
   respond_to :html, :json
   
