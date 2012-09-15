@@ -7,7 +7,8 @@ TimeTravel.Views.TopNavigationView = Backbone.View.extend({
   },
 
   render: function() {
-    this.$el.html(TimeTravel.template('topNavViewTemplate').render());
+    this.$el.html(
+        TimeTravel.template('topNavigationViewTemplate').render());
     return this;
   }
 });
