@@ -13,10 +13,10 @@ describe("rendering the home page with Backbone", function() {
 
     it("renders trips on the page", function() {
       var trips = new TimeTravel.Collections.Trips(tripData);
-      var view = new TimeTravel.views.TripsView({collection: trips});
-      spyOn(TimeTraviews, 'TripView').andCallThrough();
+      var view = new TimeTravel.Views.TripsView({collection: trips});
+      spyOn(TimeTravel.Views, 'TripView').andCallThrough();
       view.render();
-      expect(TimeTravelViews.TripView.callCount).toEqual(2);
+      expect(TimeTravel.Views.TripView.callCount).toEqual(2);
     });
 
   });
