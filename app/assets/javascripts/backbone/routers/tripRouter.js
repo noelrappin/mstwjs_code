@@ -20,6 +20,7 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
     var tripsView = new TimeTravel.Views.TripsView({
         collection: TimeTravel.trips});
     $content.append(tripsView.render().el);
+    return $container;
   }
   //##index                               +
 
