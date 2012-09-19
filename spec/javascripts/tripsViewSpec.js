@@ -11,10 +11,13 @@ describe("rendering the home page with Backbone", function() {
 
   describe("renders individual views", function() {
 
-    it("renders trips on the page", function() {
-      var trips = new TimeTravel.Collections.Trips(tripData);
-      var view = new TimeTravel.Views.TripsView({collection: trips});
-      view.render();
+    beforeEach(function() {
+      this.trips = new TimeTravel.Collections.Trips(tripData);
+    });
+
+    it("renders a single trip", function() {
+      tripView = this.trips.renderTrip(tripData[0]);
+      expect(tripView.$el).toHaveClass("trip");
     });
 
   });
