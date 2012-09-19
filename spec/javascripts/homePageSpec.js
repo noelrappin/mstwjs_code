@@ -16,7 +16,6 @@ describe("rendering the home page with Backbone", function() {
       TimeTravel.init(tripData);
       expect(TimeTravel.trips.size()).toEqual(2);
       var $container = TimeTravel.app.index();
-      console.log($container);
       expect($(".trip").size()).toEqual(2);
     });
 

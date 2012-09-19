@@ -1,4 +1,4 @@
-describe("rendering the home page with Backbone", function() {
+describe("rendering all the trips with Backbone", function() {
 
   var tripData = [{"description":"A cruise","end_date":"1620-11-21",
       "id":13, "image_name":"mayflower.jpg", "name":"Mayflower Luxury Cruise",
@@ -13,11 +13,19 @@ describe("rendering the home page with Backbone", function() {
 
     beforeEach(function() {
       this.trips = new TimeTravel.Collections.Trips(tripData);
+      this.tripsView = new TimeTravel.Views.TripsView({
+              collection: this.trips})
     });
 
     it("renders a single trip", function() {
-      tripView = this.trips.renderTrip(tripData[0]);
+      tripView = this.tripsView.renderTrip(tripData[0]);
       expect(tripView.$el).toHaveClass("trip");
+    });
+
+    it("renders all the trips in context", function() {
+      spyOn(this.tripsView, 'renderTrip').andCallThrough();
+      this.tripsView.render();
+      expect(this.tripsView.renderTrip.calls.length).toEqual(2);
     });
 
   });
