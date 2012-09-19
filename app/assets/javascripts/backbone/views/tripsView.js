@@ -3,6 +3,7 @@ TimeTravel.Views.TripsView = Backbone.View.extend({
   className:'all-trips span-20',
 
   initialize:function () {
+    _.bindAll(this, 'render');
     this.collection.bind('reset', this.render, this);
   },
 
