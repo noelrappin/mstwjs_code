@@ -7,6 +7,7 @@ TimeTravel.Views.TripsView = Backbone.View.extend({
     this.collection.bind('reset', this.render, this);
   },
 
+  //##renderWith
   render: function () {
     this.$el.html(TimeTravel.template('tripsViewTemplate').render());
     var $trips = this.$('.trips');
@@ -15,10 +16,13 @@ TimeTravel.Views.TripsView = Backbone.View.extend({
     }, this);
     return this;
   },
+  //##renderWith
 
+  //##renderTrip
   renderTrip: function(trip) {
     var view = new TimeTravel.Views.TripView(
         {model: trip, collection: this.collection});
     return view.render();
   }
+  //##renderTrip
 });
