@@ -21,13 +21,13 @@ describe("rendering all the trips with Backbone", function() {
       tripView = this.tripsView.renderTrip(tripData[0]);
       expect(tripView.$el).toHaveClass("trip");
     });
-    //##second_test
+
     it("renders all the trips in context", function() {
       spyOn(this.tripsView, 'renderTrip').andCallThrough();
       this.tripsView.render();
       expect(this.tripsView.renderTrip.calls.length).toEqual(2);
     });
-    //##second_test
+
   });
 
 });
