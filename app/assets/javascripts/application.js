@@ -13,6 +13,7 @@
 //= require backbone_rails_sync
 //= require backbone_datalink
 //= require backbone/time_travel
+//= require moment
 //= require_tree .
 
 activityData = {1: "Hiking", 2: "Changing History",

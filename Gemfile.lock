@@ -94,6 +94,8 @@ GEM
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
     mime-types (1.19)
+    momentjs-rails (1.7.0)
+      railties (~> 3.1)
     multi_json (1.3.6)
     mysql2 (0.3.11)
     orm_adapter (0.4.0)
@@ -183,6 +185,7 @@ DEPENDENCIES
   jasmine-headless-webkit
   jasminerice!
   jquery-rails
+  momentjs-rails
   mysql2
   powder
   rails (= 3.2.7)

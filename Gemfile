@@ -18,6 +18,8 @@ end
 gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'hogan_assets'
+gem 'momentjs-rails'
+
 #gem 'sprockets_spacely'
 
 # Use unicorn as the web server
