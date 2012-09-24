@@ -1,3 +1,4 @@
+//##trip
 TimeTravel.Models.Trip = Backbone.Model.extend({
 
   initialize: function(attributes) {
@@ -6,6 +7,7 @@ TimeTravel.Models.Trip = Backbone.Model.extend({
   }
 
 });
+//##trip
 
 TimeTravel.Collections.Trips = Backbone.Collection.extend({
   model: TimeTravel.Models.Trip,
