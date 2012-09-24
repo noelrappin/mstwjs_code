@@ -12,9 +12,8 @@ TimeTravel.Views.TripView = Backbone.View.extend({
   },
 
   //##formatDate
-  formatDate: function(badlyFormattedDate) {
-    var momentDate = moment(badlyFormattedDate);
-    return momentDate.format("MMMM D, YYYY");
+  formatDate: function(aMoment) {
+    return aMoment.format("MMMM D, YYYY");
   }
   //##formatDate
 });

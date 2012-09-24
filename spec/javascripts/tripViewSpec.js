@@ -12,7 +12,8 @@ describe("with a trip view", function() {
   describe("display of individual trip values", function() {
 
     it("properly displays a date", function() {
-      expect(this.tripView.formatDate("1620-05-15")).toEqual("May 15, 1620");
+      expect(this.tripView.formatDate(
+          moment("1620-05-15"))).toEqual("May 15, 1620");
     });
 
   })
