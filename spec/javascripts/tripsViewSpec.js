@@ -18,7 +18,7 @@ describe("rendering all the trips with Backbone", function() {
     });
 
     it("renders a single trip", function() {
-      tripView = this.tripsView.renderTrip(tripData[0]);
+      tripView = this.tripsView.renderTrip(this.trips.at(0));
       expect(tripView.$el).toHaveClass("trip");
     });
 
