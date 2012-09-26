@@ -2,13 +2,12 @@ TimeTravel.Views.TripsView = Backbone.View.extend({
   tagName:'section',
   className:'all-trips span-20',
 
-  initialize: function () {
-    _.bindAll(this, 'render', 'renderTrip');
+  initialize: function() {
+    _.bindAll(this, 'render');
     this.collection.bind('reset', this.render, this);
   },
 
-  //##renderWith
-  render: function () {
+  render: function() {
     this.$el.html(TimeTravel.template('tripsViewTemplate').render());
     var $trips = this.$('.trips');
     this.collection.each(function(trip, index) {

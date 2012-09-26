@@ -5,7 +5,7 @@ TimeTravel.Views.TripView = Backbone.View.extend({
     _.bindAll(this, 'render');
   },
 
-  render:function () {
+  render: function() {
     this.$el.html(TimeTravel.template(
         'tripViewTemplate').render(this.model.attributes));
     return this;
