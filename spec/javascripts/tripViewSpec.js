@@ -33,6 +33,16 @@ describe("with a trip view", function() {
     });
     //##used
 
+    //##templateChanged
+    it("uses the prepared data in the template", function() {
+      this.tripView.render();
+      $el = this.tripView.$el;
+      expect($el.find(".trip_dates")).toHaveText(
+          "May 17, 1620 - November 21, 1620");
+      expect($el.find(".trip_price")).toHaveText("$1204.00");
+    });
+    //##templateChanged
+
   })
 
 });
