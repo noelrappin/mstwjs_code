@@ -43,6 +43,18 @@ describe("with a trip view", function() {
     });
     //##templateChanged
 
-  })
+  });
+
+  //##toggleAccept
+  describe("toggle behavior", function() {
+
+    it("shows the details on a click", function() {
+      this.tripView.render();
+      $el = this.tripView.$el;
+      $el.find(".trip_detail_link").click();
+      expect($el.find(".trip_details")).not.toHaveClass("hidden");
+    });
+  });
+  //##toggleAccept
 
 });
