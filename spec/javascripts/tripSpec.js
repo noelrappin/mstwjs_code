@@ -16,6 +16,17 @@ describe("with a trip", function() {
       expect(this.trip.get("endMoment")).toEqual(moment("1620-11-21"));
     });
 
-  })
+  });
+
+  //##detailsDisplayed
+  it("Toggles Details", function() {
+    m = new TimeTravel.Models.Trip;
+    expect(m.get('detailsDisplayed')).toBeFalsy();
+    m.toggleDetails();
+    expect(m.get('detailsDisplayed')).toBeTruthy();
+    m.toggleDetails();
+    expect(m.get('detailsDisplayed')).toBeFalsy();
+  });
+  //##detailsDisplayed
 
 });
