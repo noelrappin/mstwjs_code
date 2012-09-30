@@ -20,7 +20,7 @@ describe("with a trip", function() {
 
   //##detailsDisplayed
   it("Toggles Details", function() {
-    m = new TimeTravel.Models.Trip;
+    m = new TimeTravel.Models.Trip({});
     expect(m.get('detailsDisplayed')).toBeFalsy();
     m.toggleDetails();
     expect(m.get('detailsDisplayed')).toBeTruthy();
