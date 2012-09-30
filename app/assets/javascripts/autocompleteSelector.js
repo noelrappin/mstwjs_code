@@ -46,6 +46,7 @@ var AutocompleteSelector = function() {
           .addClass('selector_add_button');
     },
 
+    //##addEventHandler
     listElement: function(value) {
       var $li = $("<li>").attr("id", this.determineId("element_" + value))
           .text(this.universe[value]);
@@ -68,7 +69,6 @@ var AutocompleteSelector = function() {
       return $ul;
     },
 
-    //##addEventHandler
     idLookup: function(itemName) {
       for(id in this.universe) {
         if(this.universe[id] === itemName) {
