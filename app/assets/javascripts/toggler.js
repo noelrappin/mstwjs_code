@@ -14,14 +14,15 @@ Toggle.prototype = {
       toggler.toggleOnClick(event)
     });
   },
-  // the rest is the same
-  //##definition
+
   toggleOnClick: function(event) {
     this.$link = $(event.target);
     this.$link.text(this.isDetailHidden() ? this.hideText : this.showText);
-    this.detailElement().toggleClass(toggler.hiddenClass);
+    this.detailElement().toggleClass(this.hiddenClass);
     event.preventDefault();
   },
+  // and so on...
+  //##definition
 
   detailElement: function() {
     return this.$link.parent().find(this.detailSelector)
