@@ -56,7 +56,7 @@ describe("Autocomplete widget", function() {
       expect(this.ul.find("#user_activity_ids_element_1")).toHaveText("Alpha Delete");
       expect(this.ul.find("#user_activity_ids_element_1 .delete-button")).toExist();
       expect(this.ul.find("#user_activity_ids_element_3")).toHaveText("Gamma Delete");
-      expect(this.ul.find("#user_activity_ids_element_1 .delete-button")).toExist();
+      expect(this.ul.find("#user_activity_ids_element_3 .delete-button")).toExist();
     });
 
     it("does not set up missing elements", function() {
