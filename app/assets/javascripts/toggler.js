@@ -6,9 +6,9 @@ var toggler = {
   showText: "Show Details",
 
   init: function() {
-    var toggler = this;
+    var self = this;
     $(this.linkSelector).on("click", function(event) {
-      toggler.toggleOnClick(event)
+      self.toggleOnClick(event)
     });
   },
 
