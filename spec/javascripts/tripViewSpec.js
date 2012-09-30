@@ -50,11 +50,33 @@ describe("with a trip view", function() {
 
     it("shows the details on a click", function() {
       this.tripView.render();
-      $el = this.tripView.$el;
+      var $el = this.tripView.$el;
       $el.find(".trip_detail_link").click();
       expect($el.find(".trip_details")).not.toHaveClass("hidden");
     });
   });
   //##toggleAccept
+
+  //##toggleUnit
+  describe("uses the display details behavior", function() {
+    it("hides details given state", function() {
+      this.tripView.model.set({'detailsDisplayed': false});
+      this.tripView.render();
+      var $el = this.tripView.$el;
+      expect($el.find(".trip_details")).toHaveClass("hidden");
+      expect($el.find(".trip_detail_link")).toHaveText("Show Details");
+    });
+
+    it("shows details given state", function() {
+      this.tripView.model.set({'detailsDisplayed': true});
+      this.tripView.render();
+      var $el = this.tripView.$el;
+      expect($el.find(".trip_details")).not.toHaveClass("hidden");
+      expect($el.find(".trip_detail_link")).toHaveText("Hide Details");
+    });
+  })
+  //##toggleUnit
+
+
 
 });
