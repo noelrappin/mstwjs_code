@@ -7,8 +7,9 @@ TimeTravel.Views.TripView = Backbone.View.extend({
   },
 
   initialize: function () {
-    _.bindAll(this, 'render', 'formatDate', 'presentTrip', 'formatPrice');
-    this.model.bind('change:detailsDisplayed', this.render, this);
+    _.bindAll(this, 'render', 'formatDate', 'presentTrip', 'formatPrice',
+        'displayDetails');
+    this.model.bind('change:detailsDisplayed', this.displayDetails, this);
   },
 
   toggleDetails: function() {
