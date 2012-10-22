@@ -26,10 +26,11 @@ describe("rendering the home page with Backbone", function() {
 
     it("goes to a detail page on click", function() {
       affix("#container");
+      Backbone.history.stop();
       TimeTravel.init(tripData);
       spyOn('TimeTravel.app.tripDetail').andCallThrough();
       TimeTravel.app.index();
-      $("detail_page_link_13").click();
+      $("#detail_page_link_13").click();
       expect(TimeTravel.app.tripDetail).toHaveBeenCalledWith("13");
     });
 
