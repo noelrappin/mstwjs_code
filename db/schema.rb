@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -10,14 +11,36 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20110604185455) do
+ActiveRecord::Schema.define(:version => 20121020145415) do
+
+  create_table "extras", :force => true do |t|
+    t.integer  "trip_id"
+    t.string   "name"
+    t.text     "description"
+    t.float    "price"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "extras", ["trip_id"], :name => "index_extras_on_trip_id"
 
   create_table "friends", :force => true do |t|
     t.integer  "request_sender_id"
     t.integer  "request_receiver_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
+
+  create_table "hotels", :force => true do |t|
+    t.integer  "trip_id"
+    t.string   "name"
+    t.text     "description"
+    t.float    "price"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "hotels", ["trip_id"], :name => "index_hotels_on_trip_id"
 
   create_table "purchases", :force => true do |t|
     t.integer  "user_id"
@@ -26,8 +49,8 @@ ActiveRecord::Schema.define(:version => 20110604185455) do
     t.date     "purchase_date"
     t.date     "real_travel_date"
     t.float    "amount"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "purchases", ["trip_id"], :name => "index_purchases_on_trip_id"
@@ -38,8 +61,8 @@ ActiveRecord::Schema.define(:version => 20110604185455) do
     t.string   "kind"
     t.string   "slug"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "trip_features", ["trip_id"], :name => "index_trip_features_on_trip_id"
@@ -55,8 +78,8 @@ ActiveRecord::Schema.define(:version => 20110604185455) do
     t.float    "price"
     t.string   "location"
     t.string   "activity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "user_preferences", :force => true do |t|
@@ -64,25 +87,25 @@ ActiveRecord::Schema.define(:version => 20110604185455) do
     t.string   "kind"
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "user_preferences", ["user_id"], :name => "index_user_preferences_on_user_id"
 
   create_table "users", :force => true do |t|
-    t.string   "email",                                 :default => "", :null => false
-    t.string   "encrypted_password",     :limit => 128, :default => "", :null => false
+    t.string   "email",                  :default => "", :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                         :default => 0
+    t.integer  "sign_in_count",          :default => 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "first_name"
     t.string   "last_name"
   end

@@ -11,6 +11,7 @@ describe("clicking a show description link", function() {
     $(".detail_toggle").click();
   });
 
+
   it("shows the trip description", function() {
     expect($('.detail')).not.toHaveClass("hidden");
   });

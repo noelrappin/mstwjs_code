@@ -21,4 +21,18 @@ describe("rendering the home page with Backbone", function() {
 
   });
 
+  //##detail
+  describe("transition to detail page", function() {
+
+    it("goes to a detail page on click", function() {
+      affix("#container");
+      TimeTravel.init(tripData);
+      spyOn('TimeTravel.app.tripDetail').andCallThrough();
+      TimeTravel.app.index();
+      $("detail_page_link_13").click();
+      expect(TimeTravel.app.tripDetail).toHaveBeenCalledWith("13");
+    });
+
+  });
+  //##detail
 });
