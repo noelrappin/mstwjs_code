@@ -1,10 +1,12 @@
 TimeTravel.Views.TripView = Backbone.View.extend({
   className: 'trip trip_entry span-6',
 
-  //##init
+  //##events
   events: {
-    'click .trip_detail_link': 'toggleDetails'
+    'click .trip_detail_link': 'toggleDetails',
+    'click .detail_page_link': 'goToDetailPage'
   },
+  //##events
 
   initialize: function () {
     _.bindAll(this, 'render', 'formatDate', 'presentTrip', 'formatPrice',
@@ -15,7 +17,6 @@ TimeTravel.Views.TripView = Backbone.View.extend({
   toggleDetails: function() {
     this.model.toggleDetails();
   },
-  //##init
 
   //##render
   render: function() {
@@ -25,6 +26,13 @@ TimeTravel.Views.TripView = Backbone.View.extend({
     return this;
   },
   //##render
+
+  //##go
+  goToDetailPage: function(event) {
+    event.preventDefault();
+    TimeTravel.app.navigate("trips/" + this.model.get("id"), true);
+  },
+  //##go
 
   //##formatDate
   formatDate: function(aMoment) {

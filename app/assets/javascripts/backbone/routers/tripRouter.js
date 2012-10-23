@@ -1,7 +1,10 @@
 TimeTravel.Routers.TripRouter = Backbone.Router.extend({
+  //##routes
   routes: {
-    "": "index"
+    "": "index",
+    "trips/:id": "tripDetail",
   },
+  //##routes
 
   //##initialize
   initialize: function() {
@@ -26,7 +29,7 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
 
   //##detail
   tripDetail: function(id) {
-
+    console.log("here " + id);
   }
   //##detail                            +
 
