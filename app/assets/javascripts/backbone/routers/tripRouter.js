@@ -29,7 +29,15 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
 
   //##detail
   tripDetail: function(id) {
-    console.log("here " + id);
+    $container = $("#container");
+    $container.append(this.topNavigationView.render().el);
+    $container.append(this.sidebarView.render().el);
+    var $content = $("<div/>").attr("id", "content");
+    $container.append($content);
+    var tripDetailView = new TimeTravel.Views.TripDetailView({
+        model: TimeTravel.getTrip(id)});
+    $content.append(tripDetailView.render().el);
+    return $container;
   }
   //##detail                            +
 

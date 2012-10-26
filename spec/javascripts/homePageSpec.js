@@ -40,4 +40,15 @@ describe("rendering the home page with Backbone", function() {
 
   });
   //##detail
+
+  //##detailDisplay
+  describe("display of detail page", function() {
+    it("displays details", function() {
+      affix("#container");
+      TimeTravel.init(tripData);
+      var $container = TimeTravel.app.tripDetail("13");
+      expect($("#trip_detail_13").size()).toEqual(1);
+    });
+  });
+  //##detailDisplay
 });

@@ -20,6 +20,14 @@ var TimeTravel = {
   //##template
   template: function(filename) {
     return HoganTemplates["backbone/templates/" + filename];
-  }
+  },
   //##template
+
+  //##getTrip
+  getTrip: function(id) {
+    return this.trips.find(function(trip) {
+      return trip.get("id").toString() === id.toString();
+    })
+  }
+  //##getTrip
 }
