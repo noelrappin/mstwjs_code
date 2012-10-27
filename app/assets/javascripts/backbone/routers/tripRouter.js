@@ -39,7 +39,7 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
     $content.append(tripDetailView.render().el);
     return $container;
   }
-  //##detail                            +
+  //##detail
 
 });
 
