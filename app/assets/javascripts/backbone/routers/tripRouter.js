@@ -23,14 +23,14 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
   },
 
   pageHasContent: function() {
-    return $.trim(this.container().html()) === "";
+    return $.trim(this.container().html()) != "";
   },
 
   layout: function() {
     if (this.pageHasContent()) {
       return;
     }
-    this.container().append(this.topNavView.render().el);
+    this.container().append(this.topNavigationView.render().el);
     this.container().append(this.sidebarView.render().el);
     var $content = $("<div/>").attr("id", "content");
     this.container().append($content);
@@ -38,12 +38,10 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
 
 
   index: function() {
-    console.log("index");
     var tripsView = new TimeTravel.Views.TripsView({
         collection: TimeTravel.trips});
     this.layout();
     this.content().html(tripsView.render().el);
-    console.log(this.content());
     return this.container();
   },
 
