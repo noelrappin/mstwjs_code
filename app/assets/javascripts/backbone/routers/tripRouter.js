@@ -32,10 +32,8 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
     }
     this.container().append(this.topNavigationView.render().el);
     this.container().append(this.sidebarView.render().el);
-    var $content = $("<div/>").attr("id", "content");
-    this.container().append($content);
+    this.container().append($("<div/>").attr("id", "content"));
   },
-
 
   index: function() {
     var tripsView = new TimeTravel.Views.TripsView({
