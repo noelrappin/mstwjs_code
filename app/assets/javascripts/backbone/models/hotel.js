@@ -13,7 +13,7 @@ TimeTravel.Collections.Hotels = Backbone.Collection.extend({
   },
 
   url: function() {
-    return "/trips?trip_id=" + this.trip.get("id");
+    return "/hotels?trip_id=" + this.trip.get("id");
   },
 });
 //##hotels
