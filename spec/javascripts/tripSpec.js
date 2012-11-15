@@ -18,7 +18,6 @@ describe("with a trip", function() {
 
   });
 
-  //##detailsDisplayed
   it("Toggles Details", function() {
     m = new TimeTravel.Models.Trip({});
     expect(m.get('detailsDisplayed')).toBeFalsy();
@@ -27,6 +26,16 @@ describe("with a trip", function() {
     m.toggleDetails();
     expect(m.get('detailsDisplayed')).toBeFalsy();
   });
-  //##detailsDisplayed
+
+  //##subordinate
+  it("loads extra data", function() {
+    this.trip = new TimeTravel.Models.Trip(this.tripData);
+    spyOn(this.trip.hotels, "fetch").andReturnNull();
+    spyOn(this.trip.extras, "fetch").andReturnNull();
+    this.trip.fetchData();
+    expect(this.trip.hotels.fetch).toHaveBeenCalled();
+    expect(this.trip.extras.fetch).toHaveBeenCalled();
+  });
+  //##subordinate
 
 });
