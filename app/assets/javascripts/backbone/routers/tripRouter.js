@@ -34,7 +34,6 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
     this.container().append($("<div/>").attr("id", "content"));
   },
 
-  //##refactor
   basicPage: function(view) {
     this.layout();
     this.content().html(view.render().el);
@@ -46,11 +45,13 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
         collection: TimeTravel.trips}));
   },
 
+  //##detail
   tripDetail: function(id) {
-    this.basicPage(new TimeTravel.Views.TripDetailView({
-        model: TimeTravel.getTrip(id)}));
+    var trip = TimeTravel.getTrip(id);
+    trip.fetchData();
+    this.basicPage(new TimeTravel.Views.TripDetailView({model: trip}));
   }
-  //##refactor
+  //##detail
 
 });
 
