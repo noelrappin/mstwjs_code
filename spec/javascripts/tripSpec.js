@@ -30,8 +30,8 @@ describe("with a trip", function() {
   //##subordinate
   it("loads extra data", function() {
     this.trip = new TimeTravel.Models.Trip(this.tripData);
-    spyOn(this.trip.hotels, "fetch").andReturnNull();
-    spyOn(this.trip.extras, "fetch").andReturnNull();
+    spyOn(this.trip.hotels, "fetch").andReturn(null);
+    spyOn(this.trip.extras, "fetch").andReturn(null);
     this.trip.fetchData();
     expect(this.trip.hotels.fetch).toHaveBeenCalled();
     expect(this.trip.extras.fetch).toHaveBeenCalled();
