@@ -3,7 +3,7 @@ class HotelsController < ApplicationController
   respond_to :html, :json
 
   def index
-    @hotels = Extras.all.where(:trip_id => params[:trip_id])
+    @hotels = Hotel.where(:trip_id => params[:trip_id]).all
     respond_with(@hotels)
   end
 
