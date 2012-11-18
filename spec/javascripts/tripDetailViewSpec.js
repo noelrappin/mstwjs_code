@@ -23,11 +23,11 @@ describe("with a trip detail view", function() {
   //##unit
   describe("with a hotel", function() {
     it("renders a hotel", function() {
-      var mockRender = {render: null}
-      spyOn(mockRender, "render").andReturn($("<div>test</div>"))
-      this.tripDetailView.hotelRender(mockRender)
+      var mockHotelView = {render: null}
+      spyOn(mockHotelView, "render").andReturn({el: $("<div>test</div>")});
+      this.tripDetailView.$el = $("<div><div class='options' /></div>");
+      this.tripDetailView.hotelRender(mockRender);
       expect(mockRender.render).toHaveBeenCalled();
-      console.log(this.tripDetailView.$el);
       expect(this.tripDetailView.$el.find(".options")).toHaveText("test");
     });
   });

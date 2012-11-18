@@ -19,7 +19,7 @@ TimeTravel.Views.TripDetailView = Backbone.View.extend({
   },
 
   hotelRender: function(hotelsView) {
-    $(this.el).find(".options").append(hotelsView.render().el);
+    this.$el.find(".options").append(hotelsView.render().el);
   }
 
 });
