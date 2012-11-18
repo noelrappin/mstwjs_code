@@ -1,7 +1,8 @@
 TimeTravel::Application.routes.draw do
   devise_for :users
   resources :friends
-
+  resources :hotels
+  resources :extras
   resources :trip_features
 
   resources :user_preferences
