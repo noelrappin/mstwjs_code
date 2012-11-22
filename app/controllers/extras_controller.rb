@@ -4,7 +4,7 @@ class ExtrasController < ApplicationController
 
   def index
     @extras = Extra.where(:trip_id => params[:trip_id]).all
-    respond_with(@extras)
+    render :json => @hotels
   end
 
 end
