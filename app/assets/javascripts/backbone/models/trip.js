@@ -22,6 +22,14 @@ TimeTravel.Models.Trip = Backbone.Model.extend({
     this.set({'detailsDisplayed': !this.get('detailsDisplayed')})
   },
 
+  //##length
+  lengthInDays: function() {
+    var start = this.get("startMoment");
+    var end = this.get("endMoment")
+    return (end - start) / (1000*60*60*24);
+  }
+  //##length
+
 });
 
 TimeTravel.Collections.Trips = Backbone.Collection.extend({

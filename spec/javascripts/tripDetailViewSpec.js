@@ -11,10 +11,10 @@ describe("with a trip detail view", function() {
 
   describe("acceptance tests", function() {
     it("displays hotels", function() {
-      this.trip.hotels = [
+      this.trip.hotels = new TimeTravel.Collections.Hotels([
         new TimeTravel.Models.Hotel({"name": "Lux"}),
         new TimeTravel.Models.Hotel({"name": "Third class"})
-      ];
+      ]);
       this.tripDetailView.render();
       expect(this.tripDetailView.$el.find(".hotel").length).toEqual(2);
     });
@@ -26,8 +26,8 @@ describe("with a trip detail view", function() {
       var mockHotelView = {render: null}
       spyOn(mockHotelView, "render").andReturn({el: $("<div>test</div>")});
       this.tripDetailView.$el = $("<div><div class='options' /></div>");
-      this.tripDetailView.hotelRender(mockRender);
-      expect(mockRender.render).toHaveBeenCalled();
+      this.tripDetailView.hotelRender(mockHotelView);
+      expect(mockHotelView.render).toHaveBeenCalled();
       expect(this.tripDetailView.$el.find(".options")).toHaveText("test");
     });
   });

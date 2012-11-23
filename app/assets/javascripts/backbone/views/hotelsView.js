@@ -11,6 +11,14 @@ TimeTravel.Views.HotelsView = Backbone.View.extend({
 
   render: function() {
     this.$el.html(TimeTravel.template('hotelsViewTemplate').render());
+    this.renderLengthOptions();
     return this;
+  },
+
+  renderLengthOptions: function() {
+    var $lengthOption = this.$el.find("#length-select");
+    for (i = 0; i <= this.trip.lengthInDays(); i++) {
+      $lengthOption.append($("<option>").text(i));
+    }
   }
 });
