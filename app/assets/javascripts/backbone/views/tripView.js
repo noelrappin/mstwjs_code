@@ -30,7 +30,7 @@ TimeTravel.Views.TripView = Backbone.View.extend({
   //##go
   goToDetailPage: function(event) {
     event.preventDefault();
-    TimeTravel.app.navigate("trips/" + this.model.get("id"), true);
+    TimeTravel.app.navigate("trips/detail/" + this.model.get("id"), true);
   },
   //##go
 
