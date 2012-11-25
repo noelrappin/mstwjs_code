@@ -35,7 +35,7 @@ describe("rendering the home page with Backbone", function() {
       spyOn(TimeTravel.app, 'navigate');
       TimeTravel.app.index();
       $("#detail_page_link_13").click();
-      expect(TimeTravel.app.navigate).toHaveBeenCalledWith('trips/13', true);
+      expect(TimeTravel.app.navigate).toHaveBeenCalledWith('trips/detail/13', true);
     });
 
   });

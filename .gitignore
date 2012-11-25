@@ -5,3 +5,4 @@ tmp/
 .sass-cache/
 public/assets/
 .idea
+.DS_Store
