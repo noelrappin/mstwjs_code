@@ -13,6 +13,7 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
   },
   //##initialize
 
+  //##refactor
   container: function() {
     return $('#container');
   },
@@ -34,21 +35,20 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
     this.container().append($("<div/>").attr("id", "content"));
   },
 
-  //##refactor
-  basicPage: function(view) {
+  index: function() {
+    var tripsView = new TimeTravel.Views.TripsView({
+        collection: TimeTravel.trips});
     this.layout();
-    this.content().html(view.render().el);
+    this.content().html(tripsView.render().el);
     return this.container();
   },
 
-  index: function() {
-    this.basicPage(new TimeTravel.Views.TripsView({
-        collection: TimeTravel.trips}));
-  },
-
   tripDetail: function(id) {
-    this.basicPage(new TimeTravel.Views.TripDetailView({
-        model: TimeTravel.getTrip(id)}));
+    var tripDetailView = new TimeTravel.Views.TripDetailView({
+        model: TimeTravel.getTrip(id)});
+    this.layout();
+    this.content().html(tripDetailView.render().el);
+    return this.container();
   }
   //##refactor
 
