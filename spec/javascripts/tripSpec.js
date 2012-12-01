@@ -39,7 +39,7 @@ describe("with a trip", function() {
   //##subordinate
 
   //##length
-  it("knows how many days it is", function() {t
+  it("knows how many days it is", function() {
     trip = new TimeTravel.Models.Trip(
         {start_date: "2012-11-11", end_date: "2012-11-20"});
     expect(trip.lengthInDays()).toEqual(9);
