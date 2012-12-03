@@ -26,18 +26,21 @@ describe("with an order", function() {
     });
 
     it("initializes price", function() {
-      expect(this.order.calculatePrice()).toEqual(0);
+      this.order.calculatePrice();
+      expect(this.order.get("price")).toEqual(0);
     });
 
     it("calculates price for one extra", function() {
       this.order.addExtra(this.cheapExtra);
-      expect(this.order.calculatePrice()).toEqual(100);
+      this.order.calculatePrice();
+      expect(this.order.get("price")).toEqual(100);
     });
 
     it("calculates price for multiple", function() {
       this.order.addExtra(this.cheapExtra);
       this.order.addExtra(this.pricyExtra);
-      expect(this.order.calculatePrice()).toEqual(600);
+      this.order.calculatePrice();
+      expect(this.order.get("price")).toEqual(600);
     });
   });
   //##pricing

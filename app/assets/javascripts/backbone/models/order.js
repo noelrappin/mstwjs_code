@@ -18,8 +18,11 @@ TimeTravel.Models.Order = Backbone.Model.extend({
   //##pricing
   calculatePrice: function() {
     var prices = this.get("extras").pluck("price");
-    if (prices.length == 0) { return 0 };
-    return _.reduce(prices, function(agg, item) { return agg + item});
+    var price = _.reduce(prices,
+        function(agg, item) { return agg + item },
+        0);
+    this.set({price: price})
+    return price
   }
   //##pricing
 });
