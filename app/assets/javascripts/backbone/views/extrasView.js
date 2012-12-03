@@ -1,6 +1,6 @@
 TimeTravel.Views.ExtrasView = Backbone.View.extend({
   tagName:'section',
-  className:'extras span-20',
+  className:'extras span-8',
 
   initialize: function() {
     this.trip = this.options.trip;

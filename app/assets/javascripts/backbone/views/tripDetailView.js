@@ -7,6 +7,7 @@ TimeTravel.Views.TripDetailView = Backbone.View.extend({
     this.basicRender();
     this.hotelRender(this.hotelsView());
     this.extrasRender(this.extrasView());
+    this.ordersRender(this.ordersView());
     return this;
   },
   //##render
@@ -21,11 +22,20 @@ TimeTravel.Views.TripDetailView = Backbone.View.extend({
     return new TimeTravel.Views.HotelsView({trip: this.model});
   },
 
-  //##extras
   extrasView: function() {
     return new TimeTravel.Views.ExtrasView({trip: this.model});
   },
-  //##extras
+
+  //##orders
+  ordersView: function() {
+    return new TimeTravel.Views.OrderView({
+        model: new TimeTravel.Models.Order({trip: this.model})});
+  },
+
+  ordersRender: function(orderView) {
+    this.$el.find(".orders").append(orderView.render().el);
+  },
+  //##orders
 
   hotelRender: function(hotelsView) {
     this.$el.find(".options").append(hotelsView.render().el);

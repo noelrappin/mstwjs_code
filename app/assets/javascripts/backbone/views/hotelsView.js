@@ -1,6 +1,6 @@
 TimeTravel.Views.HotelsView = Backbone.View.extend({
   tagName:'section',
-  className:'hotels span-20',
+  className:'hotels span-8',
 
   initialize: function(options) {
     this.trip = this.options.trip;
