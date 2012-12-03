@@ -8,17 +8,16 @@ describe("with an order view", function() {
     });
 
     it("can create a DOM element for an extra", function() {
-      extra = new TimeTravel.Models.Extra({name: "Extra", price: 100});
-      result = this.orderView.renderExtra(extra);
+      var extra = new TimeTravel.Models.Extra({name: "Extra", price: 100});
+      var result = this.orderView.renderExtra(extra);
       expect(result.text()).toEqual("Extra: $100.00");
     });
 
     it("invokes render extra", function() {
-      affix("#ordered_extras");
-      extra = new TimeTravel.Models.Extra({name: "Extra", price: 100});
+      var extra = new TimeTravel.Models.Extra({name: "Extra", price: 100});
       this.order.addExtra(extra);
-      this.orderView.renderExtras();
-      expect($("#ordered_extras").text()).toEqual("Extra: $100.00");
+      var result = this.orderView.render();
+      expect(result.$el.find("#ordered_extras").text()).toEqual("Extra: $100.00");
     });
 
   });

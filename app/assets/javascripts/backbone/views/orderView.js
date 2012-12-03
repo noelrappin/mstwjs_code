@@ -2,6 +2,7 @@ TimeTravel.Views.OrderView = Backbone.View.extend({
   className: 'order span-8',
 
   render: function() {
+    this.model.calculatePrice();
     this.$el.html(TimeTravel.template('orderViewTemplate').render(
         this.model.toJSON()));
     this.renderExtras();
@@ -11,7 +12,7 @@ TimeTravel.Views.OrderView = Backbone.View.extend({
   renderExtras: function() {
     self = this;
     this.model.get("extras").each(function(extra) {
-      $("#ordered_extras").append(self.renderExtra(extra));
+      self.$el.find("#ordered_extras").append(self.renderExtra(extra));
     });
   },
 
