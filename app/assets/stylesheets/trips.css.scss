@@ -25,7 +25,7 @@
     padding: 6px 10px 0px;
     text-align: center;
     width: 230px;
-    
+
     a {
         color: white;
         text-decoration: none;
@@ -111,5 +111,18 @@
   .full {
     z-index: 102;
     width: 0;
+  }
+}
+
+#hotels, #tours, #extras {
+  .hotel-name, .tour-name, .extra-name {
+    font-weight: bold;
+    font-size: 14px;
+  }
+  .trip-hotel, .trip-tour, .trip-extra {
+    padding-bottom: 10px;
+  }
+  .selected {
+    background-color: #faa;
   }
 }

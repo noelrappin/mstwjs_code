@@ -13,9 +13,10 @@ TimeTravel.Views.ExtrasView = Backbone.View.extend({
 
   renderExtras: function() {
     var $extras = this.$el.find("#extras");
+    var self = this;
     this.collection.each(function(extra) {
       var view = new TimeTravel.Views.ExtraView(
-            {model: extra, collection: this.collection, order: this.order});
+            {model: extra, collection: self.collection, order: self.order});
       $extras.append(view.render().el);
     })
     return this;

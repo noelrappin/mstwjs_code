@@ -2,8 +2,10 @@ TimeTravel.Models.Order = Backbone.Model.extend({
   //##initialCode
   initialize: function() {
     if(!this.get("extras")) {
-      this.set("extras", new TimeTravel.Collections.Extras())
+      this.set("extras", new TimeTravel.Collections.Extras([]))
     }
+    this.get("extras").on('add', this.calculatePrice, this);
+    this.get("extras").on('remove', this.calculatePrice, this);
   },
 
   addExtra: function(extra) {
