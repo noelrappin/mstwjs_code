@@ -3,6 +3,10 @@ TimeTravel.Views.TripDetailView = Backbone.View.extend({
   className: 'trip span-20',
 
   //##render
+  initialize: function(options) {
+    this.order = options.order || new TimeTravel.Models.Order({trip: this.model});
+  },
+
   render: function() {
     this.basicRender();
     this.hotelRender(this.hotelsView());
@@ -28,8 +32,7 @@ TimeTravel.Views.TripDetailView = Backbone.View.extend({
 
   //##orders
   ordersView: function() {
-    return new TimeTravel.Views.OrderView({
-        model: new TimeTravel.Models.Order({trip: this.model})});
+    return new TimeTravel.Views.OrderView({model: this.order});
   },
 
   ordersRender: function(orderView) {
