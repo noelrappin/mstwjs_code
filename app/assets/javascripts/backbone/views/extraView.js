@@ -2,6 +2,12 @@ TimeTravel.Views.ExtraView = Backbone.View.extend({
 
   className: 'extra',
 
+  //##events
+  events: {
+    "click": 'selectMe'
+  },
+  //##events
+
   render: function() {
     this.$el.html(TimeTravel.template(
         'extraViewTemplate').render(this.model.toJSON()));
