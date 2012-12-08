@@ -5,6 +5,7 @@ TimeTravel.Views.HotelsView = Backbone.View.extend({
   initialize: function(options) {
     this.trip = this.options.trip;
     this.collection = this.trip.hotels;
+    this.order = this.options.order;
     _.bindAll(this, 'render');
     this.collection.bind('reset', this.render, this);
   },

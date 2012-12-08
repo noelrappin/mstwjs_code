@@ -8,10 +8,20 @@ TimeTravel.Views.ExtraView = Backbone.View.extend({
   },
   //##events
 
+  //## init
+  initialize: function(options) {
+    this.order = options.order;
+  },
+
+  selectMe: function() {
+    this.order.toggleExtra(this.model);
+  },
+  //## init
+
   render: function() {
     this.$el.html(TimeTravel.template(
         'extraViewTemplate').render(this.model.toJSON()));
     return this;
-  },
+  }
 
 });
