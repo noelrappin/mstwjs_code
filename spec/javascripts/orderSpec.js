@@ -17,6 +17,14 @@ describe("with an order", function() {
     expect(this.order.get("extras").toArray()).toEqual([]);
   });
 
+  it("can toggle an extra", function() {
+    extra = new TimeTravel.Models.Extra();
+    this.order.toggleExtra(extra);
+    expect(this.order.get("extras").toArray()).toEqual([extra]);
+    this.order.removeExtra(extra);
+    expect(this.order.get("extras").toArray()).toEqual([]);
+  });
+
   //##pricing
   describe("it can calculate price", function() {
     beforeEach(function() {

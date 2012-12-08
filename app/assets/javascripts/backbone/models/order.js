@@ -13,6 +13,14 @@ TimeTravel.Models.Order = Backbone.Model.extend({
   removeExtra: function(extra) {
     this.get("extras").remove(extra);
   },
+
+  toggleExtra: function(extra) {
+    if(this.get("extras").contains(extra)) {
+      this.removeExtra(extra);
+    } else {
+      this.addExtra(extra);
+    }
+  },
   //##initialCode
 
   //##pricing
