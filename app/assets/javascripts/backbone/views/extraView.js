@@ -11,8 +11,10 @@ TimeTravel.Views.ExtraView = Backbone.View.extend({
   //##initialize
   initialize: function(options) {
     this.order = options.order;
+    //##event
     this.order.get("extras").on('add', this.renderSelected, this);
     this.order.get("extras").on('remove', this.renderSelected, this);
+    //##event
   },
 
   selectMe: function() {
@@ -26,8 +28,10 @@ TimeTravel.Views.ExtraView = Backbone.View.extend({
     return this;
   },
 
+  //##selected
   renderSelected: function() {
     this.$el.toggleClass("selected", this.order.hasExtra(this.model));
   }
+  //##selected
 
 });

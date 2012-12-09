@@ -7,6 +7,7 @@ TimeTravel.Models.Order = Backbone.Model.extend({
     this.get("extras").on('add', this.calculatePrice, this);
     this.get("extras").on('remove', this.calculatePrice, this);
   },
+  //##initialCode
 
   addExtra: function(extra) {
     this.get("extras").add(extra);
