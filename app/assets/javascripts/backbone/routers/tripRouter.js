@@ -47,9 +47,18 @@ TimeTravel.Routers.TripRouter = Backbone.Router.extend({
 
   //##detail
   tripDetail: function(id) {
+    var trip = this.fetchTrip(id);
+    this.detailPage(trip);
+  },
+
+  fetchTrip: function(id) {
     var trip = TimeTravel.getTrip(id);
-    var order = new TimeTravel.Models.Order({trip: this.model});
     trip.fetchData();
+    return trip;
+  },
+
+  detailPage: function(trip) {
+    var order = new TimeTravel.Models.Order({trip: trip});
     this.basicPage(new TimeTravel.Views.TripDetailView({model: trip, order: order}));
   }
   //##detail

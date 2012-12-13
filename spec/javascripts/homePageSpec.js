@@ -18,6 +18,7 @@ describe("rendering the home page with Backbone", function() {
       var $container = TimeTravel.app.index();
       expect($(".trip").size()).toEqual(2);
     });
+
   });
 
   //##detail
@@ -49,6 +50,18 @@ describe("rendering the home page with Backbone", function() {
       var $container = TimeTravel.app.tripDetail("13");
       expect($("#trip_detail_13").size()).toEqual(1);
     });
+    //##integration
+    it("prices a click", function() {
+      TimeTravel.init(tripData);
+      var trip = TimeTravel.getTrip(13);
+      this.extra = new TimeTravel.Models.Extra({trip: trip, price: 100});
+      trip.extras = new TimeTravel.Collections.Extras([this.extra], {trip: this})
+      affix("#container");
+      var $container = TimeTravel.app.detailPage(trip);
+      $(".extra").click();
+      expect($("#order_cost").text().trim()).toEqual("Total Price: $100.00")
+    });
+    //##integration
   });
   //##detailDisplay
 });
