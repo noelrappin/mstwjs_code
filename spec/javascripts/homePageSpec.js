@@ -42,7 +42,6 @@ describe("rendering the home page with Backbone", function() {
   });
   //##detail
 
-  //##detailDisplay
   describe("display of detail page", function() {
     it("displays details", function() {
       affix("#container");
@@ -50,7 +49,7 @@ describe("rendering the home page with Backbone", function() {
       var $container = TimeTravel.app.tripDetail("13");
       expect($("#trip_detail_13").size()).toEqual(1);
     });
-    //##integration
+
     it("prices a click", function() {
       TimeTravel.init(tripData);
       var trip = TimeTravel.getTrip(13);
@@ -61,7 +60,26 @@ describe("rendering the home page with Backbone", function() {
       $(".extra").click();
       expect($("#order_cost").text().trim()).toEqual("Total Price: $100.00")
     });
-    //##integration
+
+    //##hotel
+    it("prices a hotel click", function() {
+      TimeTravel.init(tripData);
+      var trip = TimeTravel.getTrip(13);
+      var cheapHotel = new TimeTravel.Models.Hotel({trip: trip, price: 100, id: 1});
+      var expensiveHotel = new TimeTravel.Models.Hotel({trip: trip, price: 500, id: 2});
+      trip.hotels = new TimeTravel.Collections.Hotels([cheapHotel, expensiveHotel],
+          {trip: trip})
+      affix("#container");
+      var $container = TimeTravel.app.detailPage(trip);
+      $("#length-select").val(3);
+      $("#length-select").change();
+      $("#hotel_" + expensiveHotel.get("id")).click();
+      expect($("#hotel_" + expensiveHotel.get("id"))).toHaveClass("selected");
+      expect($("#hotel_" + cheapHotel.get("id"))).not.toHaveClass("selected");
+      expect($("#order_cost").text().trim()).toEqual("Total Price: $1500.00")
+    });
+    //##hotel
+
   });
-  //##detailDisplay
+
 });

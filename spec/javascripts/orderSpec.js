@@ -25,7 +25,6 @@ describe("with an order", function() {
     expect(this.order.get("extras").toArray()).toEqual([]);
   });
 
-  //##pricing
   describe("it can calculate price", function() {
     beforeEach(function() {
       this.cheapExtra = new TimeTravel.Models.Extra({price: 100});
@@ -50,7 +49,28 @@ describe("with an order", function() {
       this.order.calculatePrice();
       expect(this.order.get("price")).toEqual(600);
     });
+
+    //##hotel
+    describe("and for hotels", function() {
+      beforeEach(function() {
+        this.hotel = new TimeTravel.Models.Hotel({price: 100});
+      });
+
+      it("calculates hotel price", function() {
+        this.order.setHotel(this.hotel);
+        this.order.setLengthOfStay(5);
+        this.order.calculatePrice();
+        expect(this.order.get("price")).toEqual(500);
+      });
+
+      it("calculates combined price", function() {
+        this.order.setHotel(this.hotel);
+        this.order.setLengthOfStay(5);
+        this.order.addExtra(this.pricyExtra);
+        expect(this.order.get("price")).toEqual(1000);
+      });
+    });
+    //##hotel
   });
-  //##pricing
 
 });
