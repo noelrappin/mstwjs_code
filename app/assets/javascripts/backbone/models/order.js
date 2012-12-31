@@ -38,9 +38,11 @@ TimeTravel.Models.Order = Backbone.Model.extend({
     this.set("lengthOfStay", days)
   },
 
+  //##sendable
   isSendable: function() {
     return this.get("hotel") && this.get("lengthOfStay");
   },
+  //##sendable
 
   calculatePrice: function() {
     var prices = this.get("extras").pluck("price");
