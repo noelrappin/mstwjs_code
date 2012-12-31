@@ -1,5 +1,4 @@
 TimeTravel.Models.Order = Backbone.Model.extend({
-  //##initialCode
   initialize: function() {
     if(!this.get("extras")) {
       this.set("extras", new TimeTravel.Collections.Extras([]))
@@ -9,7 +8,6 @@ TimeTravel.Models.Order = Backbone.Model.extend({
     this.on("change:hotel", this.calculatePrice, this);
     this.on("change:lengthOfStay", this.calculatePrice, this);
   },
-  //##initialCode
 
   addExtra: function(extra) {
     this.get("extras").add(extra);
@@ -30,9 +28,7 @@ TimeTravel.Models.Order = Backbone.Model.extend({
       this.addExtra(extra);
     }
   },
-  //##initialCode
 
-  //##hotel
   setHotel: function(hotel) {
     this.set("hotelName", hotel.get("name"));
     this.set("hotel", hotel);
@@ -40,6 +36,10 @@ TimeTravel.Models.Order = Backbone.Model.extend({
 
   setLengthOfStay: function(days) {
     this.set("lengthOfStay", days)
+  },
+
+  isSendable: function() {
+    return this.get("hotel") && this.get("lengthOfStay");
   },
 
   calculatePrice: function() {
@@ -52,6 +52,13 @@ TimeTravel.Models.Order = Backbone.Model.extend({
     }
     this.set({price: price})
     return price
-  }
-  //##hotel
+  },
+
+  //##event
+  url: "/orders",
+
+  sendToServer: function() {
+    Backbone.sync("create", this, {});
+  },
+  //##event
 });

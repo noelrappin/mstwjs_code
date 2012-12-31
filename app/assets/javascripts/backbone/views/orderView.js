@@ -1,6 +1,16 @@
 TimeTravel.Views.OrderView = Backbone.View.extend({
   className: 'order span-8',
 
+  //##event
+  events: {
+    "click #order_send": 'orderSend'
+  },
+
+  orderSend: function() {
+    this.model.sendToServer();
+  },
+  //##event
+
   initialize: function() {
     this.model.get("extras").on('add', this.renderExtras, this);
     this.model.get("extras").on('remove', this.renderExtras, this);
@@ -18,10 +28,13 @@ TimeTravel.Views.OrderView = Backbone.View.extend({
     this.renderExtras();
   },
 
+  //##sendable
   renderTemplate: function() {
     this.$el.html(TimeTravel.template('orderViewTemplate').render(
         this.model.toJSON()));
+    this.$el.find("#order_send").toggleClass("hide", !this.model.isSendable());
   },
+  //##sendable
 
   renderExtras: function() {
     self = this;

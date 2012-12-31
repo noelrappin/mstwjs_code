@@ -10,6 +10,8 @@ TimeTravel::Application.routes.draw do
 
   resources :purchases
 
+  resources :orders
+
   resources :trips do
     member do
       get 'rating'

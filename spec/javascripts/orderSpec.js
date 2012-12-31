@@ -50,7 +50,6 @@ describe("with an order", function() {
       expect(this.order.get("price")).toEqual(600);
     });
 
-    //##hotel
     describe("and for hotels", function() {
       beforeEach(function() {
         this.hotel = new TimeTravel.Models.Hotel({price: 100});
@@ -70,7 +69,17 @@ describe("with an order", function() {
         expect(this.order.get("price")).toEqual(1000);
       });
     });
-    //##hotel
   });
+
+  //##sendable
+  it("knows when it can not be set", function() {
+    this.hotel = new TimeTravel.Models.Hotel({price: 100});
+    expect(this.order.isSendable()).toBeFalsy();
+    this.order.setLengthOfStay(5);
+    expect(this.order.isSendable()).toBeFalsy();
+    this.order.setHotel(this.hotel);
+    expect(this.order.isSendable()).toBeTruthy();
+  });
+  //##sendable
 
 });
