@@ -34,7 +34,8 @@ TimeTravel.Models.Order = Backbone.Model.extend({
 
   //##hotel
   setHotel: function(hotel) {
-    this.set("hotel", hotel)
+    this.set("hotelName", hotel.get("name"));
+    this.set("hotel", hotel);
   },
 
   setLengthOfStay: function(days) {

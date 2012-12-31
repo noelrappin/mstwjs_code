@@ -4,14 +4,18 @@ TimeTravel.Views.OrderView = Backbone.View.extend({
   initialize: function() {
     this.model.get("extras").on('add', this.renderExtras, this);
     this.model.get("extras").on('remove', this.renderExtras, this);
-    this.model.on("change:price", this.renderTemplate, this)
+    this.model.on("change:price", this.renderData, this);
   },
 
   render: function() {
     this.model.calculatePrice();
+    this.renderData();
+    return this;
+  },
+
+  renderData: function() {
     this.renderTemplate();
     this.renderExtras();
-    return this;
   },
 
   renderTemplate: function() {
