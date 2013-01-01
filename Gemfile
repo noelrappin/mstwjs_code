@@ -19,6 +19,7 @@ gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'hogan_assets'
 gem 'momentjs-rails'
+gem 'ember-rails'
 
 #gem 'sprockets_spacely'
 

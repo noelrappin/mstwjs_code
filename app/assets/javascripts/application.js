@@ -14,6 +14,14 @@
 //= require backbone_datalink
 //= require backbone/time_travel
 //= require moment
+//##ember_boot
+//= require handlebars
+//= require ember
+//= require ember-data
+//= require_self
+//= require time_travel
+EmberTimeTravel = Ember.Application.create();
+//##ember_boot
 //= require_tree .
 
 activityData = {1: "Hiking", 2: "Changing History",
