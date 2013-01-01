@@ -19,7 +19,7 @@ gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'hogan_assets'
 gem 'momentjs-rails'
-gem 'ember-rails'
+gem 'ember-rails', git: "git://github.com/emberjs/ember-rails.git"
 
 #gem 'sprockets_spacely'
 

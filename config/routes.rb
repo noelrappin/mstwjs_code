@@ -22,6 +22,7 @@ TimeTravel::Application.routes.draw do
 
   root :to => 'home#index'
   match "trips/detail/:id" => 'home#index'
+  match "admin" => 'admin#index'
 
   #START: code.index_route
   match 'index' => 'home#index'

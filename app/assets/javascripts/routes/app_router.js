@@ -3,7 +3,7 @@ TimeTravel.Router = Ember.Router.extend({
 
   root: Ember.Route.extend({
     index: Ember.Route.extend({
-      route: '/'
+      route: '/admin'
 
       // You'll likely want to connect a view here.
       // connectOutlets: function(router) {
