@@ -19,20 +19,20 @@
 //= require ember
 //= require ember-data
 //= require_self
-//= require time_travel
+//= require_tree .
+
 EmberTimeTravel = Ember.Application.create();
 //##ember_boot
-//= require_tree .
 
 activityData = {1: "Hiking", 2: "Changing History",
   3: "Baseball", 4: "Programming"}
 
-$(function() {
-  initializeAutocompleteSelector({
-      parentSelector: "#autodiv",
-      field: "[user][activity_ids]",
-      dataUniverse: activityData,
-      initialValue: ""
-  });
-});
+// $(function() {
+//   initializeAutocompleteSelector({
+//       parentSelector: "#autodiv",
+//       field: "[user][activity_ids]",
+//       dataUniverse: activityData,
+//       initialValue: ""
+//   });
+// });
 

@@ -1,0 +1,20 @@
+.admin_trips {
+  .trip {
+    padding-bottom: 10px;
+    margin: 10px;
+    -webkit-border-radius:10px;
+    -moz-border-radius:10px;
+    background-color: lightblue;
+
+    .header {
+      font-weight: bold;
+      color: black;
+      font-size: 1.3em;
+      padding: 6px 10px 0px;
+      a {
+        color: white;
+        text-decoration: none;
+      }
+    }
+  }
+}

@@ -1,5 +1,5 @@
-TimeTravel.Store = DS.Store.extend({
-  revision: 4,
+EmberTimeTravel.Store = DS.Store.extend({
+  revision: 11,
   adapter: DS.RESTAdapter.create()
 });
 
