@@ -1,4 +1,4 @@
-EmberTimeTravel.Trip = DS.Model.extend({
+TimeTravel.Trip = DS.Model.extend({
   name: DS.attr('string'),
   description: DS.attr('string'),
   start_date: DS.attr('date'),

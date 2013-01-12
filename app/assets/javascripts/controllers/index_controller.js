@@ -1,3 +1,3 @@
-EmberTimeTravel.IndexController = Ember.ArrayController.extend({
+TimeTravel.IndexController = Ember.ArrayController.extend({
 
 })

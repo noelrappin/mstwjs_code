@@ -1,8 +1,8 @@
-EmberTimeTravel.Router.reopen({
+TimeTravel.Router.reopen({
   location: "history"
 })
 
-EmberTimeTravel.Router.map(function(match) {
+TimeTravel.Router.map(function(match) {
   match("/").to("index");
 });
 
