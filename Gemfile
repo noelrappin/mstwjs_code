@@ -7,6 +7,7 @@ gem 'devise'
 #gem 'rails',     :git => 'git://github.com/rails/rails.git'
 
 gem 'mysql2'
+gem 'meta_request'
 
 # Asset template engines
 group :assets do
@@ -20,6 +21,7 @@ gem 'rails-backbone'
 gem 'hogan_assets'
 gem 'momentjs-rails'
 gem 'ember-rails', git: "git://github.com/emberjs/ember-rails.git"
+gem 'active_model_serializers'
 
 #gem 'sprockets_spacely'
 
@@ -33,17 +35,16 @@ gem 'ember-rails', git: "git://github.com/emberjs/ember-rails.git"
 # gem 'ruby-debug19', :require => 'ruby-debug'
 
 group :development do
-  gem 'powder'
+  gem 'powify'
   gem 'awesome_print'
   gem 'annotate'
+  gem "binding_of_caller"
+  gem "better_errors"
 end
 
 group :test, :development do
-  #gem 'guard-rails-assets'
-  #gem 'guard-jasmine-headless-webkit'
-  gem 'jasmine-headless-webkit'
   gem 'jasmine'
-  gem 'jasminerice', :git => "git://github.com/noelrappin/jasminerice.git"
+  gem 'jasminerice'
   gem 'rspec-rails'
 end
 

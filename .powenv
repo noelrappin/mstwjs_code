@@ -1,12 +1,12 @@
-export PATH ; PATH="/Users/nrappin/.rvm/gems/ruby-1.9.3-p194@js_travel/bin:/Users/nrappin/.rvm/gems/ruby-1.9.3-p194@global/bin:/Users/nrappin/.rvm/rubies/ruby-1.9.3-p194/bin:/Users/nrappin/.rvm/bin:$PATH"
-export rvm_env_string ; rvm_env_string='ruby-1.9.3-p194@js_travel'
-export rvm_path ; rvm_path='/Users/nrappin/.rvm'
-export rvm_ruby_string ; rvm_ruby_string='ruby-1.9.3-p194'
+export PATH ; PATH="/Users/noel/.rvm/gems/ruby-1.9.3-p327@js_travel/bin:/Users/noel/.rvm/gems/ruby-1.9.3-p327@global/bin:/Users/noel/.rvm/rubies/ruby-1.9.3-p327/bin:/Users/noel/.rvm/bin:$PATH"
+export rvm_env_string ; rvm_env_string='ruby-1.9.3-p327@js_travel'
+export rvm_path ; rvm_path='/Users/noel/.rvm'
+export rvm_ruby_string ; rvm_ruby_string='ruby-1.9.3-p327'
 export rvm_gemset_name ; rvm_gemset_name='js_travel'
-export RUBY_VERSION ; RUBY_VERSION='ruby-1.9.3-p194'
-export GEM_HOME ; GEM_HOME='/Users/nrappin/.rvm/gems/ruby-1.9.3-p194@js_travel'
-export GEM_PATH ; GEM_PATH='/Users/nrappin/.rvm/gems/ruby-1.9.3-p194@js_travel:/Users/nrappin/.rvm/gems/ruby-1.9.3-p194@global'
-export MY_RUBY_HOME ; MY_RUBY_HOME='/Users/nrappin/.rvm/rubies/ruby-1.9.3-p194'
-export IRBRC ; IRBRC='/Users/nrappin/.rvm/rubies/ruby-1.9.3-p194/.irbrc'
+export RUBY_VERSION ; RUBY_VERSION='ruby-1.9.3-p327'
+export GEM_HOME ; GEM_HOME='/Users/noel/.rvm/gems/ruby-1.9.3-p327@js_travel'
+export GEM_PATH ; GEM_PATH='/Users/noel/.rvm/gems/ruby-1.9.3-p327@js_travel:/Users/noel/.rvm/gems/ruby-1.9.3-p327@global'
+export MY_RUBY_HOME ; MY_RUBY_HOME='/Users/noel/.rvm/rubies/ruby-1.9.3-p327'
+export IRBRC ; IRBRC='/Users/noel/.rvm/rubies/ruby-1.9.3-p327/.irbrc'
 unset MAGLEV_HOME
 unset RBXOPT
