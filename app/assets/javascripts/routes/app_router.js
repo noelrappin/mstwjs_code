@@ -5,5 +5,3 @@ TimeTravel.Router.reopen({
 TimeTravel.Router.map(function(match) {
   match("/").to("index");
 });
-
-
