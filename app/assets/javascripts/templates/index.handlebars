@@ -2,7 +2,7 @@
   {{#each trip in controller}}
     <div class="trip">
       <div class="header">{{trip.name}}</div>
-      <div class="dates">{{trip.startDate}} - {{trip.endDate}}</div>
+      <div class="dates">{{trip.startDateDisplay}} - {{trip.endDateDisplay}}</div>
       <div class="price">{{trip.priceDisplay}}</div>
     </div>
   {{/each}}
