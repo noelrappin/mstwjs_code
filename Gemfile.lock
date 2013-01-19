@@ -1,8 +1,8 @@
 GIT
   remote: git://github.com/emberjs/ember-rails.git
-  revision: e7273f331370a5a5a4758ee4de40cce5bd55b39a
+  revision: 2a756ce937e218db4c9b051ee7536552f606deb4
   specs:
-    ember-rails (0.8.0)
+    ember-rails (0.9.0)
       active_model_serializers
       barber
       execjs (>= 1.2)
@@ -114,7 +114,7 @@ GEM
     polyglot (0.3.3)
     powify (0.8.5)
       json
-    rack (1.4.3)
+    rack (1.4.4)
     rack-cache (1.2)
       rack (>= 0.4)
     rack-contrib (1.1.0)
