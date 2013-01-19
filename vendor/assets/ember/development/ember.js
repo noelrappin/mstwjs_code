@@ -1,5 +1,5 @@
-// Version: v1.0.0-pre.2-370-g6a165ad
-// Last commit: 6a165ad (2013-01-10 15:58:36 -0800)
+// Version: v1.0.0-pre.4-7-gb2e82ae
+// Last commit: b2e82ae (2013-01-18 18:20:45 -0800)
 
 
 (function() {
@@ -142,8 +142,8 @@ if ('undefined' !== typeof window) {
 
 })();
 
-// Version: v1.0.0-pre.2-371-g2426cb9
-// Last commit: 2426cb9 (2013-01-11 16:43:52 -0800)
+// Version: v1.0.0-pre.4-7-gb2e82ae
+// Last commit: b2e82ae (2013-01-18 18:20:45 -0800)
 
 
 (function() {
@@ -203,7 +203,7 @@ var define, requireModule;
 
   @class Ember
   @static
-  @version 1.0.0-pre.2
+  @version 1.0.0-pre.4
 */
 
 if ('undefined' === typeof Ember) {
@@ -230,10 +230,10 @@ Ember.toString = function() { return "Ember"; };
 /**
   @property VERSION
   @type String
-  @default '1.0.0-pre.2'
+  @default '1.0.0-pre.4'
   @final
 */
-Ember.VERSION = '1.0.0-pre.2';
+Ember.VERSION = '1.0.0-pre.4';
 
 /**
   Standard environmental variables. You can define these in a global `ENV`
@@ -6125,6 +6125,13 @@ define("container",
 
         delete this.parent;
         this.isDestroyed = true;
+      },
+
+      reset: function() {
+        for (var i=0, l=this.children.length; i<l; i++) {
+          resetCache(this.children[i]);
+        }
+        resetCache(this);
       }
     };
 
@@ -6203,6 +6210,14 @@ define("container",
         if (option(container, key, 'instantiate') === false) { return; }
         callback(value);
       });
+    }
+
+    function resetCache(container) {
+      container.cache.eachLocal(function(key, value) {
+        if (option(container, key, 'instantiate') === false) { return; }
+        value.destroy();
+      });
+      container.cache.dict = {};
     }
 
     return Container;
@@ -6645,7 +6660,7 @@ Ember.Error.prototype = Ember.create(Error.prototype);
 var STRING_DASHERIZE_REGEXP = (/[ _]/g);
 var STRING_DASHERIZE_CACHE = {};
 var STRING_DECAMELIZE_REGEXP = (/([a-z])([A-Z])/g);
-var STRING_CAMELIZE_REGEXP = (/(\-|_|\s)+(.)?/g);
+var STRING_CAMELIZE_REGEXP = (/(\-|_|\.|\s)+(.)?/g);
 var STRING_UNDERSCORE_REGEXP_1 = (/([a-z\d])([A-Z]+)/g);
 var STRING_UNDERSCORE_REGEXP_2 = (/\-|\s+/g);
 
@@ -11384,6 +11399,10 @@ Ember.ObjectProxy = Ember.Object.extend(
     Ember.assert("Can't set ObjectProxy's content to itself", this.get('content') !== this);
   }, 'content'),
 
+  isTruthy: Ember.computed(function() {
+    return !!get(this, 'content');
+  }).property('content'),
+
   willWatchProperty: function (key) {
     var contentKey = 'content.' + key;
     addBeforeObserver(this, contentKey, null, contentPropertyWillChange);
@@ -12422,7 +12441,7 @@ Ember Runtime
 */
 
 var jQuery = Ember.imports.jQuery;
-Ember.assert("Ember Views require jQuery 1.7 (>= 1.7.2) or 1.8", jQuery && (jQuery().jquery.match(/^1\.(7(?!$)(?!\.[01])|8)(\.\d+)?(pre|rc\d?)?/) || Ember.ENV.FORCE_JQUERY));
+Ember.assert("Ember Views require jQuery 1.7 (>= 1.7.2), 1.8 or 1.9", jQuery && (jQuery().jquery.match(/^1\.(7(?!$)(?!\.[01])|8|9)(\.\d+)?(pre|rc\d?)?/) || Ember.ENV.FORCE_JQUERY));
 
 /**
   Alias for jQuery
@@ -16768,464 +16787,464 @@ Ember Views
 })();
 
 (function() {
-// ==========================================================================
-// Project:   metamorph
-// Copyright: ©2011 My Company Inc. All rights reserved.
-// ==========================================================================
-
 define("metamorph",
   [],
   function() {
+    "use strict";
+    // ==========================================================================
+    // Project:   metamorph
+    // Copyright: ©2011 My Company Inc. All rights reserved.
+    // ==========================================================================
 
-  var K = function(){},
-      guid = 0,
-      document = window.document,
+    var K = function(){},
+        guid = 0,
+        document = window.document,
 
-      // Feature-detect the W3C range API, the extended check is for IE9 which only partially supports ranges
-      supportsRange = ('createRange' in document) && (typeof Range !== 'undefined') && Range.prototype.createContextualFragment,
+        // Feature-detect the W3C range API, the extended check is for IE9 which only partially supports ranges
+        supportsRange = ('createRange' in document) && (typeof Range !== 'undefined') && Range.prototype.createContextualFragment,
 
-      // Internet Explorer prior to 9 does not allow setting innerHTML if the first element
-      // is a "zero-scope" element. This problem can be worked around by making
-      // the first node an invisible text node. We, like Modernizr, use &shy;
-      needsShy = (function(){
-        var testEl = document.createElement('div');
-        testEl.innerHTML = "<div></div>";
-        testEl.firstChild.innerHTML = "<script></script>";
-        return testEl.firstChild.innerHTML === '';
-      })(),
+        // Internet Explorer prior to 9 does not allow setting innerHTML if the first element
+        // is a "zero-scope" element. This problem can be worked around by making
+        // the first node an invisible text node. We, like Modernizr, use &shy;
+        needsShy = (function(){
+          var testEl = document.createElement('div');
+          testEl.innerHTML = "<div></div>";
+          testEl.firstChild.innerHTML = "<script></script>";
+          return testEl.firstChild.innerHTML === '';
+        })(),
 
 
-      // IE 8 (and likely earlier) likes to move whitespace preceeding
-      // a script tag to appear after it. This means that we can
-      // accidentally remove whitespace when updating a morph.
-      movesWhitespace = (function() {
-        var testEl = document.createElement('div');
-        testEl.innerHTML = "Test: <script type='text/x-placeholder'></script>Value";
-        return testEl.childNodes[0].nodeValue === 'Test:' &&
-                testEl.childNodes[2].nodeValue === ' Value';
-      })();
+        // IE 8 (and likely earlier) likes to move whitespace preceeding
+        // a script tag to appear after it. This means that we can
+        // accidentally remove whitespace when updating a morph.
+        movesWhitespace = (function() {
+          var testEl = document.createElement('div');
+          testEl.innerHTML = "Test: <script type='text/x-placeholder'></script>Value";
+          return testEl.childNodes[0].nodeValue === 'Test:' &&
+                  testEl.childNodes[2].nodeValue === ' Value';
+        })();
 
-  // Constructor that supports either Metamorph('foo') or new
-  // Metamorph('foo');
-  //
-  // Takes a string of HTML as the argument.
+    // Constructor that supports either Metamorph('foo') or new
+    // Metamorph('foo');
+    //
+    // Takes a string of HTML as the argument.
 
-  var Metamorph = function(html) {
-    var self;
+    var Metamorph = function(html) {
+      var self;
 
-    if (this instanceof Metamorph) {
-      self = this;
-    } else {
-      self = new K();
-    }
-
-    self.innerHTML = html;
-    var myGuid = 'metamorph-'+(guid++);
-    self.start = myGuid + '-start';
-    self.end = myGuid + '-end';
-
-    return self;
-  };
-
-  K.prototype = Metamorph.prototype;
-
-  var rangeFor, htmlFunc, removeFunc, outerHTMLFunc, appendToFunc, afterFunc, prependFunc, startTagFunc, endTagFunc;
-
-  outerHTMLFunc = function() {
-    return this.startTag() + this.innerHTML + this.endTag();
-  };
-
-  startTagFunc = function() {
-    /*
-     * We replace chevron by its hex code in order to prevent escaping problems.
-     * Check this thread for more explaination:
-     * http://stackoverflow.com/questions/8231048/why-use-x3c-instead-of-when-generating-html-from-javascript
-     */
-    return "<script id='" + this.start + "' type='text/x-placeholder'>\x3C/script>";
-  };
-
-  endTagFunc = function() {
-    /*
-     * We replace chevron by its hex code in order to prevent escaping problems.
-     * Check this thread for more explaination:
-     * http://stackoverflow.com/questions/8231048/why-use-x3c-instead-of-when-generating-html-from-javascript
-     */
-    return "<script id='" + this.end + "' type='text/x-placeholder'>\x3C/script>";
-  };
-
-  // If we have the W3C range API, this process is relatively straight forward.
-  if (supportsRange) {
-
-    // Get a range for the current morph. Optionally include the starting and
-    // ending placeholders.
-    rangeFor = function(morph, outerToo) {
-      var range = document.createRange();
-      var before = document.getElementById(morph.start);
-      var after = document.getElementById(morph.end);
-
-      if (outerToo) {
-        range.setStartBefore(before);
-        range.setEndAfter(after);
+      if (this instanceof Metamorph) {
+        self = this;
       } else {
-        range.setStartAfter(before);
-        range.setEndBefore(after);
+        self = new K();
       }
 
-      return range;
+      self.innerHTML = html;
+      var myGuid = 'metamorph-'+(guid++);
+      self.start = myGuid + '-start';
+      self.end = myGuid + '-end';
+
+      return self;
     };
 
-    htmlFunc = function(html, outerToo) {
-      // get a range for the current metamorph object
-      var range = rangeFor(this, outerToo);
+    K.prototype = Metamorph.prototype;
 
-      // delete the contents of the range, which will be the
-      // nodes between the starting and ending placeholder.
-      range.deleteContents();
+    var rangeFor, htmlFunc, removeFunc, outerHTMLFunc, appendToFunc, afterFunc, prependFunc, startTagFunc, endTagFunc;
 
-      // create a new document fragment for the HTML
-      var fragment = range.createContextualFragment(html);
-
-      // insert the fragment into the range
-      range.insertNode(fragment);
+    outerHTMLFunc = function() {
+      return this.startTag() + this.innerHTML + this.endTag();
     };
 
-    removeFunc = function() {
-      // get a range for the current metamorph object including
-      // the starting and ending placeholders.
-      var range = rangeFor(this, true);
-
-      // delete the entire range.
-      range.deleteContents();
+    startTagFunc = function() {
+      /*
+       * We replace chevron by its hex code in order to prevent escaping problems.
+       * Check this thread for more explaination:
+       * http://stackoverflow.com/questions/8231048/why-use-x3c-instead-of-when-generating-html-from-javascript
+       */
+      return "<script id='" + this.start + "' type='text/x-placeholder'>\x3C/script>";
     };
 
-    appendToFunc = function(node) {
-      var range = document.createRange();
-      range.setStart(node);
-      range.collapse(false);
-      var frag = range.createContextualFragment(this.outerHTML());
-      node.appendChild(frag);
+    endTagFunc = function() {
+      /*
+       * We replace chevron by its hex code in order to prevent escaping problems.
+       * Check this thread for more explaination:
+       * http://stackoverflow.com/questions/8231048/why-use-x3c-instead-of-when-generating-html-from-javascript
+       */
+      return "<script id='" + this.end + "' type='text/x-placeholder'>\x3C/script>";
     };
 
-    afterFunc = function(html) {
-      var range = document.createRange();
+    // If we have the W3C range API, this process is relatively straight forward.
+    if (supportsRange) {
+
+      // Get a range for the current morph. Optionally include the starting and
+      // ending placeholders.
+      rangeFor = function(morph, outerToo) {
+        var range = document.createRange();
+        var before = document.getElementById(morph.start);
+        var after = document.getElementById(morph.end);
+
+        if (outerToo) {
+          range.setStartBefore(before);
+          range.setEndAfter(after);
+        } else {
+          range.setStartAfter(before);
+          range.setEndBefore(after);
+        }
+
+        return range;
+      };
+
+      htmlFunc = function(html, outerToo) {
+        // get a range for the current metamorph object
+        var range = rangeFor(this, outerToo);
+
+        // delete the contents of the range, which will be the
+        // nodes between the starting and ending placeholder.
+        range.deleteContents();
+
+        // create a new document fragment for the HTML
+        var fragment = range.createContextualFragment(html);
+
+        // insert the fragment into the range
+        range.insertNode(fragment);
+      };
+
+      removeFunc = function() {
+        // get a range for the current metamorph object including
+        // the starting and ending placeholders.
+        var range = rangeFor(this, true);
+
+        // delete the entire range.
+        range.deleteContents();
+      };
+
+      appendToFunc = function(node) {
+        var range = document.createRange();
+        range.setStart(node);
+        range.collapse(false);
+        var frag = range.createContextualFragment(this.outerHTML());
+        node.appendChild(frag);
+      };
+
+      afterFunc = function(html) {
+        var range = document.createRange();
+        var after = document.getElementById(this.end);
+
+        range.setStartAfter(after);
+        range.setEndAfter(after);
+
+        var fragment = range.createContextualFragment(html);
+        range.insertNode(fragment);
+      };
+
+      prependFunc = function(html) {
+        var range = document.createRange();
+        var start = document.getElementById(this.start);
+
+        range.setStartAfter(start);
+        range.setEndAfter(start);
+
+        var fragment = range.createContextualFragment(html);
+        range.insertNode(fragment);
+      };
+
+    } else {
+      /**
+       * This code is mostly taken from jQuery, with one exception. In jQuery's case, we
+       * have some HTML and we need to figure out how to convert it into some nodes.
+       *
+       * In this case, jQuery needs to scan the HTML looking for an opening tag and use
+       * that as the key for the wrap map. In our case, we know the parent node, and
+       * can use its type as the key for the wrap map.
+       **/
+      var wrapMap = {
+        select: [ 1, "<select multiple='multiple'>", "</select>" ],
+        fieldset: [ 1, "<fieldset>", "</fieldset>" ],
+        table: [ 1, "<table>", "</table>" ],
+        tbody: [ 2, "<table><tbody>", "</tbody></table>" ],
+        tr: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
+        colgroup: [ 2, "<table><tbody></tbody><colgroup>", "</colgroup></table>" ],
+        map: [ 1, "<map>", "</map>" ],
+        _default: [ 0, "", "" ]
+      };
+
+      var findChildById = function(element, id) {
+        if (element.getAttribute('id') === id) { return element; }
+
+        var len = element.childNodes.length, idx, node, found;
+        for (idx=0; idx<len; idx++) {
+          node = element.childNodes[idx];
+          found = node.nodeType === 1 && findChildById(node, id);
+          if (found) { return found; }
+        }
+      };
+
+      var setInnerHTML = function(element, html) {
+        var matches = [];
+        if (movesWhitespace) {
+          // Right now we only check for script tags with ids with the
+          // goal of targeting morphs.
+          html = html.replace(/(\s+)(<script id='([^']+)')/g, function(match, spaces, tag, id) {
+            matches.push([id, spaces]);
+            return tag;
+          });
+        }
+
+        element.innerHTML = html;
+
+        // If we have to do any whitespace adjustments do them now
+        if (matches.length > 0) {
+          var len = matches.length, idx;
+          for (idx=0; idx<len; idx++) {
+            var script = findChildById(element, matches[idx][0]),
+                node = document.createTextNode(matches[idx][1]);
+            script.parentNode.insertBefore(node, script);
+          }
+        }
+      };
+
+      /**
+       * Given a parent node and some HTML, generate a set of nodes. Return the first
+       * node, which will allow us to traverse the rest using nextSibling.
+       *
+       * We need to do this because innerHTML in IE does not really parse the nodes.
+       **/
+      var firstNodeFor = function(parentNode, html) {
+        var arr = wrapMap[parentNode.tagName.toLowerCase()] || wrapMap._default;
+        var depth = arr[0], start = arr[1], end = arr[2];
+
+        if (needsShy) { html = '&shy;'+html; }
+
+        var element = document.createElement('div');
+
+        setInnerHTML(element, start + html + end);
+
+        for (var i=0; i<=depth; i++) {
+          element = element.firstChild;
+        }
+
+        // Look for &shy; to remove it.
+        if (needsShy) {
+          var shyElement = element;
+
+          // Sometimes we get nameless elements with the shy inside
+          while (shyElement.nodeType === 1 && !shyElement.nodeName) {
+            shyElement = shyElement.firstChild;
+          }
+
+          // At this point it's the actual unicode character.
+          if (shyElement.nodeType === 3 && shyElement.nodeValue.charAt(0) === "\u00AD") {
+            shyElement.nodeValue = shyElement.nodeValue.slice(1);
+          }
+        }
+
+        return element;
+      };
+
+      /**
+       * In some cases, Internet Explorer can create an anonymous node in
+       * the hierarchy with no tagName. You can create this scenario via:
+       *
+       *     div = document.createElement("div");
+       *     div.innerHTML = "<table>&shy<script></script><tr><td>hi</td></tr></table>";
+       *     div.firstChild.firstChild.tagName //=> ""
+       *
+       * If our script markers are inside such a node, we need to find that
+       * node and use *it* as the marker.
+       **/
+      var realNode = function(start) {
+        while (start.parentNode.tagName === "") {
+          start = start.parentNode;
+        }
+
+        return start;
+      };
+
+      /**
+       * When automatically adding a tbody, Internet Explorer inserts the
+       * tbody immediately before the first <tr>. Other browsers create it
+       * before the first node, no matter what.
+       *
+       * This means the the following code:
+       *
+       *     div = document.createElement("div");
+       *     div.innerHTML = "<table><script id='first'></script><tr><td>hi</td></tr><script id='last'></script></table>
+       *
+       * Generates the following DOM in IE:
+       *
+       *     + div
+       *       + table
+       *         - script id='first'
+       *         + tbody
+       *           + tr
+       *             + td
+       *               - "hi"
+       *           - script id='last'
+       *
+       * Which means that the two script tags, even though they were
+       * inserted at the same point in the hierarchy in the original
+       * HTML, now have different parents.
+       *
+       * This code reparents the first script tag by making it the tbody's
+       * first child.
+       **/
+      var fixParentage = function(start, end) {
+        if (start.parentNode !== end.parentNode) {
+          end.parentNode.insertBefore(start, end.parentNode.firstChild);
+        }
+      };
+
+      htmlFunc = function(html, outerToo) {
+        // get the real starting node. see realNode for details.
+        var start = realNode(document.getElementById(this.start));
+        var end = document.getElementById(this.end);
+        var parentNode = end.parentNode;
+        var node, nextSibling, last;
+
+        // make sure that the start and end nodes share the same
+        // parent. If not, fix it.
+        fixParentage(start, end);
+
+        // remove all of the nodes after the starting placeholder and
+        // before the ending placeholder.
+        node = start.nextSibling;
+        while (node) {
+          nextSibling = node.nextSibling;
+          last = node === end;
+
+          // if this is the last node, and we want to remove it as well,
+          // set the `end` node to the next sibling. This is because
+          // for the rest of the function, we insert the new nodes
+          // before the end (note that insertBefore(node, null) is
+          // the same as appendChild(node)).
+          //
+          // if we do not want to remove it, just break.
+          if (last) {
+            if (outerToo) { end = node.nextSibling; } else { break; }
+          }
+
+          node.parentNode.removeChild(node);
+
+          // if this is the last node and we didn't break before
+          // (because we wanted to remove the outer nodes), break
+          // now.
+          if (last) { break; }
+
+          node = nextSibling;
+        }
+
+        // get the first node for the HTML string, even in cases like
+        // tables and lists where a simple innerHTML on a div would
+        // swallow some of the content.
+        node = firstNodeFor(start.parentNode, html);
+
+        // copy the nodes for the HTML between the starting and ending
+        // placeholder.
+        while (node) {
+          nextSibling = node.nextSibling;
+          parentNode.insertBefore(node, end);
+          node = nextSibling;
+        }
+      };
+
+      // remove the nodes in the DOM representing this metamorph.
+      //
+      // this includes the starting and ending placeholders.
+      removeFunc = function() {
+        var start = realNode(document.getElementById(this.start));
+        var end = document.getElementById(this.end);
+
+        this.html('');
+        start.parentNode.removeChild(start);
+        end.parentNode.removeChild(end);
+      };
+
+      appendToFunc = function(parentNode) {
+        var node = firstNodeFor(parentNode, this.outerHTML());
+        var nextSibling;
+
+        while (node) {
+          nextSibling = node.nextSibling;
+          parentNode.appendChild(node);
+          node = nextSibling;
+        }
+      };
+
+      afterFunc = function(html) {
+        // get the real starting node. see realNode for details.
+        var end = document.getElementById(this.end);
+        var insertBefore = end.nextSibling;
+        var parentNode = end.parentNode;
+        var nextSibling;
+        var node;
+
+        // get the first node for the HTML string, even in cases like
+        // tables and lists where a simple innerHTML on a div would
+        // swallow some of the content.
+        node = firstNodeFor(parentNode, html);
+
+        // copy the nodes for the HTML between the starting and ending
+        // placeholder.
+        while (node) {
+          nextSibling = node.nextSibling;
+          parentNode.insertBefore(node, insertBefore);
+          node = nextSibling;
+        }
+      };
+
+      prependFunc = function(html) {
+        var start = document.getElementById(this.start);
+        var parentNode = start.parentNode;
+        var nextSibling;
+        var node;
+
+        node = firstNodeFor(parentNode, html);
+        var insertBefore = start.nextSibling;
+
+        while (node) {
+          nextSibling = node.nextSibling;
+          parentNode.insertBefore(node, insertBefore);
+          node = nextSibling;
+        }
+      };
+    }
+
+    Metamorph.prototype.html = function(html) {
+      this.checkRemoved();
+      if (html === undefined) { return this.innerHTML; }
+
+      htmlFunc.call(this, html);
+
+      this.innerHTML = html;
+    };
+
+    Metamorph.prototype.replaceWith = function(html) {
+      this.checkRemoved();
+      htmlFunc.call(this, html, true);
+    };
+
+    Metamorph.prototype.remove = removeFunc;
+    Metamorph.prototype.outerHTML = outerHTMLFunc;
+    Metamorph.prototype.appendTo = appendToFunc;
+    Metamorph.prototype.after = afterFunc;
+    Metamorph.prototype.prepend = prependFunc;
+    Metamorph.prototype.startTag = startTagFunc;
+    Metamorph.prototype.endTag = endTagFunc;
+
+    Metamorph.prototype.isRemoved = function() {
+      var before = document.getElementById(this.start);
       var after = document.getElementById(this.end);
 
-      range.setStartAfter(after);
-      range.setEndAfter(after);
-
-      var fragment = range.createContextualFragment(html);
-      range.insertNode(fragment);
+      return !before || !after;
     };
 
-    prependFunc = function(html) {
-      var range = document.createRange();
-      var start = document.getElementById(this.start);
-
-      range.setStartAfter(start);
-      range.setEndAfter(start);
-
-      var fragment = range.createContextualFragment(html);
-      range.insertNode(fragment);
-    };
-
-  } else {
-    /**
-     * This code is mostly taken from jQuery, with one exception. In jQuery's case, we
-     * have some HTML and we need to figure out how to convert it into some nodes.
-     *
-     * In this case, jQuery needs to scan the HTML looking for an opening tag and use
-     * that as the key for the wrap map. In our case, we know the parent node, and
-     * can use its type as the key for the wrap map.
-     **/
-    var wrapMap = {
-      select: [ 1, "<select multiple='multiple'>", "</select>" ],
-      fieldset: [ 1, "<fieldset>", "</fieldset>" ],
-      table: [ 1, "<table>", "</table>" ],
-      tbody: [ 2, "<table><tbody>", "</tbody></table>" ],
-      tr: [ 3, "<table><tbody><tr>", "</tr></tbody></table>" ],
-      colgroup: [ 2, "<table><tbody></tbody><colgroup>", "</colgroup></table>" ],
-      map: [ 1, "<map>", "</map>" ],
-      _default: [ 0, "", "" ]
-    };
-
-    var findChildById = function(element, id) {
-      if (element.getAttribute('id') === id) { return element; }
-
-      var len = element.childNodes.length, idx, node, found;
-      for (idx=0; idx<len; idx++) {
-        node = element.childNodes[idx];
-        found = node.nodeType === 1 && findChildById(node, id);
-        if (found) { return found; }
+    Metamorph.prototype.checkRemoved = function() {
+      if (this.isRemoved()) {
+        throw new Error("Cannot perform operations on a Metamorph that is not in the DOM.");
       }
     };
 
-    var setInnerHTML = function(element, html) {
-      var matches = [];
-      if (movesWhitespace) {
-        // Right now we only check for script tags with ids with the
-        // goal of targeting morphs.
-        html = html.replace(/(\s+)(<script id='([^']+)')/g, function(match, spaces, tag, id) {
-          matches.push([id, spaces]);
-          return tag;
-        });
-      }
-
-      element.innerHTML = html;
-
-      // If we have to do any whitespace adjustments do them now
-      if (matches.length > 0) {
-        var len = matches.length, idx;
-        for (idx=0; idx<len; idx++) {
-          var script = findChildById(element, matches[idx][0]),
-              node = document.createTextNode(matches[idx][1]);
-          script.parentNode.insertBefore(node, script);
-        }
-      }
-    };
-
-    /**
-     * Given a parent node and some HTML, generate a set of nodes. Return the first
-     * node, which will allow us to traverse the rest using nextSibling.
-     *
-     * We need to do this because innerHTML in IE does not really parse the nodes.
-     **/
-    var firstNodeFor = function(parentNode, html) {
-      var arr = wrapMap[parentNode.tagName.toLowerCase()] || wrapMap._default;
-      var depth = arr[0], start = arr[1], end = arr[2];
-
-      if (needsShy) { html = '&shy;'+html; }
-
-      var element = document.createElement('div');
-
-      setInnerHTML(element, start + html + end);
-
-      for (var i=0; i<=depth; i++) {
-        element = element.firstChild;
-      }
-
-      // Look for &shy; to remove it.
-      if (needsShy) {
-        var shyElement = element;
-
-        // Sometimes we get nameless elements with the shy inside
-        while (shyElement.nodeType === 1 && !shyElement.nodeName) {
-          shyElement = shyElement.firstChild;
-        }
-
-        // At this point it's the actual unicode character.
-        if (shyElement.nodeType === 3 && shyElement.nodeValue.charAt(0) === "\u00AD") {
-          shyElement.nodeValue = shyElement.nodeValue.slice(1);
-        }
-      }
-
-      return element;
-    };
-
-    /**
-     * In some cases, Internet Explorer can create an anonymous node in
-     * the hierarchy with no tagName. You can create this scenario via:
-     *
-     *     div = document.createElement("div");
-     *     div.innerHTML = "<table>&shy<script></script><tr><td>hi</td></tr></table>";
-     *     div.firstChild.firstChild.tagName //=> ""
-     *
-     * If our script markers are inside such a node, we need to find that
-     * node and use *it* as the marker.
-     **/
-    var realNode = function(start) {
-      while (start.parentNode.tagName === "") {
-        start = start.parentNode;
-      }
-
-      return start;
-    };
-
-    /**
-     * When automatically adding a tbody, Internet Explorer inserts the
-     * tbody immediately before the first <tr>. Other browsers create it
-     * before the first node, no matter what.
-     *
-     * This means the the following code:
-     *
-     *     div = document.createElement("div");
-     *     div.innerHTML = "<table><script id='first'></script><tr><td>hi</td></tr><script id='last'></script></table>
-     *
-     * Generates the following DOM in IE:
-     *
-     *     + div
-     *       + table
-     *         - script id='first'
-     *         + tbody
-     *           + tr
-     *             + td
-     *               - "hi"
-     *           - script id='last'
-     *
-     * Which means that the two script tags, even though they were
-     * inserted at the same point in the hierarchy in the original
-     * HTML, now have different parents.
-     *
-     * This code reparents the first script tag by making it the tbody's
-     * first child.
-     **/
-    var fixParentage = function(start, end) {
-      if (start.parentNode !== end.parentNode) {
-        end.parentNode.insertBefore(start, end.parentNode.firstChild);
-      }
-    };
-
-    htmlFunc = function(html, outerToo) {
-      // get the real starting node. see realNode for details.
-      var start = realNode(document.getElementById(this.start));
-      var end = document.getElementById(this.end);
-      var parentNode = end.parentNode;
-      var node, nextSibling, last;
-
-      // make sure that the start and end nodes share the same
-      // parent. If not, fix it.
-      fixParentage(start, end);
-
-      // remove all of the nodes after the starting placeholder and
-      // before the ending placeholder.
-      node = start.nextSibling;
-      while (node) {
-        nextSibling = node.nextSibling;
-        last = node === end;
-
-        // if this is the last node, and we want to remove it as well,
-        // set the `end` node to the next sibling. This is because
-        // for the rest of the function, we insert the new nodes
-        // before the end (note that insertBefore(node, null) is
-        // the same as appendChild(node)).
-        //
-        // if we do not want to remove it, just break.
-        if (last) {
-          if (outerToo) { end = node.nextSibling; } else { break; }
-        }
-
-        node.parentNode.removeChild(node);
-
-        // if this is the last node and we didn't break before
-        // (because we wanted to remove the outer nodes), break
-        // now.
-        if (last) { break; }
-
-        node = nextSibling;
-      }
-
-      // get the first node for the HTML string, even in cases like
-      // tables and lists where a simple innerHTML on a div would
-      // swallow some of the content.
-      node = firstNodeFor(start.parentNode, html);
-
-      // copy the nodes for the HTML between the starting and ending
-      // placeholder.
-      while (node) {
-        nextSibling = node.nextSibling;
-        parentNode.insertBefore(node, end);
-        node = nextSibling;
-      }
-    };
-
-    // remove the nodes in the DOM representing this metamorph.
-    //
-    // this includes the starting and ending placeholders.
-    removeFunc = function() {
-      var start = realNode(document.getElementById(this.start));
-      var end = document.getElementById(this.end);
-
-      this.html('');
-      start.parentNode.removeChild(start);
-      end.parentNode.removeChild(end);
-    };
-
-    appendToFunc = function(parentNode) {
-      var node = firstNodeFor(parentNode, this.outerHTML());
-
-      while (node) {
-        nextSibling = node.nextSibling;
-        parentNode.appendChild(node);
-        node = nextSibling;
-      }
-    };
-
-    afterFunc = function(html) {
-      // get the real starting node. see realNode for details.
-      var end = document.getElementById(this.end);
-      var insertBefore = end.nextSibling;
-      var parentNode = end.parentNode;
-      var nextSibling;
-      var node;
-
-      // get the first node for the HTML string, even in cases like
-      // tables and lists where a simple innerHTML on a div would
-      // swallow some of the content.
-      node = firstNodeFor(parentNode, html);
-
-      // copy the nodes for the HTML between the starting and ending
-      // placeholder.
-      while (node) {
-        nextSibling = node.nextSibling;
-        parentNode.insertBefore(node, insertBefore);
-        node = nextSibling;
-      }
-    };
-
-    prependFunc = function(html) {
-      var start = document.getElementById(this.start);
-      var parentNode = start.parentNode;
-      var nextSibling;
-      var node;
-
-      node = firstNodeFor(parentNode, html);
-      var insertBefore = start.nextSibling;
-
-      while (node) {
-        nextSibling = node.nextSibling;
-        parentNode.insertBefore(node, insertBefore);
-        node = nextSibling;
-      }
-    }
-  }
-
-  Metamorph.prototype.html = function(html) {
-    this.checkRemoved();
-    if (html === undefined) { return this.innerHTML; }
-
-    htmlFunc.call(this, html);
-
-    this.innerHTML = html;
-  };
-
-  Metamorph.prototype.replaceWith = function(html) {
-    this.checkRemoved();
-    htmlFunc.call(this, html, true);
-  };
-
-  Metamorph.prototype.remove = removeFunc;
-  Metamorph.prototype.outerHTML = outerHTMLFunc;
-  Metamorph.prototype.appendTo = appendToFunc;
-  Metamorph.prototype.after = afterFunc;
-  Metamorph.prototype.prepend = prependFunc;
-  Metamorph.prototype.startTag = startTagFunc;
-  Metamorph.prototype.endTag = endTagFunc;
-
-  Metamorph.prototype.isRemoved = function() {
-    var before = document.getElementById(this.start);
-    var after = document.getElementById(this.end);
-
-    return !before || !after;
-  };
-
-  Metamorph.prototype.checkRemoved = function() {
-    if (this.isRemoved()) {
-      throw new Error("Cannot perform operations on a Metamorph that is not in the DOM.");
-    }
-  };
-
-  return Metamorph;
-});
-
+    return Metamorph;
+  });
 
 })();
 
@@ -17243,7 +17262,7 @@ var objectCreate = Object.create || function(parent) {
 };
 
 var Handlebars = this.Handlebars || Ember.imports.Handlebars;
-Ember.assert("Ember Handlebars requires Handlebars 1.0.beta.5 or greater", Handlebars && Handlebars.VERSION.match(/^1\.0\.beta\.[56789]$|^1\.0\.rc\.[123456789]+/));
+Ember.assert("Ember Handlebars requires Handlebars 1.0.rc.2 or greater", Handlebars && Handlebars.VERSION.match(/^1\.0\.rc\.[23456789]+/));
 
 /**
   Prepares the Handlebars templating library for use inside Ember's view
@@ -17459,7 +17478,7 @@ var normalizePath = Ember.Handlebars.normalizePath = function(root, path, data) 
   @param {String} path The path to be lookedup
   @param {Object} options The template's option hash
 */
-Ember.Handlebars.get = function(root, path, options) {
+var handlebarsGet = Ember.Handlebars.get = function(root, path, options) {
   var data = options && options.data,
       normalizedPath = normalizePath(root, path, data),
       value;
@@ -17480,6 +17499,41 @@ Ember.Handlebars.get = function(root, path, options) {
   return value;
 };
 Ember.Handlebars.getPath = Ember.deprecateFunc('`Ember.Handlebars.getPath` has been changed to `Ember.Handlebars.get` for consistency.', Ember.Handlebars.get);
+
+Ember.Handlebars.resolveParams = function(context, params, options) {
+  var resolvedParams = [], types = options.types, param, type;
+
+  for (var i=0, l=params.length; i<l; i++) {
+    param = params[i];
+    type = types[i];
+
+    if (type === 'ID') {
+      resolvedParams.push(handlebarsGet(context, param, options));
+    } else {
+      resolvedParams.push(param);
+    }
+  }
+
+  return resolvedParams;
+};
+
+Ember.Handlebars.resolveHash = function(context, hash, options) {
+  var resolvedHash = {}, types = options.hashTypes, type;
+
+  for (var key in hash) {
+    if (!hash.hasOwnProperty(key)) { continue; }
+
+    type = types[key];
+
+    if (type === 'ID') {
+      resolvedHash[key] = handlebarsGet(context, hash[key], options);
+    } else {
+      resolvedHash[key] = hash[key];
+    }
+  }
+
+  return resolvedHash;
+};
 
 /**
   @private
@@ -18352,6 +18406,9 @@ EmberHandlebars.registerHelper('bind', function(property, options) {
 EmberHandlebars.registerHelper('boundIf', function(property, fn) {
   var context = (fn.contexts && fn.contexts[0]) || this;
   var func = function(result) {
+    var truthy = result && get(result, 'isTruthy');
+    if (typeof truthy === 'boolean') { return truthy; }
+
     if (Ember.typeOf(result) === 'array') {
       return get(result, 'length') !== 0;
     } else {
@@ -19710,6 +19767,25 @@ Ember.Handlebars.registerHelper('template', function(name, options) {
   Ember.TEMPLATES[name](this, { data: options.data });
 });
 
+Ember.Handlebars.registerHelper('partial', function(name, options) {
+  var nameParts = name.split("/"),
+      lastPart = nameParts[nameParts.length - 1];
+
+  nameParts[nameParts.length - 1] = "_" + lastPart;
+
+  var underscoredName = nameParts.join("/");
+
+  var template = Ember.TEMPLATES[underscoredName],
+      deprecatedTemplate = Ember.TEMPLATES[name];
+
+  Ember.deprecate("You tried to render the partial " + name + ", which should be at '" + underscoredName + "', but Ember found '" + name + "'. Please use a leading underscore in your partials", template);
+  Ember.assert("Unable to find partial with name '"+name+"'.", template || deprecatedTemplate);
+
+  template = template || deprecatedTemplate;
+
+  template(this, { data: options.data });
+});
+
 })();
 
 
@@ -19905,6 +19981,9 @@ Ember.TextSupport = Ember.Mixin.create({
     this._super();
     this.on("focusOut", this, this._elementValueDidChange);
     this.on("change", this, this._elementValueDidChange);
+    this.on("paste", this, this._elementValueDidChange);
+    this.on("cut", this, this._elementValueDidChange);
+    this.on("input", this, this._elementValueDidChange);
     this.on("keyUp", this, this.interpretKeyEvents);
   },
 
@@ -20011,7 +20090,31 @@ Ember.TextField = Ember.View.extend(Ember.TextSupport,
     @type String
     @default null
   */
-  size: null
+  size: null,
+
+  /**
+    The action to be sent when the user presses the return key.
+
+    This is similar to the `{{action}}` helper, but is fired when
+    the user presses the return key when editing a text field, and sends
+    the value of the field as the context.
+
+   @property action
+   @type String
+   @default null
+  */
+  action: null,
+
+  insertNewline: function() {
+    var controller = get(this, 'controller'),
+        action = get(this, 'action');
+
+    if (action) {
+      controller.send(action, get(this, 'value'));
+    }
+
+    return false;
+  }
 });
 
 })();
@@ -20228,7 +20331,8 @@ var set = Ember.set,
     indexOf = Ember.EnumerableUtils.indexOf,
     indexesOf = Ember.EnumerableUtils.indexesOf,
     replace = Ember.EnumerableUtils.replace,
-    isArray = Ember.isArray;
+    isArray = Ember.isArray,
+    precompileTemplate = Ember.Handlebars.compile;
 
 /**
   The `Ember.Select` view class renders a
@@ -20482,7 +20586,40 @@ Ember.Select = Ember.View.extend(
 
   tagName: 'select',
   classNames: ['ember-select'],
-  defaultTemplate: Ember.Handlebars.compile('{{#if view.prompt}}<option value="">{{view.prompt}}</option>{{/if}}{{#each view.content}}{{view Ember.SelectOption contentBinding="this"}}{{/each}}'),
+  defaultTemplate: Ember.Handlebars.template(function anonymous(Handlebars,depth0,helpers,partials,data) {
+helpers = helpers || Ember.Handlebars.helpers; data = data || {};
+  var buffer = '', stack1, hashTypes, escapeExpression=this.escapeExpression, self=this;
+
+function program1(depth0,data) {
+  
+  var buffer = '', stack1, hashTypes;
+  data.buffer.push("<option value=\"\">");
+  stack1 = {};
+  hashTypes = {};
+  stack1 = helpers._triageMustache.call(depth0, "view.prompt", {hash:stack1,contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data});
+  data.buffer.push(escapeExpression(stack1) + "</option>");
+  return buffer;}
+
+function program3(depth0,data) {
+  
+  var stack1, hashTypes;
+  stack1 = {};
+  hashTypes = {};
+  hashTypes['contentBinding'] = "STRING";
+  stack1['contentBinding'] = "this";
+  stack1 = helpers.view.call(depth0, "Ember.SelectOption", {hash:stack1,contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data});
+  data.buffer.push(escapeExpression(stack1));}
+
+  stack1 = {};
+  hashTypes = {};
+  stack1 = helpers['if'].call(depth0, "view.prompt", {hash:stack1,inverse:self.noop,fn:self.program(1, program1, data),contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  stack1 = {};
+  hashTypes = {};
+  stack1 = helpers.each.call(depth0, "view.content", {hash:stack1,inverse:self.noop,fn:self.program(3, program3, data),contexts:[depth0],types:["ID"],hashTypes:hashTypes,data:data});
+  if(stack1 || stack1 === 0) { data.buffer.push(stack1); }
+  return buffer;
+}),
   attributeBindings: ['multiple', 'disabled', 'tabindex'],
 
   /**
@@ -21437,6 +21574,26 @@ define("router",
       },
 
       /**
+        Hook point for updating the URL.
+
+        @param {String} url a URL to update to
+      */
+      updateURL: function() {
+        throw "updateURL is not implemented";
+      },
+
+      /**
+        Hook point for replacing the current URL, i.e. with replaceState
+
+        By default this behaves the same as `updateURL`
+
+        @param {String} url a URL to update to
+      */
+      replaceURL: function(url) {
+        this.updateURL(url);
+      },
+
+      /**
         Transition into the specified named route.
 
         If necessary, trigger the exit callback on any handlers
@@ -21445,18 +21602,21 @@ define("router",
         @param {String} name the name of the route
       */
       transitionTo: function(name) {
-        var output = this._paramsForHandler(name, [].slice.call(arguments, 1), function(handler) {
-          if (handler.hasOwnProperty('context')) { return handler.context; }
-          if (handler.deserialize) { return handler.deserialize({}); }
-          return null;
-        });
+        var args = Array.prototype.slice.call(arguments, 1);
+        doTransition(this, name, this.updateURL, args);
+      },
 
-        var params = output.params, toSetup = output.toSetup;
+      /**
+        Identical to `transitionTo` except that the current URL will be replaced
+        if possible.
 
-        var url = this.recognizer.generate(name, params);
-        this.updateURL(url);
+        This method is intended primarily for use with `replaceState`.
 
-        setupContexts(this, toSetup);
+        @param {String} name the name of the route
+      */
+      replaceWith: function(name) {
+        var args = Array.prototype.slice.call(arguments, 1);
+        doTransition(this, name, this.replaceURL, args);
       },
 
       /**
@@ -21494,29 +21654,71 @@ define("router",
 
         Used internally by `generate` and `transitionTo`.
       */
-      _paramsForHandler: function(handlerName, objects, callback) {
+      _paramsForHandler: function(handlerName, objects, doUpdate) {
         var handlers = this.recognizer.handlersFor(handlerName),
             params = {},
             toSetup = [],
-            object, handlerObj, handler, names;
+            startIdx = handlers.length,
+            objectsToMatch = objects.length,
+            object, objectChanged, handlerObj, handler, names, i, len;
 
-        for (var i=handlers.length-1; i>=0; i--) {
+        // Find out which handler to start matching at
+        for (i=handlers.length-1; i>=0 && objectsToMatch>0; i--) {
+          if (handlers[i].names.length) {
+            objectsToMatch--;
+            startIdx = i;
+          }
+        }
+
+        if (objectsToMatch > 0) {
+          throw "More objects were passed than dynamic segments";
+        }
+
+        // Connect the objects to the routes
+        for (i=0, len=handlers.length; i<len; i++) {
           handlerObj = handlers[i];
           handler = this.getHandler(handlerObj.handler);
           names = handlerObj.names;
+          objectChanged = false;
 
+          // If it's a dynamic segment
           if (names.length) {
-            if (objects.length) { object = objects.pop(); }
-            else { object = handler.context; }
+            // If we have objects, use them
+            if (i >= startIdx) {
+              object = objects.shift();
+              objectChanged = true;
+            // Otherwise use existing context
+            } else {
+              object = handler.context;
+            }
 
+            // Serialize to generate params
             if (handler.serialize) {
               merge(params, handler.serialize(object, names));
             }
-          } else if (callback) {
-            object = callback(handler);
+          // If it's not a dynamic segment and we're updating
+          } else if (doUpdate) {
+            // If we've passed the match point we need to deserialize again
+            // or if we never had a context
+            if (i > startIdx || !handler.hasOwnProperty('context')) {
+              if (handler.deserialize) {
+                object = handler.deserialize({});
+                objectChanged = true;
+              }
+            // Otherwise use existing context
+            } else {
+              object = handler.context;
+            }
           }
 
-          toSetup.unshift({
+          // Make sure that we update the context here so it's available to
+          // subsequent deserialize calls
+          if (doUpdate && objectChanged) {
+            // TODO: It's a bit awkward to set the context twice, see if we can DRY things up
+            setContext(handler, object);
+          }
+
+          toSetup.push({
             isDynamic: !!handlerObj.names.length,
             handler: handlerObj.handler,
             name: handlerObj.name,
@@ -21630,6 +21832,19 @@ define("router",
 
     /**
       @private
+    */
+    function doTransition(router, name, method, args) {
+      var output = router._paramsForHandler(name, args, true);
+      var params = output.params, toSetup = output.toSetup;
+
+      var url = router.recognizer.generate(name, params);
+      method.call(router, url);
+
+      setupContexts(router, toSetup);
+    }
+
+    /**
+      @private
 
       This function is called after a URL change has been handled
       by `router.handleURL`.
@@ -21668,6 +21883,10 @@ define("router",
       }
 
       function proceed(value) {
+        if (handler.context !== object) {
+          setContext(handler, object);
+        }
+
         var updatedObjects = objects.concat([{
           context: value,
           handler: result.handler,
@@ -21731,13 +21950,13 @@ define("router",
       });
 
       eachHandler(partition.updatedContext, function(handler, context) {
-        handler.context = context;
+        setContext(handler, context);
         if (handler.setup) { handler.setup(context); }
       });
 
       eachHandler(partition.entered, function(handler, context) {
         if (handler.enter) { handler.enter(); }
-        handler.context = context;
+        setContext(handler, context);
         if (handler.setup) { handler.setup(context); }
       });
 
@@ -21878,6 +22097,11 @@ define("router",
         }
       }
     }
+
+    function setContext(handler, context) {
+      handler.context = context;
+      if (handler.contextDidChange) { handler.contextDidChange(); }
+    }
     return Router;
   });
 
@@ -21886,6 +22110,96 @@ define("router",
 
 
 (function() {
+/**
+@module ember
+@submodule ember-routing
+*/
+
+function DSL(name) {
+  this.parent = name;
+  this.matches = [];
+}
+
+DSL.prototype = {
+  resource: function(name, options, callback) {
+    if (arguments.length === 2 && typeof options === 'function') {
+      callback = options;
+      options = {};
+    }
+
+    if (arguments.length === 1) {
+      options = {};
+    }
+
+    if (typeof options.path !== 'string') {
+      options.path = "/" + name;
+    }
+
+    if (callback) {
+      var dsl = new DSL(name);
+      callback.call(dsl);
+      this.push(options.path, name, dsl.generate());
+    } else {
+      this.push(options.path, name);
+    }
+  },
+
+  push: function(url, name, callback) {
+    if (url === "" || url === "/") { this.explicitIndex = true; }
+
+    this.matches.push([url, name, callback]);
+  },
+
+  route: function(name, options) {
+    Ember.assert("You must use `this.resource` to nest", typeof options !== 'function');
+
+    options = options || {};
+
+    if (typeof options.path !== 'string') {
+      options.path = "/" + name;
+    }
+
+    if (this.parent && this.parent !== 'application') {
+      name = this.parent + "." + name;
+    }
+
+    this.push(options.path, name);
+  },
+
+  generate: function() {
+    var dslMatches = this.matches;
+
+    if (!this.explicitIndex) {
+      this.route("index", { path: "/" });
+    }
+
+    return function(match) {
+      for (var i=0, l=dslMatches.length; i<l; i++) {
+        var dslMatch = dslMatches[i];
+        match(dslMatch[0]).to(dslMatch[1], dslMatch[2]);
+      }
+    };
+  }
+};
+
+DSL.map = function(callback) {
+  var dsl = new DSL();
+  callback.call(dsl);
+  return dsl;
+};
+
+Ember.RouterDSL = DSL;
+
+})();
+
+
+
+(function() {
+/**
+@module ember
+@submodule ember-routing
+*/
+
 Ember.controllerFor = function(container, controllerName, context) {
   return container.lookup('controller:' + controllerName) ||
          Ember.generateController(container, controllerName, context);
@@ -21895,9 +22209,13 @@ Ember.generateController = function(container, controllerName, context) {
   var controller;
 
   if (context && Ember.isArray(context)) {
-    controller = Ember.ArrayController.extend({content: context});
+    controller = Ember.ArrayController.extend({
+      content: context
+    });
   } else if (context) {
-    controller = Ember.ObjectController.extend({content: context});
+    controller = Ember.ObjectController.extend({
+      content: context
+    });
   } else {
     controller = Ember.Controller.extend();
   }
@@ -21915,11 +22233,15 @@ Ember.generateController = function(container, controllerName, context) {
 
 
 (function() {
+/**
+@module ember
+@submodule ember-routing
+*/
+
 var Router = requireModule("router");
 var get = Ember.get, set = Ember.set, classify = Ember.String.classify;
 
 var DefaultView = Ember.View.extend(Ember._Metamorph);
-
 function setupLocation(router) {
   var location = get(router, 'location'),
       rootURL = get(router, 'rootURL');
@@ -21945,7 +22267,7 @@ Ember.Router = Ember.Object.extend({
   },
 
   startRouting: function() {
-    this.router = this.router || this.constructor.map();
+    this.router = this.router || this.constructor.map(Ember.K);
 
     var router = this.router,
         location = get(this, 'location'),
@@ -21964,10 +22286,14 @@ Ember.Router = Ember.Object.extend({
   },
 
   didTransition: function(infos) {
+    // Don't do any further action here if we redirected
+    if (infos[infos.length-1].handler.transitioned) { return; }
+
     var appController = this.container.lookup('controller:application'),
         path = routePath(infos);
 
     set(appController, 'currentPath', path);
+    this.notifyPropertyChange('url');
 
     if (get(this, 'namespace').LOG_TRANSITIONS) {
       Ember.Logger.log("Transitioned into '" + path + "'");
@@ -21979,19 +22305,14 @@ Ember.Router = Ember.Object.extend({
     this.notifyPropertyChange('url');
   },
 
-  transitionTo: function(passedName) {
-    var args = [].slice.call(arguments), name;
+  transitionTo: function(name) {
+    var args = [].slice.call(arguments);
+    doTransition(this, 'transitionTo', args);
+  },
 
-    if (!this.router.hasRoute(passedName)) {
-      name = args[0] = passedName + '.index';
-    } else {
-      name = passedName;
-    }
-
-    Ember.assert("The route " + passedName + " was not found", this.router.hasRoute(name));
-
-    this.router.transitionTo.apply(this.router, args);
-    this.notifyPropertyChange('url');
+  replaceWith: function() {
+    var args = [].slice.call(arguments);
+    doTransition(this, 'replaceWith', args);
   },
 
   generate: function() {
@@ -22065,7 +22386,7 @@ function getHandlerFunction(router) {
       handler = container.lookup('route:' + name);
     }
 
-    handler.templateName = name;
+    handler.routeName = name;
     return handler;
   };
 }
@@ -22099,51 +22420,59 @@ function routePath(handlerInfos) {
 function setupRouter(emberRouter, router, location) {
   var lastURL;
 
-  function updateURL() {
-    location.setURL(lastURL);
-  }
-
   router.getHandler = getHandlerFunction(emberRouter);
+
+  var doUpdateURL = function() {
+    location.setURL(lastURL);
+  };
+
   router.updateURL = function(path) {
     lastURL = path;
-    Ember.run.once(updateURL);
+    Ember.run.once(doUpdateURL);
   };
+
+  if (location.replaceURL) {
+    var doReplaceURL = function() {
+      location.replaceURL(lastURL);
+    };
+
+    router.replaceURL = function(path) {
+      lastURL = path;
+      Ember.run.once(doReplaceURL);
+    };
+  }
 
   router.didTransition = function(infos) {
     emberRouter.didTransition(infos);
   };
 }
 
-function setupRouterDelegate(router, namespace) {
-  router.delegate = {
-    willAddRoute: function(context, handler) {
-      if (!context) { return handler; }
+function doTransition(router, method, args) {
+  var passedName = args[0], name;
 
-      if (context === 'application' || context === undefined) {
-        return handler;
-      } else if (handler.indexOf('.') === -1) {
-        context = context.split('.').slice(-1)[0];
-        return context + '.' + handler;
-      } else {
-        return handler;
-      }
-    },
+  if (!router.router.hasRoute(args[0])) {
+    name = args[0] = passedName + '.index';
+  } else {
+    name = passedName;
+  }
 
-    contextEntered: function(target, match) {
-      match('/').to('index');
-    }
-  };
+  Ember.assert("The route " + passedName + " was not found", router.router.hasRoute(name));
+
+  router.router[method].apply(router.router, args);
+  router.notifyPropertyChange('url');
 }
-
-var emptyMatcherCallback = function(match) { };
 
 Ember.Router.reopenClass({
   map: function(callback) {
     var router = this.router = new Router();
-    setupRouterDelegate(router, this.namespace);
-    router.map(function(match) {
-      match("/").to("application", callback || emptyMatcherCallback);
+
+    var dsl = Ember.RouterDSL.map(function() {
+      this.resource('application', { path: "/" }, function() {
+        callback.call(this);
+      });
     });
+
+    router.map(dsl.generate());
     return router;
   }
 });
@@ -22153,6 +22482,11 @@ Ember.Router.reopenClass({
 
 
 (function() {
+/**
+@module ember
+@submodule ember-routing
+*/
+
 var get = Ember.get, set = Ember.set,
     classify = Ember.String.classify,
     decamelize = Ember.String.decamelize;
@@ -22177,6 +22511,19 @@ Ember.Route = Ember.Object.extend({
     return this.router.transitionTo.apply(this.router, arguments);
   },
 
+  /**
+    Transition into another route while replacing the current URL if
+    possible. Identical to `transitionTo` in all other respects.
+
+    @method replaceWith
+    @param {String} name the name of the route
+    @param {...Object} models the
+  */
+  replaceWith: function() {
+    this.transitioned = true;
+    return this.router.replaceWith.apply(this.router, arguments);
+  },
+
   send: function() {
     return this.router.send.apply(this.router, arguments);
   },
@@ -22194,7 +22541,11 @@ Ember.Route = Ember.Object.extend({
 
     if (this.transitioned) { return; }
 
-    var controller = this.controllerFor(this.templateName, context);
+    var controller = this.controllerFor(this.routeName, context);
+
+    if (controller) {
+      set(controller, 'model', context);
+    }
 
     if (this.setupControllers) {
       Ember.deprecate("Ember.Route.setupControllers is deprecated. Please use Ember.Route.setupController(controller, model) instead.");
@@ -22236,6 +22587,15 @@ Ember.Route = Ember.Object.extend({
   },
 
   /**
+    @private
+
+    Called when the context is changed by router.js.
+  */
+  contextDidChange: function() {
+    this.currentModel = this.context;
+  },
+
+  /**
     A hook you can implement to convert the URL into the model for
     this route.
 
@@ -22258,16 +22618,18 @@ Ember.Route = Ember.Object.extend({
     @param {Object} params the parameters extracted from the URL
   */
   model: function(params) {
-    var match, name, value;
+    var match, name, sawParams, value;
 
     for (var prop in params) {
       if (match = prop.match(/^(.*)_id$/)) {
         name = match[1];
         value = params[prop];
       }
+      sawParams = true;
     }
 
-    if (!name) { return; }
+    if (!name && sawParams) { return params; }
+    else if (!name) { return; }
 
     var className = classify(name),
         namespace = this.router.namespace,
@@ -22315,7 +22677,12 @@ Ember.Route = Ember.Object.extend({
     if (params.length !== 1) { return; }
 
     var name = params[0], object = {};
-    object[name] = get(model, 'id');
+
+    if (/_id$/.test(name)) {
+      object[name] = get(model, 'id');
+    } else {
+      object[name] = model;
+    }
 
     return object;
   },
@@ -22349,11 +22716,7 @@ Ember.Route = Ember.Object.extend({
 
     @method setupController
   */
-  setupController: function(controller, model) {
-    if (controller) {
-      controller.set('content', model);
-    }
-  },
+  setupController: Ember.K,
 
   /**
     Returns the controller for a particular route.
@@ -22381,6 +22744,9 @@ Ember.Route = Ember.Object.extend({
 
     if (!controller) {
       model = model || this.modelFor(name);
+
+      Ember.assert("You are trying to look up a controller that you did not define, and for which Ember does not know the model.\n\nThis is not a controller for a route, so you must explicitly define the controller ("+this.router.namespace.toString() + "." + Ember.String.capitalize(Ember.String.camelize(name))+"Controller) or pass a model as the second parameter to `controllerFor`, so that Ember knows which type of controller to create for you.", model || this.container.lookup('route:' + name));
+
       controller = Ember.generateController(container, name, model);
     }
 
@@ -22398,7 +22764,8 @@ Ember.Route = Ember.Object.extend({
     @return {Object} the model object
   */
   modelFor: function(name) {
-    return this.container.lookup('route:' + name).currentModel;
+    var route = this.container.lookup('route:' + name);
+    return route && route.currentModel;
   },
 
   /**
@@ -22473,10 +22840,10 @@ Ember.Route = Ember.Object.extend({
   render: function(name, options) {
     if (typeof name === 'object' && !options) {
       options = name;
-      name = this.templateName;
+      name = this.routeName;
     }
 
-    name = name || this.templateName;
+    name = name ? name.replace(/\//g, '.') : this.routeName;
 
     var container = this.container,
         view = container.lookup('view:' + name),
@@ -22519,12 +22886,20 @@ function parentTemplate(route) {
 
 function normalizeOptions(route, name, template, options) {
   options = options || {};
-  options.into = options.into || parentTemplate(route);
+  options.into = options.into ? options.into.replace(/\//g, '.') : parentTemplate(route);
   options.outlet = options.outlet || 'main';
   options.name = name;
   options.template = template;
 
-  var controller = options.controller || route.templateName;
+  var controller = options.controller, namedController;
+
+  if (options.controller) {
+    controller = options.controller;
+  } else if (namedController = route.container.lookup('controller:' + name)) {
+    controller = namedController;
+  } else {
+    controller = route.routeName;
+  }
 
   if (typeof controller === 'string') {
     controller = route.container.lookup('controller:' + controller);
@@ -22540,7 +22915,10 @@ function setupView(view, container, options) {
 
   view = view || container.lookup(defaultView);
 
-  set(view, 'template', options.template);
+  if (!get(view, 'templateName')) {
+    set(view, 'template', options.template);
+  }
+
   set(view, 'renderedName', options.name);
   set(view, 'controller', options.controller);
 
@@ -22589,7 +22967,7 @@ function teardownView(route) {
 var get = Ember.get, set = Ember.set;
 Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
-  var resolvePaths = Ember.Handlebars.resolvePaths,
+  var resolveParams = Ember.Handlebars.resolveParams,
       isSimpleClick = Ember.ViewUtils.isSimpleClick;
 
   function fullRouteName(router, name) {
@@ -22600,8 +22978,11 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     return name;
   }
 
-  function resolvedPaths(linkView) {
-    return resolvePaths(linkView.parameters);
+  function resolvedPaths(options) {
+    var types = options.options.types.slice(1),
+        data = options.options.data;
+
+    return resolveParams(options.context, options.params, { types: types, data: data });
   }
 
   function args(linkView, router, route) {
@@ -22612,7 +22993,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     Ember.assert("The route " + passedRouteName + " was not found", router.hasRoute(routeName));
 
     var ret = [ routeName ];
-    return ret.concat(resolvePaths(linkView.parameters));
+    return ret.concat(resolvedPaths(linkView.parameters));
   }
 
   var LinkView = Ember.View.extend({
@@ -22621,12 +23002,13 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     currentWhen: null,
     title: null,
     activeClass: 'active',
+    replace: false,
     attributeBindings: ['href', 'title'],
     classNameBindings: 'active',
 
     active: Ember.computed(function() {
       var router = this.get('router'),
-          params = resolvedPaths(this),
+          params = resolvedPaths(this.parameters),
           currentWithIndex = this.currentWhen + '.index',
           isActive = router.isActive.apply(router, [this.currentWhen].concat(params)) ||
                      router.isActive.apply(router, [currentWithIndex].concat(params));
@@ -22641,9 +23023,16 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     click: function(event) {
       if (!isSimpleClick(event)) { return true; }
 
+      event.preventDefault();
+      if (this.bubbles === false) { event.stopPropagation(); }
+
       var router = this.get('router');
-      router.transitionTo.apply(router, args(this, router));
-      return false;
+
+      if (this.get('replace')) {
+        router.replaceWith.apply(router, args(this, router));
+      } else {
+        router.transitionTo.apply(router, args(this, router));
+      }
     },
 
     href: Ember.computed(function() {
@@ -22656,7 +23045,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
   Ember.Handlebars.registerHelper('linkTo', function(name) {
     var options = [].slice.call(arguments, -1)[0];
-    var contexts = [].slice.call(arguments, 1, -1);
+    var params = [].slice.call(arguments, 1, -1);
 
     var hash = options.hash;
 
@@ -22664,9 +23053,9 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     hash.currentWhen = hash.currentWhen || name;
 
     hash.parameters = {
-      data: options.data,
-      contexts: contexts,
-      roots: options.contexts
+      context: this,
+      options: options,
+      params: params
     };
 
     return Ember.Handlebars.helpers.view.call(this, LinkView, options);
@@ -22680,6 +23069,11 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
 
 (function() {
+/**
+@module ember
+@submodule ember-routing
+*/
+
 var get = Ember.get, set = Ember.set;
 Ember.onLoad('Ember.Handlebars', function(Handlebars) {
   /**
@@ -22791,6 +23185,11 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
 
 (function() {
+/**
+@module ember
+@submodule ember-routing
+*/
+
 var get = Ember.get, set = Ember.set;
 Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
@@ -22807,6 +23206,7 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
       context = Ember.Handlebars.get(options.contexts[1], context, options);
     }
 
+    name = name.replace(/\//g, '.');
     container = options.data.keywords.controller.container;
     router = container.lookup('router:main');
 
@@ -22824,7 +23224,9 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
       controller.set('model', context);
     }
 
-    options.hash.viewName = name;
+    controller.set('target', options.data.keywords.controller);
+
+    options.hash.viewName = Ember.String.camelize(name);
     options.hash.template = container.lookup('template:' + name);
     options.hash.controller = controller;
 
@@ -22842,9 +23244,13 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
 
 (function() {
+/**
+@module ember
+@submodule ember-routing
+*/
 Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
-  var resolvePaths = Ember.Handlebars.resolvePaths,
+  var resolveParams = Ember.Handlebars.resolveParams,
       isSimpleClick = Ember.ViewUtils.isSimpleClick;
 
   var EmberHandlebars = Ember.Handlebars,
@@ -22856,7 +23262,11 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
   function args(options, actionName) {
     var ret = [];
     if (actionName) { ret.push(actionName); }
-    return ret.concat(resolvePaths(options.parameters));
+
+    var types = options.options.types.slice(1),
+        data = options.options.data;
+
+    return ret.concat(resolveParams(options.context, options.params, { types: types, data: data }));
   }
 
   var ActionHelper = EmberHandlebars.ActionHelper = {
@@ -22881,10 +23291,10 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
             target = options.target;
 
         if (target.send) {
-          return target.send.apply(target, args(options, actionName));
+          return target.send.apply(target, args(options.parameters, actionName));
         } else {
           Ember.assert("The action '" + actionName + "' did not exist on " + target, typeof target[actionName] === 'function');
-          return target[actionName].apply(target, args(options));
+          return target[actionName].apply(target, args(options.parameters));
         }
       }
     };
@@ -23082,9 +23492,9 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
     };
 
     action.parameters = {
-      data: options.data,
-      contexts: contexts,
-      roots: options.contexts
+      context: this,
+      options: options,
+      params: contexts
     };
 
     action.view = view = get(view, 'concreteView');
@@ -23115,7 +23525,28 @@ Ember.onLoad('Ember.Handlebars', function(Handlebars) {
 
 
 (function() {
+/**
+@module ember
+@submodule ember-routing
+*/
+
 var get = Ember.get, set = Ember.set;
+var ControllersProxy = Ember.Object.extend({
+  controller: null,
+
+  unknownProperty: function(controllerName) {
+    var controller = get(this, 'controller'),
+      needs = get(controller, 'needs'),
+      dependency;
+
+    for (var i=0, l=needs.length; i<l; i++) {
+      dependency = needs[i];
+      if (dependency === controllerName) {
+        return controller.controllerFor(controllerName);
+      }
+    }
+  }
+});
 
 Ember.ControllerMixin.reopen({
   concatenatedProperties: ['needs'],
@@ -23130,10 +23561,26 @@ Ember.ControllerMixin.reopen({
     }
   },
 
-  transitionTo: function() {
-    var router = get(this, 'target');
+  transitionToRoute: function() {
+    var target = get(this, 'target');
 
-    return router.transitionTo.apply(router, arguments);
+    return target.transitionTo.apply(target, arguments);
+  },
+
+  // TODO: Deprecate this, see https://github.com/emberjs/ember.js/issues/1785
+  transitionTo: function() {
+    return this.transitionToRoute.apply(this, arguments);
+  },
+
+  replaceRoute: function() {
+    var target = get(this, 'target');
+
+    return target.replaceWith.apply(target, arguments);
+  },
+
+  // TODO: Deprecate this, see https://github.com/emberjs/ember.js/issues/1785
+  replaceWith: function() {
+    return this.replaceRoute.apply(this, arguments);
   },
 
   controllerFor: function(controllerName) {
@@ -23147,7 +23594,11 @@ Ember.ControllerMixin.reopen({
     } else {
       return get(this, 'content');
     }
-  }).property('content')
+  }).property('content'),
+
+  controllers: Ember.computed(function() {
+    return ControllersProxy.create({ controller: this });
+  })
 });
 
 function verifyDependencies(controller) {
@@ -23163,7 +23614,7 @@ function verifyDependencies(controller) {
 
     if (!container.has(dependency)) {
       satisfied = false;
-      Ember.assert(this + " needs " + dependency + " but it does not exist", false);
+      Ember.assert(controller + " needs " + dependency + " but it does not exist", false);
     }
   }
 
@@ -23175,6 +23626,11 @@ function verifyDependencies(controller) {
 
 
 (function() {
+/**
+@module ember
+@submodule ember-routing
+*/
+
 var get = Ember.get, set = Ember.set;
 
 Ember.View.reopen({
@@ -23216,7 +23672,7 @@ Ember.View.reopen({
 (function() {
 /**
 @module ember
-@submodule ember-old-router
+@submodule ember-routing
 */
 
 var get = Ember.get, set = Ember.set;
@@ -23228,10 +23684,11 @@ var get = Ember.get, set = Ember.set;
 
   getURL: returns the current URL
   setURL(path): sets the current URL
+  replaceURL(path): replace the current URL (optional)
   onUpdateURL(callback): triggers the callback when the URL changes
   formatURL(url): formats `url` to be placed into `href` attribute
 
-  Calling setURL will not trigger onUpdateURL callbacks.
+  Calling setURL or replaceURL will not trigger onUpdateURL callbacks.
 
   TODO: This should perhaps be moved so that it's visible in the doc output.
 */
@@ -23272,7 +23729,7 @@ Ember.Location = {
 (function() {
 /**
 @module ember
-@submodule ember-old-router
+@submodule ember-routing
 */
 
 var get = Ember.get, set = Ember.set;
@@ -23319,7 +23776,7 @@ Ember.Location.registerImplementation('none', Ember.NoneLocation);
 (function() {
 /**
 @module ember
-@submodule ember-old-router
+@submodule ember-routing
 */
 
 var get = Ember.get, set = Ember.set;
@@ -23421,7 +23878,7 @@ Ember.Location.registerImplementation('hash', Ember.HashLocation);
 (function() {
 /**
 @module ember
-@submodule ember-old-router
+@submodule ember-routing
 */
 
 var get = Ember.get, set = Ember.set;
@@ -23487,6 +23944,24 @@ Ember.HistoryLocation = Ember.Object.extend({
     if (this.getState() && this.getState().path !== path) {
       popstateReady = true;
       this.pushState(path);
+    }
+  },
+
+  /**
+    @private
+
+    Uses `history.replaceState` to update the url without a page reload
+    or history modification.
+
+    @method replaceURL
+    @param path {String}
+  */
+  replaceURL: function(path) {
+    path = this.formatURL(path);
+
+    if (this.getState() && this.getState().path !== path) {
+      popstateReady = true;
+      this.replaceState(path);
     }
   },
 
@@ -23583,6 +24058,14 @@ Ember.Location.registerImplementation('history', Ember.HistoryLocation);
 
 
 (function() {
+/**
+Ember Routing
+
+@module ember
+@submodule ember-routing
+@requires ember-states
+@requires ember-views
+*/
 
 })();
 
@@ -25621,8 +26104,8 @@ Ember States
 
 
 })();
-// Version: v1.0.0-pre.2-371-g2426cb9
-// Last commit: 2426cb9 (2013-01-11 16:43:52 -0800)
+// Version: v1.0.0-pre.4-7-gb2e82ae
+// Last commit: b2e82ae (2013-01-18 18:20:45 -0800)
 
 
 (function() {
