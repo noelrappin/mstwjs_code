@@ -5,4 +5,4 @@ TimeTravel.IndexController = Ember.ArrayController.extend({
   selectTrip: function(trip) {
     this.set('selectedTrip', trip)
   }
-})
+});
