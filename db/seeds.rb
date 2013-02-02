@@ -13,14 +13,14 @@ mayflower = Trip.create!(
     :activity => "Cruising",
     :image_name => "mayflower.jpg",
     :description => "You'll take a scenic 66 day, 67 night cruise from England to Cape Cod. Come for the scurvy, stay for the starvation",
-    :orders => 19
+    :orders => 19,
     :price => 1204)
 
 Hotel.create!(
   :trip => mayflower,
   :name => "Deluxe Suite",
   :description => "A luxury suite. On the Mayflower. Really.",
-  :nights_ordered => 10
+  :nights_ordered => 10,
   :price => 500)
 
 Hotel.create!(
