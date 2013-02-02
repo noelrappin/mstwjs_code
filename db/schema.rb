@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121020145415) do
+ActiveRecord::Schema.define(:version => 20130201054122) do
 
   create_table "extras", :force => true do |t|
     t.integer  "trip_id"
@@ -20,6 +20,7 @@ ActiveRecord::Schema.define(:version => 20121020145415) do
     t.float    "price"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "orders"
   end
 
   add_index "extras", ["trip_id"], :name => "index_extras_on_trip_id"
@@ -36,8 +37,9 @@ ActiveRecord::Schema.define(:version => 20121020145415) do
     t.string   "name"
     t.text     "description"
     t.float    "price"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+    t.integer  "nights_ordered"
   end
 
   add_index "hotels", ["trip_id"], :name => "index_hotels_on_trip_id"
@@ -80,6 +82,7 @@ ActiveRecord::Schema.define(:version => 20121020145415) do
     t.string   "activity"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
+    t.integer  "orders"
   end
 
   create_table "user_preferences", :force => true do |t|
