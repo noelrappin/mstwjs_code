@@ -9,6 +9,9 @@ TimeTravel.Trip = DS.Model.extend({
   price: DS.attr('number'),
   location: DS.attr('string'),
   activity: DS.attr('string'),
+  orders: DS.attr('number'),
+  hotels: DS.hasMany('TimeTravel.Hotel'),
+  extras: DS.hasMany('TimeTravel.Extra'),
 
   //##moment
   startMoment: function() {
@@ -17,6 +20,27 @@ TimeTravel.Trip = DS.Model.extend({
 
   endMoment: function() {
     return moment(this.get('endDate'))
-  }.property("endDate")
+  }.property("endDate"),
   //##moment
+
+  revenue: function() {
+    return this.get('orders') * this.get('price');
+  }.property("orders", "price"),
+
+  totalHotelRevenue: function() {
+    return this.get('hotels').reduce(function(previousValue, item) {
+      return previousValue + item.get('revenue');
+    }, 0);
+  }.property("hotels.@each.revenue"),
+
+  totalExtraRevenue: function() {
+    return this.get('extras').reduce(function(previousValue, item) {
+      return previousValue + item.get('revenue');
+    }, 0);
+  }.property("extras.@each.revenue"),
+
+  totalRevenue: function() {
+    return this.get('revenue') +
+        this.get('totalHotelRevenue') + this.get('totalExtraRevenue');
+  }.property('revenue', 'totalHotelRevenue', 'totalExtraRevenue')
 });

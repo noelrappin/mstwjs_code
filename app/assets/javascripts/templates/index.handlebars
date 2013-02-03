@@ -1,7 +1,10 @@
 <div class="admin_trips span-12">
   {{#each trip in controller}}
     <div class="trip">
-      <div class="header" {{action selectTrip trip}}>{{trip.name}}</div>
+      <div class="header" {{action selectTrip trip}}>
+        {{trip.name}}
+        {{trip.totalRevenueDisplay}}
+      </div>
       <div class="dates">{{trip.startDateDisplay}} - {{trip.endDateDisplay}}</div>
       <div class="price">{{trip.priceDisplay}}</div>
     </div>
@@ -11,6 +14,23 @@
   <h2>Details</h2>
   {{#if selectedTrip}}
     <h3>{{selectedTrip.name}}</h3>
+    <h3>Hotels</h3>
+    <table>
+      {{#each hotel in selectedTrip.hotels}}
+        <tr>
+          <th>{{hotel.name}}</th>
+          <td>{{hotel.nightsOrdered}}</td>
+          <td>${{hotel.price}}</td>
+          <td>${{hotel.revenue}}</td>
+        </tr>
+      {{/each}}
+      <tr>
+        <td>Total</td>
+        <td>{{selectedTrip.totalHotelNights}}</td>
+        <td></td>
+        <td>{{selectedTrip.totalHotelRevenue}}</td>
+      </tr>
+    </table>
   {{/if}}
 </div>
 

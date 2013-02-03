@@ -40,6 +40,7 @@ group :development do
   gem 'annotate'
   gem "binding_of_caller"
   gem "better_errors"
+  gem "guard-jasmine"
 end
 
 group :test, :development do
