@@ -10,8 +10,10 @@ TimeTravel.Trip = DS.Model.extend({
   location: DS.attr('string'),
   activity: DS.attr('string'),
   orders: DS.attr('number'),
+  //##hasMany
   hotels: DS.hasMany('TimeTravel.Hotel'),
   extras: DS.hasMany('TimeTravel.Extra'),
+  //##hasMany
 
   //##moment
   startMoment: function() {
