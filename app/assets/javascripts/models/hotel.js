@@ -7,7 +7,9 @@ TimeTravel.Hotel = DS.Model.extend({
   trip: DS.belongsTo("TimeTravel.Trip"),
 //##start
 
+//##revenue
   revenue: function() {
     return this.get('nightsOrdered') * this.get('price');
   }.property("nightsOrdered", "price")
 });
+//##revenue
