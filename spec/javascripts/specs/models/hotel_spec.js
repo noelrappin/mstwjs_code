@@ -12,5 +12,4 @@ describe("Hotels", function() {
       });
     });
   });
-
 });
