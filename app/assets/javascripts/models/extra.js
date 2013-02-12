@@ -7,7 +7,7 @@ TimeTravel.Extra = DS.Model.extend({
   trip: DS.belongsTo("TimeTravel.Trip"),
 //##start
 
-//##
+//##revenue
   revenue: function() {
     return this.get('orders') * this.get('price');
   }.property("orders", "price")
