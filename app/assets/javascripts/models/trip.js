@@ -25,6 +25,7 @@ TimeTravel.Trip = DS.Model.extend({
   }.property("endDate"),
   //##moment
 
+  //##revenue
   revenue: function() {
     return this.get('orders') * this.get('price');
   }.property("orders", "price"),
@@ -45,4 +46,5 @@ TimeTravel.Trip = DS.Model.extend({
     return this.get('revenue') +
         this.get('totalHotelRevenue') + this.get('totalExtraRevenue');
   }.property('revenue', 'totalHotelRevenue', 'totalExtraRevenue')
+  //##revenue
 });

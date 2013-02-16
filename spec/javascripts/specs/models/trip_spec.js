@@ -12,24 +12,24 @@ describe("Trips", function() {
       });
     });
 
-    it("calculates total revnue for all hotels", function() {
+    it("calculates total revenue for all hotels", function() {
       Ember.run(function() {
         trip = TimeTravel.Trip.createRecord({price: 100, orders: 3});
         trip.get('hotels').pushObject(
-            TimeTravel.Hotel.createRecord({price: 100, nightsOrdered: 5}));
+            TimeTravel.Hotel.createRecord({revenue: 500}));
         trip.get('hotels').pushObject(
-            TimeTravel.Hotel.createRecord({price: 200, nightsOrdered: 3}));
+            TimeTravel.Hotel.createRecord({revenue: 600}));
         expect(trip.get("totalHotelRevenue")).toEqual(1100);
       })
     });
 
-    it("calculates total revnue for all extras", function() {
+    it("calculates total revenue for all extras", function() {
       Ember.run(function() {
         trip = TimeTravel.Trip.createRecord({price: 100, orders: 3});
         trip.get('extras').pushObject(
-            TimeTravel.Extra.createRecord({price: 100, orders: 5}));
+            TimeTravel.Extra.createRecord({revenue: 500}));
         trip.get('extras').pushObject(
-            TimeTravel.Extra.createRecord({price: 200, orders: 3}));
+            TimeTravel.Extra.createRecord({revenue: 600}));
         expect(trip.get("totalExtraRevenue")).toEqual(1100);
       });
     });
