@@ -31,14 +31,14 @@ TimeTravel.Trip = DS.Model.extend({
   }.property("orders", "price"),
 
   totalHotelRevenue: function() {
-    return this.get('hotels').reduce(function(previousValue, item) {
-      return previousValue + item.get('revenue');
+    return this.get('hotels').reduce(function(runningTotal, item) {
+      return runningTotal + item.get('revenue');
     }, 0);
   }.property("hotels.@each.revenue"),
 
   totalExtraRevenue: function() {
-    return this.get('extras').reduce(function(previousValue, item) {
-      return previousValue + item.get('revenue');
+    return this.get('extras').reduce(function(runningTotal, item) {
+      return runningTotal + item.get('revenue');
     }, 0);
   }.property("extras.@each.revenue"),
 
