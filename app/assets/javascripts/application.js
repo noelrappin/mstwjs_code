@@ -8,6 +8,5 @@
 //= require_self
 //= require_tree .
 
-EmberTimeTravel = Ember.Application.create();
 
 

@@ -20,7 +20,6 @@ TimeTravel::Application.routes.draw do
   end
   resources :users
 
-  root :to => 'home#index'
   match "trips/detail/:id" => 'home#index'
   match "admin" => 'admin#index'
 

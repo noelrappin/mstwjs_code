@@ -24,5 +24,4 @@ TimeTravel::Application.configure do
 
   config.assets.compress = true
   config.assets.debug = true
-  config.ember.variant = :development
 end
