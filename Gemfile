@@ -21,6 +21,7 @@ gem 'rails-backbone'
 gem 'hogan_assets'
 gem 'momentjs-rails'
 gem 'active_model_serializers'
+gem 'ember-rails', git: 'git://github.com/emberjs/ember-rails.git'
 
 #gem 'sprockets_spacely'
 
