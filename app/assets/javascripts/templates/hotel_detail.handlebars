@@ -1,0 +1,16 @@
+<tr>
+  <th>{{hotel.name}}</th>
+  <td>
+    <span {{bindAttr class="editing:hidden:normal"}}
+          {{action startEditing}}>
+      {{hotel.nightsOrdered}}
+    </span>
+    <span {{bindAttr class="editing:normal:hidden"}}>
+      {{view Ember.TextField valueBinding="nightsOrderedInput"
+          size="4"
+          action="endEditing"}}
+    </span>
+  </td>
+  <td>${{hotel.price}}</td>
+  <td>${{hotel.revenue}}</td>
+</tr>

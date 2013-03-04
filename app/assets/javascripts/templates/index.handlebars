@@ -13,24 +13,7 @@
 <div class="detail_view span-12">
   <h2>Details</h2>
   {{#if selectedTrip}}
-    <h3>{{selectedTrip.name}}</h3>
-    <h3>Hotels</h3>
-    <table>
-      {{#each hotel in selectedTrip.hotels}}
-        <tr>
-          <th>{{hotel.name}}</th>
-          <td>{{hotel.nightsOrdered}}</td>
-          <td>${{hotel.price}}</td>
-          <td>${{hotel.revenue}}</td>
-        </tr>
-      {{/each}}
-      <tr>
-        <td>Total</td>
-        <td>{{selectedTrip.totalHotelNights}}</td>
-        <td></td>
-        <td>{{selectedTrip.totalHotelRevenue}}</td>
-      </tr>
-    </table>
+    {{template "details"}}
   {{/if}}
 </div>
 

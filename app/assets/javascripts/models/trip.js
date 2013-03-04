@@ -45,6 +45,18 @@ TimeTravel.Trip = DS.Model.extend({
   totalRevenue: function() {
     return this.get('revenue') +
         this.get('totalHotelRevenue') + this.get('totalExtraRevenue');
-  }.property('revenue', 'totalHotelRevenue', 'totalExtraRevenue')
+  }.property('revenue', 'totalHotelRevenue', 'totalExtraRevenue'),
   //##revenue
+
+  totalHotelNights: function() {
+    return this.get('hotels').reduce(function(runningTotal, item) {
+      return runningTotal + item.get('nightsOrdered');
+    }, 0);
+  }.property("hotels.@each.nightsOrdered"),
+
+  totalExtrasOrdered: function() {
+    return this.get('extras').reduce(function(runningTotal, item) {
+      return runningTotal + item.get('orders');
+    }, 0);
+  }.property("extras.@each.orders")
 });

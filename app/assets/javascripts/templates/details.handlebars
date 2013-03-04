@@ -1,0 +1,25 @@
+<h3 class="selected_name">{{selectedTrip.name}}</h3>
+<h3>Hotels</h3>
+<table>
+  {{#each hotel in selectedTrip.hotels itemController="hotel"}}
+    {{template "hotel_detail"}}
+  {{/each}}
+  <tr>
+    <td>Total</td>
+    <td>{{selectedTrip.totalHotelNights}}</td>
+    <td></td>
+    <td>{{selectedTrip.totalHotelRevenue}}</td>
+  </tr>
+</table>
+<h3>Extras</h3>
+<table>
+  {{#each extra in selectedTrip.extras}}
+    {{template "extra_detail"}}
+  {{/each}}
+  <tr>
+    <td>Total</td>
+    <td>{{selectedTrip.totalExtrasOrdered}}</td>
+    <td></td>
+    <td>{{selectedTrip.totalExtraRevenue}}</td>
+  </tr>
+</table>
