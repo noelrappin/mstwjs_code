@@ -8,9 +8,9 @@
 #= require_self
 #= require_tree .
 
-TimeTravel = Ember.Application.create()
+@TimeTravel = Ember.Application.create()
 
 TimeTravel.Store = DS.Store.extend
   revision: 11
-  adapter: DS.RESTAdapter.create
+  adapter: DS.RESTAdapter.create()
 
