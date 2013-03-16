@@ -1,3 +1,4 @@
+# encoding: UTF-8
 # This file is auto-generated from the current state of the database. Instead
 # of editing this file, please use the migrations feature of Active Record to
 # incrementally modify your database, and then regenerate this schema definition.
@@ -15,8 +16,8 @@ ActiveRecord::Schema.define(:version => 20110604185455) do
   create_table "friends", :force => true do |t|
     t.integer  "request_sender_id"
     t.integer  "request_receiver_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",          :null => false
+    t.datetime "updated_at",          :null => false
   end
 
   create_table "purchases", :force => true do |t|
@@ -26,8 +27,8 @@ ActiveRecord::Schema.define(:version => 20110604185455) do
     t.date     "purchase_date"
     t.date     "real_travel_date"
     t.float    "amount"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
   end
 
   add_index "purchases", ["trip_id"], :name => "index_purchases_on_trip_id"
@@ -38,8 +39,8 @@ ActiveRecord::Schema.define(:version => 20110604185455) do
     t.string   "kind"
     t.string   "slug"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "trip_features", ["trip_id"], :name => "index_trip_features_on_trip_id"
@@ -55,8 +56,8 @@ ActiveRecord::Schema.define(:version => 20110604185455) do
     t.float    "price"
     t.string   "location"
     t.string   "activity"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   create_table "user_preferences", :force => true do |t|
@@ -64,8 +65,8 @@ ActiveRecord::Schema.define(:version => 20110604185455) do
     t.string   "kind"
     t.string   "name"
     t.text     "description"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
   add_index "user_preferences", ["user_id"], :name => "index_user_preferences_on_user_id"
@@ -81,8 +82,8 @@ ActiveRecord::Schema.define(:version => 20110604185455) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                            :null => false
+    t.datetime "updated_at",                                            :null => false
     t.string   "first_name"
     t.string   "last_name"
   end
