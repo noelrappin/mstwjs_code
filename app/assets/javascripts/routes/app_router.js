@@ -4,4 +4,5 @@ TimeTravel.Router.reopen({
 
 TimeTravel.Router.map(function(match) {
   this.route("index", {path: "/"});
+  this.route("users", {path: "/users"});
 });
