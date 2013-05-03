@@ -11,6 +11,6 @@
 TimeTravel = Ember.Application.create();
 
 TimeTravel.Store = DS.Store.extend({
-  revision: 11,
+  revision: 12,
   adapter: DS.RESTAdapter.create()
 });
