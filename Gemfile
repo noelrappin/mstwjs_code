@@ -48,7 +48,7 @@ end
 
 group :test, :development do
   gem 'jasmine'
-  gem 'jasminerice'
+  gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git'
   gem 'rspec-rails'
 end
 
