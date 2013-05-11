@@ -2,7 +2,7 @@
   {{#each trip in controller}}
     <div class="trip">
       <div class="header" {{action selectTrip trip}}>
-        {{trip.name}}
+        <span class="name">{{trip.name}}</span>
         {{trip.totalRevenueDisplay}}
       </div>
       <div class="dates">{{trip.startDateDisplay}} - {{trip.endDateDisplay}}</div>

@@ -17,24 +17,25 @@ function setUpController(controller_class, content, templateName) {
 //##before
 describe("with an index controller", function() {
 
-  beforeEach(function() {
-    Ember.testing = true;
-    TimeTravel.reset();
-    Ember.run(function() {
-      trip = TimeTravel.Trip.createRecord(
-          {name: "Mayflower", startDate: "1620-09-06", endDate: "1620-11-21"});
-      testData = setUpController(TimeTravel.IndexController, [trip], 'index');
+  describe("basic stuff", function() {
+    beforeEach(function() {
+      Ember.testing = true;
+      TimeTravel.reset();
+      Ember.run(function() {
+        trip = TimeTravel.Trip.createRecord(
+            {name: "Mayflower", startDate: "1620-09-06", endDate: "1620-11-21"});
+        testData = setUpController(TimeTravel.IndexController, [trip], 'index');
+      });
     });
-  });
 
-  afterEach(function() {
-    Ember.run(function() { testData.view.remove() });
-    Ember.testing = false;
-  });
+    afterEach(function() {
+      Ember.run(function() { testData.view.remove() });
+      Ember.testing = false;
+    });
 //##before
 
 //##test
-  describe("basic stuff", function() {
+
     it("displays trips", function() {
       Ember.run(function() {
         expect($(".trip").length).toEqual(1);
@@ -48,8 +49,32 @@ describe("with an index controller", function() {
       });
       expect($(".selected_name").text()).toEqual("Mayflower");
     });
+  });
+//##test
+
+//##sort
+  describe("sorted list", function() {
+    beforeEach(function() {
+      Ember.testing = true;
+      TimeTravel.reset();
+      Ember.run(function() {
+        low = TimeTravel.Trip.createRecord({name: "Low", totalRevenue: 100});
+        high = TimeTravel.Trip.createRecord({name: "High", totalRevenue: 500});
+        testData = setUpController(TimeTravel.IndexController, [low, high], 'index');
+      });
+    });
+
+    afterEach(function() {
+      Ember.run(function() { testData.view.remove() });
+      Ember.testing = false;
+    });
+
+    it("displays the trips sorted by revenue", function() {
+      names = $(".trip .name").map(function() { return $(this).text(); });
+      expect(names.toArray()).toEqual(["High", "Low"])
+    });
 
   });
-
+//##sort
 });
-//##test
+
