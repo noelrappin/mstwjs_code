@@ -1,7 +1,7 @@
 <%= content_for :javascript do -%>
   <%= javascript_tag do %>
     $(function() {
-      TimeTravel.init(<%== @trips.to_json %>);
+      TimeTravel.init(<%= @trips.to_json %>);
     });
   <% end %>
 <% end -%>
