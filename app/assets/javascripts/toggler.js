@@ -37,5 +37,5 @@ var Toggler = (function() {
 $(function() {
   var toggler = new Toggler();
   toggler.init();
-});
+})();
 
