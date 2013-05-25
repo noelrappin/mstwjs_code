@@ -128,7 +128,7 @@ describe("Autocomplete widget", function() {
       addbutton = $("#autodiv a#user_activity_ids_add_button");
       inputElement.val('Beta');
       addbutton.click();
-      ul = $("#autodiv #user_activity_ids_list");
+      this.ul = $("#autodiv #user_activity_ids_list");
       deleteButton = ul.find("#user_activity_ids_element_2 .delete-button");
       deleteButton.click();
     });
