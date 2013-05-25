@@ -1,6 +1,6 @@
 function init() {
   var $toggle_links = $(".detail_toggle");
-  $toggle_links.click(function() {
+  $toggle_links.click(function(event) {
     var $detail = $(this).siblings(".detail");
     if($detail.hasClass("hidden")) {
       $(this).text("Hide Details");
