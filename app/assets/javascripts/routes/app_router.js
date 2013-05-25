@@ -1,6 +1,6 @@
 TimeTravel.Router.reopen({
   location: "history"
-})
+});
 
 //##jasmine
 TimeTravel.Router.map(function() {
