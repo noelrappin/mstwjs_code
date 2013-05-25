@@ -3,7 +3,7 @@ TimeTravel.Router.reopen({
 })
 
 //##jasmine
-TimeTravel.Router.map(function(match) {
+TimeTravel.Router.map(function() {
   this.route("index", {path: "/"});
   this.route("jasmine", {path: "/jasmine"});
 });
