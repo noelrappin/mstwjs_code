@@ -2,6 +2,6 @@ TimeTravel.Router.reopen({
   location: "history"
 })
 
-TimeTravel.Router.map(function(match) {
+TimeTravel.Router.map(function() {
   this.route("index", {path: "/"});
 });
