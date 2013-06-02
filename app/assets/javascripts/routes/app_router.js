@@ -3,6 +3,7 @@ TimeTravel.Router.reopen({
 });
 
 TimeTravel.Router.map(function() {
-  this.route("index", {path: "/"});
-  this.route("users", {path: "/users"});
+  this.resource("trips", {path: "/trips"}, function() {
+    this.resource("trip", {path: ":trip_id"})
+  });
 });

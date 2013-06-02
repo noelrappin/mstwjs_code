@@ -20,7 +20,7 @@ gem 'jquery-rails'
 gem 'rails-backbone'
 gem 'hogan_assets'
 gem 'momentjs-rails'
-gem 'ember-rails', git: "git://github.com/emberjs/ember-rails.git"
+gem 'ember-rails', :git =>  "git://github.com/emberjs/ember-rails.git"
 gem 'active_model_serializers'
 
 #gem 'sprockets_spacely'

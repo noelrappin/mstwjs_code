@@ -4,8 +4,13 @@ class TripsController < ApplicationController
   ##index
   def index
     @trips = Trip.all
-    render json: @trips
+    respond_to do |format|
+      format.html { render text: "", layout: "home" }
+      format.json { render json: @trips }
+    end
+
   end
+
   ##index
 
   # GET /trips/1
@@ -26,7 +31,7 @@ class TripsController < ApplicationController
     respond_to do |format|
       format.html # show.html.erb
       format.json { render json:
-        {values: VALUES, id: @trip.id}}
+          {values: VALUES, id: @trip.id} }
     end
   end
 
