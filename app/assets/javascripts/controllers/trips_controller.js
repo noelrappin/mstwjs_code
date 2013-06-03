@@ -1,5 +1,8 @@
-TimeTravel.TripsController = Ember.ArrayController.extend({
+TimeTravel.IndexController = Ember.ArrayController.extend({
   itemController: "indexTrip",
+  selectedTrip: false,
+  sortProperties: ['totalRevenue'],
+  sortAscending: false,
 
   overallRevenue: function() {
     return this.get('content').reduce(function(runningTotal, item) {
