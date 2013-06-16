@@ -1,7 +1,6 @@
 TimeTravel::Application.routes.draw do
   devise_for :users
   resources :friends
-  resources :hotels
   resources :extras
 
   resources :trip_features
@@ -17,6 +16,7 @@ TimeTravel::Application.routes.draw do
       get 'rating'
       post 'update_rating'
     end
+    resources :hotels
   end
   resources :users
 
