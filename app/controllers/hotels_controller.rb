@@ -10,4 +10,12 @@ class HotelsController < ApplicationController
     end
   end
 
+  def show
+    @hotel = Hotel.find(params[:id])
+    respond_to do |format|
+      format.html { render text: "", layout: "home" }
+      format.json { render json: @hotel }
+    end
+  end
+
 end

@@ -10,12 +10,9 @@ TimeTravel::Application.routes.draw do
   resources :purchases
 
   resources :orders
+  resources :hotels
 
   resources :trips do
-    member do
-      get 'rating'
-      post 'update_rating'
-    end
     resources :hotels
   end
   resources :users
