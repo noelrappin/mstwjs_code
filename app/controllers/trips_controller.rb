@@ -19,7 +19,7 @@ class TripsController < ApplicationController
     @trip = Trip.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html { render text: "", layout: "home" }
       format.json { render json: @trip }
     end
   end

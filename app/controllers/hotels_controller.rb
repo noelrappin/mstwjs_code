@@ -4,7 +4,10 @@ class HotelsController < ApplicationController
 
   def index
     @hotels = Hotel.where(:id => params[:ids]).all
-    render :json => @hotels
+    respond_to do |format|
+      format.html { render text: "", layout: "home" }
+      format.json { render json: @hotels }
+    end
   end
 
 end

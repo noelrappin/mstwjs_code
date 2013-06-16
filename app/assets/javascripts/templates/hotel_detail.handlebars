@@ -1,5 +1,9 @@
 <tr>
-  <th>{{hotel.name}}</th>
+  <th>
+    {{#linkTo "hotel" hotel}}
+      {{hotel.name}}
+    {{/linkTo}}
+  </th>
   <td>
     <span {{bindAttr class="editing:hidden:normal"}}
           {{action startEditing}}>
@@ -14,3 +18,4 @@
   <td>${{hotel.price}}</td>
   <td>${{hotel.revenue}}</td>
 </tr>
+{{outlet}}
