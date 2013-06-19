@@ -1,6 +1,9 @@
+//##needs
 TimeTravel.HotelController = Ember.ObjectController.extend({
   editing: false,
-
+  needs: "trip",
+  tripBinding: "controllers.trip",
+//##needs
   init: function() {
     this._super();
   },
