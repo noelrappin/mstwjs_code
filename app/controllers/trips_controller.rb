@@ -5,7 +5,7 @@ class TripsController < ApplicationController
     @trips = Trip.all
     respond_to do |format|
       format.html # index.html.erb
-      format.json { render json: @trips }
+      format.json { render json: {trips: @trips} }
     end
   end
 
