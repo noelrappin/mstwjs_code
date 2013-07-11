@@ -1,5 +1,6 @@
 <div class="admin_trips span-12">
   {{#each trip in controller}}
+    {{log trip}}
     <div class="trip">
       <div class="header">{{trip.name}}</div>
       <div class="dates">{{trip.startDate}} - {{trip.endDate}}</div>

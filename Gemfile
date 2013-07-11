@@ -1,6 +1,6 @@
 source 'http://rubygems.org'
 
-gem 'rails'
+gem 'rails', "~> 3.2.12"
 gem 'devise'
 
 # Bundle edge Rails instead:
@@ -21,9 +21,9 @@ gem 'rails-backbone'
 gem 'hogan_assets'
 gem 'momentjs-rails'
 gem 'ember-rails', :git => "git://github.com/emberjs/ember-rails.git"
-gem "ember-source", "~> 1.0.0.rc3"
-#gem "ember-data-source"
-gem 'handlebars-source', '1.0.0.rc3'
+gem "ember-source", "~> 1.0.0.rc6"
+#gem "ember-data-source", "0.13"
+gem 'handlebars-source'
 gem 'active_model_serializers'
 
 #gem 'sprockets_spacely'
