@@ -47,8 +47,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'jasmine'
-  gem 'jasminerice'
+  gem 'qunit-rails'
   gem 'rspec-rails'
 end
 
