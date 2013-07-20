@@ -19,6 +19,7 @@ test("it displays trips", function() {
   visit("/").then(function() {
     ok(exists(".admin_trips"));
     equal($(".trip").length, 1);
+    equal($(".trip .dates").text(), "Sep 6, 1620 - Nov 21, 1620")
   });
 });
 
