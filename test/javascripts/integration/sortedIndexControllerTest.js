@@ -1,10 +1,5 @@
 module("Sorted Index Controller", {
   setup: function() {
-    TimeTravel.Trip.FIXTURES = [
-      { id: 1, name: "Mayflower", totalRevenue: 100,
-        startDate: "1620-09-06", endDate: "1620-11-21" },
-      { id: 2, name: "Shakespeare", totalRevenue: 500,
-        startDate: "1600-09-06", endDate: "1600-09-07" } ];
     Ember.run(TimeTravel, TimeTravel.advanceReadiness);
   },
   teardown: function() {
@@ -17,6 +12,7 @@ test("displays the trips sorted by revenue", function() {
     names = $(".trip .name").map(function() {
       return $(this).text();
     });
-    equal(names.toArray(), ["High", "Low"]);
+    equal(names.toArray()[0], "High");
+    equal(names.toArray()[1], "Low");
   });
 });
