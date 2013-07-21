@@ -23,13 +23,13 @@ test("it displays trips", function() {
   });
 });
 
+//##click
 test("it manages clicks", function() {
-  visit("/").then(function() {
-    return click(".trip .header");
-  }).then(function() {
+  visit("/").click(".trip .header").then(function() {
     equal($(".selected_name").text(), "Mayflower");
   });
 });
+//##click
 
 ////##setup
 //function setUpController(controller_class, content, templateName) {
