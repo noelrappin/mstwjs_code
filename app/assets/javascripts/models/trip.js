@@ -12,11 +12,11 @@ TimeTravel.Trip = DS.Model.extend({
 
   //##moment
   startMoment: function() {
-    return moment(this.get('startDate'))
-  }.property("startDate"),
+    return moment(this.get('start_date'))
+  }.property("start_date"),
 
   endMoment: function() {
-    return moment(this.get('endDate'))
-  }.property("endDate")
+    return moment(this.get('end_date'))
+  }.property("end_date")
   //##moment
 });
