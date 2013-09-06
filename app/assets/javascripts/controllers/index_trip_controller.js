@@ -8,4 +8,8 @@ TimeTravel.IndexTripController = Ember.ObjectController.extend({
     return this.get('endMoment').format("MMM D, YYYY");
   }.property('endMoment'),
 
+  priceDisplay: function() {
+    return "$" + this.get('price')
+  }.property('price')
+
 });
