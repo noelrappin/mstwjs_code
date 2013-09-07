@@ -9,7 +9,7 @@ module("Extras", {
 });
 
 test("price calculation", function () {
-  Ember.run(TimeTravel, function() {
+  Ember.run(function() {
     extra = store.createRecord('extra', {price: "100", orders: "3"});
   });
   equal(extra.get("revenue"), 300);

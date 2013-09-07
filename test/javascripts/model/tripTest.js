@@ -1,7 +1,7 @@
 module("Trips", {
   setup: function() {
     store = TimeTravel.__container__.lookup('store:main');
-    Ember.run(TimeTravel, function() {
+    Ember.run(function() {
       trip = store.createRecord('trip', {price: 100, orders: 3});
     });
   },
@@ -16,7 +16,7 @@ test("calculate the total revenue", function() {
 });
 
 test("calculate total revenue for all hotels", function() {
-  Ember.run(TimeTravel, function() {
+  Ember.run(function() {
     trip.get('hotels').pushObject(
         store.createRecord('hotel', {revenue: 500}));
     trip.get('hotels').pushObject(
@@ -26,7 +26,7 @@ test("calculate total revenue for all hotels", function() {
 });
 
 test("calculate total revenue for all extras", function() {
-  Ember.run(TimeTravel, function() {
+  Ember.run(function() {
     trip.get('extras').pushObject(
         store.createRecord('extra', {revenue: 500}));
     trip.get('extras').pushObject(
