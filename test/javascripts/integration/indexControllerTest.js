@@ -1,5 +1,9 @@
 module("Index Controller", {
   setup: function() {
+    TimeTravel.Trip.FIXTURES = [
+      { id: 1, name: "Mayflower", description: "DESC",
+        start_date: "1620-09-06", end_date: "1620-11-21" }
+    ];
     Ember.run(TimeTravel, TimeTravel.advanceReadiness);
   },
   teardown: function() {
