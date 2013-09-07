@@ -1,6 +1,16 @@
-module("Hotels");
+module("Hotels", {
+  setup: function() {
+    store = TimeTravel.__container__.lookup('store:main');
+  },
 
-test("price calculation", function () {
-  hotel = TimeTravel.Hotel.createRecord({price: "100", nightsOrdered: "3"});
+  teardown: function() {
+    store = null;
+  }
+});
+
+test("price calculation", function() {
+  Ember.run(TimeTravel, function() {
+    hotel = store.createRecord('hotel', {price: "100", nightsOrdered: "3"})
+  });
   equal(hotel.get("revenue"), 300);
 });
