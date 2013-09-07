@@ -10,7 +10,7 @@ module("Hotels", {
 
 test("price calculation", function() {
   Ember.run(function() {
-    hotel = store.createRecord('hotel', {price: "100", nightsOrdered: "3"})
+    hotel = store.createRecord('hotel', {price: "100", nights_ordered: "3"})
   });
   equal(hotel.get("revenue"), 300);
 });

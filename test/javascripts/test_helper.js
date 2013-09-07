@@ -18,6 +18,11 @@ TimeTravel.ApplicationAdapter = DS.FixtureAdapter.extend();
 TimeTravel.setupForTesting();
 TimeTravel.injectTestHelpers();
 
+TimeTravel.Trip.FIXTURES = [
+  { id: 1, name: "Mayflower", description: "DESC",
+    start_date: "1620-09-06", end_date: "1620-11-21" }
+];
+
 function exists(selector) {
   return !!find(selector).length;
 }
