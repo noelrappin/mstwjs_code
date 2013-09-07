@@ -6,12 +6,12 @@ TimeTravel.HotelController = Ember.ObjectController.extend({
   },
 
   startEditing: function() {
-    this.set("nightsOrderedInput", String(this.get("nightsOrdered")));
+    this.set("nightsOrderedInput", String(this.get("nights_ordered")));
     this.toggleProperty("editing");
   },
 
   endEditing: function() {
-    this.set("nightsOrdered", parseInt(this.get("nightsOrderedInput")));
+    this.set("nights_ordered", parseInt(this.get("nightsOrderedInput")));
     this.toggleProperty("editing");
   }
 

@@ -9,7 +9,7 @@ TimeTravel.Hotel = DS.Model.extend({
 
 //##revenue
   revenue: function() {
-    return this.get('nightsOrdered') * this.get('price');
-  }.property("nightsOrdered", "price")
+    return this.get('nights_ordered') * this.get('price');
+  }.property("nights_ordered", "price")
 });
 //##revenue

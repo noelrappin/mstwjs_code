@@ -50,9 +50,9 @@ TimeTravel.Trip = DS.Model.extend({
 
   totalHotelNights: function() {
     return this.get('hotels').reduce(function(runningTotal, item) {
-      return runningTotal + item.get('nightsOrdered');
+      return runningTotal + item.get('nights_ordered');
     }, 0);
-  }.property("hotels.@each.nightsOrdered"),
+  }.property("hotels.@each.nights_ordered"),
 
   totalExtrasOrdered: function() {
     return this.get('extras').reduce(function(runningTotal, item) {
