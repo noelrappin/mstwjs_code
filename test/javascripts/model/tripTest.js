@@ -1,6 +1,7 @@
 module("Trips", {
   setup: function() {
-    trip = TimeTravel.Trip.createRecord({price: 100, orders: 3});
+    env = setupStore();
+    trip = env.store.createRecord('trip', {price: 100, orders: 3});
   },
   teardown: function() {
   }
