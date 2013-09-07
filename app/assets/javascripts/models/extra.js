@@ -4,7 +4,7 @@ TimeTravel.Extra = DS.Model.extend({
   description: DS.attr("string"),
   price: DS.attr("number"),
   orders: DS.attr("number"),
-  trip: DS.belongsTo("TimeTravel.Trip"),
+  trip: DS.belongsTo("trip"),
 //##start
 
 //##revenue
