@@ -1,5 +1,5 @@
 TimeTravel.IndexRoute = Ember.Route.extend({
   model: function() {
-    return TimeTravel.Trip.find();
+    return this.store.find('trip');
   }
 });
