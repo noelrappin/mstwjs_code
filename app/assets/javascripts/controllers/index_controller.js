@@ -6,8 +6,10 @@ TimeTravel.IndexController = Ember.ArrayController.extend({
   sortAscending: false,
 //##sort
 
-  selectTrip: function(trip) {
-    this.set('selectedTrip', trip)
+  actions: {
+    selectTrip: function(trip) {
+      this.set('selectedTrip', trip)
+    }
   },
 
   overallRevenue: function() {

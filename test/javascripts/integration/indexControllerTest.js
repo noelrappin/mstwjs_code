@@ -13,6 +13,7 @@ test("it displays trips", function() {
     equal($(".trip").length, 2);
     equal($(".trip .dates").first().text(), "Sep 6, 1600 - Sep 7, 1600")
   });
+
 });
 
 //##click

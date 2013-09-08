@@ -13,10 +13,7 @@ document.write('<style>#ember-testing-container { position: absolute; ' +
 
 TimeTravel.rootElement = '#ember-testing';
 
-TimeTravel.Store = DS.Store.extend({
-  revision: 12,
-  adapter: 'DS.FixtureAdapter'
-});
+TimeTravel.ApplicationAdapter = DS.FixtureAdapter.extend();
 
 //##fixture
 TimeTravel.Trip.FIXTURES = [

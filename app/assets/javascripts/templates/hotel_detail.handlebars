@@ -3,7 +3,7 @@
   <td>
     <span {{bindAttr class="editing:hidden:normal"}}
           {{action startEditing}}>
-      {{hotel.nightsOrdered}}
+      {{hotel.nights_ordered}}
     </span>
     <span {{bindAttr class="editing:normal:hidden"}}>
       {{view Ember.TextField valueBinding="nightsOrderedInput"

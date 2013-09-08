@@ -6,7 +6,7 @@ TimeTravel.HotelController = Ember.ObjectController.extend({
   },
 
   startEditing: function() {
-    this.set("nightsOrderedInput", String(this.get("nightsOrdered")));
+    this.set("nightsOrderedInput", String(this.get("nights_ordered")));
     this.toggleProperty("editing");
   },
 
@@ -14,7 +14,7 @@ TimeTravel.HotelController = Ember.ObjectController.extend({
   endEditing: function() {
     var transaction = this.get('store').transaction();
     transaction.add(this.get('content'));
-    this.set("nightsOrdered", parseInt(this.get("nightsOrderedInput")));
+    this.set("nights_ordered", parseInt(this.get("nightsOrderedInput")));
     this.toggleProperty("editing");
     transaction.commit();
   }
