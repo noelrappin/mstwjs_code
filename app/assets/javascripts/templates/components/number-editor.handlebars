@@ -1,0 +1,9 @@
+<span {{bind-attr class="editing:hidden:normal"}}
+  {{action startEditing}}>
+  {{propValue}}
+</span>
+<span {{bind-attr class="editing:normal:hidden"}}>
+  {{view Ember.TextField valueBinding="numericalInput"
+  size="4"
+  action="endEditing"}}
+</span>

@@ -1,15 +1,9 @@
 <tr>
   <th>{{hotel.name}}</th>
   <td>
-    <span {{bind-attr class="editing:hidden:normal"}}
-          {{action startEditing}}>
-      {{hotel.nights_ordered}}
-    </span>
-    <span {{bind-attr class="editing:normal:hidden"}}>
-      {{view Ember.TextField valueBinding="nightsOrderedInput"
-          size="4"
-          action="endEditing"}}
-    </span>
+    {{number-editor emberObject=hotel
+        propName="nights_ordered"
+        action="itemChanged"}}
   </td>
   <td>${{hotel.price}}</td>
   <td>${{hotel.revenue}}</td>
