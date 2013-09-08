@@ -11,12 +11,10 @@ TimeTravel.HotelController = Ember.ObjectController.extend({
       this.toggleProperty("editing");
     },
 
-    //##transaction
     endEditing: function() {
       this.set("nights_ordered", parseInt(this.get("nightsOrderedInput")));
       this.toggleProperty("editing");
     }
-    //##transaction
   }
 
 })
