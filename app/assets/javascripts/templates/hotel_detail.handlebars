@@ -1,11 +1,11 @@
 <tr>
   <th>{{hotel.name}}</th>
   <td>
-    <span {{bindAttr class="editing:hidden:normal"}}
+    <span {{bind-attr class="editing:hidden:normal"}}
           {{action startEditing}}>
       {{hotel.nights_ordered}}
     </span>
-    <span {{bindAttr class="editing:normal:hidden"}}>
+    <span {{bind-attr class="editing:normal:hidden"}}>
       {{view Ember.TextField valueBinding="nightsOrderedInput"
           size="4"
           action="endEditing"}}

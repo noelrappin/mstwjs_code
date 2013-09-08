@@ -18,10 +18,14 @@ TimeTravel.ApplicationAdapter = DS.FixtureAdapter.extend();
 //##fixture
 TimeTravel.Trip.FIXTURES = [
   { id: 1, name: "Low", orders: 1, price: 100,
-    start_date: "1620-09-06", end_date: "1620-11-21" },
+    start_date: "1620-09-06", end_date: "1620-11-21", hotels: []},
   { id: 2, name: "High", orders: 5, price: 100,
-    start_date: "1600-09-06", end_date: "1600-09-07" }
+    start_date: "1600-09-06", end_date: "1600-09-07", hotels: [1]}
 ];
+
+TimeTravel.Hotel.FIXTURES = [
+  { id: 1, name: "Hotel", price: 10, nights_ordered: 0, trip: 1}
+]
 //##fixture
 
 
