@@ -1,3 +1,5 @@
 class ExtraSerializer < ActiveModel::Serializer
-  attributes :id, :description, :price, :name, :trip_id, :orders
+  embed :ids, include: true
+  attributes :id, :description, :price, :name, :orders
+  has_one :trip, key: :trip
 end

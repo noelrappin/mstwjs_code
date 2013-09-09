@@ -21,7 +21,7 @@ gem 'rails-backbone'
 gem 'hogan_assets'
 gem 'momentjs-rails'
 gem 'ember-rails', :git => "git://github.com/emberjs/ember-rails.git"
-gem "ember-source", "~> 1.0.0.rc6"
+gem "ember-source"
 #gem "ember-data-source", "0.13"
 gem 'handlebars-source'
 gem 'active_model_serializers'
@@ -47,8 +47,7 @@ group :development do
 end
 
 group :test, :development do
-  gem 'jasmine'
-  gem 'jasminerice', :git => 'https://github.com/bradphelan/jasminerice.git'
+  gem 'qunit-rails'
   gem 'rspec-rails'
 end
 
