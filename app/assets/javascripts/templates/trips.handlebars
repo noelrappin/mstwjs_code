@@ -3,9 +3,9 @@
   {{#each trip in controller}}
     <div class="trip">
       <div class="header">
-        {{#linkTo "trip" trip}}
+        {{#link-to "trip" trip}}
           <span class="name">{{trip.name}}</span>
-        {{/linkTo}}
+        {{/link-to}}
         {{trip.totalRevenueDisplay}}
       </div>
       <div class="dates">{{trip.startDateDisplay}} - {{trip.endDateDisplay}}</div>

@@ -1,28 +1,28 @@
 TimeTravel.Trip = DS.Model.extend({
   name: DS.attr('string'),
   description: DS.attr('string'),
-  startDate: DS.attr('date'),
-  endDate: DS.attr('date'),
-  imageName: DS.attr('string'),
+  start_date: DS.attr('date'),
+  end_date: DS.attr('date'),
+  image_name: DS.attr('string'),
   slug: DS.attr('string'),
-  tagLine: DS.attr('string'),
+  tag_line: DS.attr('string'),
   price: DS.attr('number'),
   location: DS.attr('string'),
   activity: DS.attr('string'),
   orders: DS.attr('number'),
   //##hasMany
-  hotels: DS.hasMany('TimeTravel.Hotel'),
-  extras: DS.hasMany('TimeTravel.Extra'),
+  hotels: DS.hasMany('hotel'),
+  extras: DS.hasMany('extra'),
   //##hasMany
 
   //##moment
   startMoment: function() {
-    return moment(this.get('startDate'))
-  }.property("startDate"),
+    return moment.utc(this.get('start_date'))
+  }.property("start_date"),
 
   endMoment: function() {
-    return moment(this.get('endDate'))
-  }.property("endDate"),
+    return moment.utc(this.get('end_date'))
+  }.property("end_date"),
   //##moment
 
   //##revenue
@@ -50,9 +50,9 @@ TimeTravel.Trip = DS.Model.extend({
 
   totalHotelNights: function() {
     return this.get('hotels').reduce(function(runningTotal, item) {
-      return runningTotal + item.get('nightsOrdered');
+      return runningTotal + item.get('nights_ordered');
     }, 0);
-  }.property("hotels.@each.nightsOrdered"),
+  }.property("hotels.@each.nights_ordered"),
 
   totalExtrasOrdered: function() {
     return this.get('extras').reduce(function(runningTotal, item) {

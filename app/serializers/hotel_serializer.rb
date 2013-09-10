@@ -1,3 +1,5 @@
 class HotelSerializer < ActiveModel::Serializer
-  attributes :id, :description, :price, :name, :trip_id, :nights_ordered
+  embed :id
+  attributes :id, :description, :price, :name, :nights_ordered
+  has_one :trip, key: :trip
 end

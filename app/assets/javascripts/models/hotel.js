@@ -3,13 +3,13 @@ TimeTravel.Hotel = DS.Model.extend({
   name: DS.attr("string"),
   description: DS.attr("string"),
   price: DS.attr("number"),
-  nightsOrdered: DS.attr("number"),
-  trip: DS.belongsTo("TimeTravel.Trip"),
+  nights_ordered: DS.attr("number"),
+  trip: DS.belongsTo("trip"),
 //##start
 
 //##revenue
   revenue: function() {
-    return this.get('nightsOrdered') * this.get('price');
-  }.property("nightsOrdered", "price")
+    return this.get('nights_ordered') * this.get('price');
+  }.property("nights_ordered", "price")
 });
 //##revenue

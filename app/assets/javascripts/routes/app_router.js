@@ -13,5 +13,4 @@ TimeTravel.Router.map(function() {
       });
     });
   });
-  this.route("jasmine", {path: "/jasmine"});
 });
